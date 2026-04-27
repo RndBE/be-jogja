@@ -1,0 +1,186 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { Check, ArrowRight } from '@lucide/svelte';
+
+	let visible = $state(false);
+
+	onMount(() => {
+		const observer = new IntersectionObserver(
+			(entries) => { if (entries[0].isIntersecting) visible = true; },
+			{ threshold: 0.2 }
+		);
+		const el = document.getElementById('stesy-spotlight');
+		if (el) observer.observe(el);
+		return () => observer.disconnect();
+	});
+
+	const features = [
+		'Cross-platform: Windows, macOS, iOS, Android',
+		'Grafik historis & analytics',
+		'Integrasi monitoring CCTV',
+		'Alarm otomatis untuk threshold kritis'
+	];
+</script>
+
+<section id="stesy-spotlight" class="relative py-20 lg:py-28 overflow-hidden" style="background: linear-gradient(180deg, #FAFAFA 0%, #FFF5F6 50%, #FBE9EC 100%);">
+	<!-- Decorative ornaments -->
+	<div class="absolute -top-16 -left-16 w-64 h-64 rounded-full pointer-events-none opacity-[0.06]" style="border: 2px solid #C8102E;"></div>
+	<div class="absolute top-10 right-[5%] w-8 h-8 rotate-45 rounded-sm pointer-events-none opacity-[0.06]" style="background: #C8102E;"></div>
+	<svg class="absolute bottom-10 left-[8%] w-12 h-12 opacity-[0.05] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="1.5">
+		<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/>
+	</svg>
+
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+			<!-- Left: Mock Dashboard -->
+			<div
+				style="
+					opacity: {visible ? 1 : 0};
+					transform: translateX({visible ? 0 : -40}px);
+					transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+				"
+			>
+				<!-- Laptop mockup with bright theme -->
+				<div class="relative rounded-2xl overflow-hidden p-[2px]" style="background: linear-gradient(135deg, #C8102E 0%, #E5E5E5 50%, #C8102E 100%);">
+					<div class="rounded-[14px] overflow-hidden bg-white">
+						<!-- Top bar -->
+						<div class="flex items-center gap-2 px-4 py-2.5" style="background: #F5F5F5; border-bottom: 1px solid #E5E5E5;">
+							<div class="flex gap-1.5">
+								<div class="w-2.5 h-2.5 rounded-full" style="background: #FF5F56;"></div>
+								<div class="w-2.5 h-2.5 rounded-full" style="background: #FFBD2E;"></div>
+								<div class="w-2.5 h-2.5 rounded-full" style="background: #27C93F;"></div>
+							</div>
+							<div class="flex-1 text-center">
+								<span class="text-[10px] font-mono" style="color: #9A9A9A;">stesy.bejogja.com</span>
+							</div>
+						</div>
+
+						<!-- Dashboard content -->
+						<div class="p-4 space-y-3" style="background: #FAFAFA;">
+							<!-- Stats row -->
+							<div class="grid grid-cols-4 gap-2">
+								{#each [
+									{ label: 'Active', value: '47', color: '#1B7F3A' },
+									{ label: 'Data Pts', value: '12.4K', color: '#C8102E' },
+									{ label: 'Uptime', value: '98.7%', color: '#F5A623' },
+									{ label: 'Alerts', value: '2', color: '#C8102E' }
+								] as stat}
+									<div class="rounded-xl p-2.5 bg-white" style="border: 1px solid #E5E5E5;">
+										<span class="block text-[9px] uppercase tracking-wider" style="color: #9A9A9A;">{stat.label}</span>
+										<span class="block text-lg font-mono font-bold mt-0.5 tabular-nums" style="color: {stat.color};">{stat.value}</span>
+									</div>
+								{/each}
+							</div>
+
+							<!-- Chart mock -->
+							<div class="rounded-xl p-3 bg-white" style="border: 1px solid #E5E5E5;">
+								<div class="flex items-center justify-between mb-2">
+									<span class="text-[10px] font-medium" style="color: #5C5C5C;">Water Level — Bendungan Ciawi</span>
+									<span class="text-[9px]" style="color: #9A9A9A;">Last 24h</span>
+								</div>
+								<svg class="w-full h-16" viewBox="0 0 300 60" fill="none">
+									<defs>
+										<linearGradient id="chartGradLight" x1="0" y1="0" x2="0" y2="1">
+											<stop offset="0%" style="stop-color: #C8102E; stop-opacity: 0.15;" />
+											<stop offset="100%" style="stop-color: #C8102E; stop-opacity: 0;" />
+										</linearGradient>
+									</defs>
+									<path d="M0,40 Q30,35 60,38 T120,30 T180,25 T240,32 T300,20" stroke="#C8102E" stroke-width="2" fill="none" />
+									<path d="M0,40 Q30,35 60,38 T120,30 T180,25 T240,32 T300,20 V60 H0 Z" fill="url(#chartGradLight)" />
+								</svg>
+							</div>
+
+							<!-- Station list -->
+							<div class="space-y-1.5">
+								{#each [
+									{ name: 'AWLR Cipanas', val: '142.3m' },
+									{ name: 'ADR Ciawi', val: '0.02mm' },
+									{ name: 'EWS Bogowonto', val: 'Level 1' }
+								] as station}
+									<div class="flex items-center justify-between rounded-xl px-3 py-2 bg-white" style="border: 1px solid #E5E5E5;">
+										<div class="flex items-center gap-2">
+											<div class="w-1.5 h-1.5 rounded-full bg-[#1B7F3A] animate-pulse-dot"></div>
+											<span class="text-xs font-medium" style="color: #1A1A1A;">{station.name}</span>
+										</div>
+										<span class="text-xs font-mono tabular-nums" style="color: #5C5C5C;">{station.val}</span>
+									</div>
+								{/each}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Floating phone mockup -->
+				<div class="absolute -bottom-4 -right-4 w-32 rounded-2xl overflow-hidden hidden md:block bg-white" style="border: 1px solid #E5E5E5; box-shadow: 0 12px 40px rgba(0,0,0,0.1);">
+					<div class="p-2 space-y-1.5" style="background: #FAFAFA;">
+						<div class="rounded-lg p-2 bg-white" style="border: 1px solid #E5E5E5;">
+							<span class="text-[8px] block" style="color: #9A9A9A;">Bendungan IKN</span>
+							<span class="text-sm font-mono font-bold" style="color: #1A1A1A;">86.4m</span>
+						</div>
+						<div class="rounded-lg p-2 bg-white" style="border: 1px solid #E5E5E5;">
+							<span class="text-[8px] block" style="color: #9A9A9A;">Curah Hujan</span>
+							<span class="text-sm font-mono font-bold" style="color: #1A1A1A;">5.2mm</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Right: Copy -->
+			<div
+				class="space-y-6"
+				style="
+					opacity: {visible ? 1 : 0};
+					transform: translateX({visible ? 0 : 40}px);
+					transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
+				"
+			>
+				<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">Platform Monitoring</span>
+				<h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight" style="letter-spacing: -0.02em; color: #1A1A1A;">
+					Satu Layar untuk Memantau <span style="color: #C8102E;">Semua Aset</span> Anda
+				</h2>
+				<div>
+					<span class="font-heading text-lg font-semibold" style="color: #1A1A1A;">STESY — Smart Telemetry System</span>
+				</div>
+				<p class="text-base leading-relaxed" style="color: #5C5C5C;">
+					Bayangkan: ketinggian air Bendungan A, curah hujan Stasiun B, deformasi Lereng C, status pintu air Bendung D — semua di satu dashboard. Real-time. Dari mana saja.
+				</p>
+
+				<ul class="space-y-3">
+					{#each features as feature}
+						<li class="flex items-start gap-3">
+							<div class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style="background: #FBE9EC;">
+								<Check size={12} style="color: #C8102E;" />
+							</div>
+							<span class="text-sm" style="color: #3A3A3A;">{feature}</span>
+						</li>
+					{/each}
+				</ul>
+
+				<div class="flex flex-col sm:flex-row gap-3 pt-4">
+					<a
+						href="/solusi/stesy"
+						class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[12px] text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+						style="background: linear-gradient(135deg, #C8102E 0%, #A50D25 100%); box-shadow: 0 4px 12px rgba(200,16,46,0.25);"
+					>
+						Lihat Demo STESY
+						<ArrowRight size={14} />
+					</a>
+					<a
+						href="/solusi/stesy"
+						class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[12px] text-sm font-semibold transition-all duration-200 hover:bg-[#FBE9EC]"
+						style="border: 1.5px solid #E5E5E5; color: #1A1A1A;"
+					>
+						Pelajari Lebih Lanjut
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Wave divider -->
+	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);">
+		<svg viewBox="0 0 1440 50" fill="none" preserveAspectRatio="none" class="w-full h-10">
+			<path d="M0,50 L0,25 Q360,0 720,25 T1440,25 L1440,50 Z" fill="white"/>
+		</svg>
+	</div>
+</section>
