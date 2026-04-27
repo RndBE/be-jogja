@@ -13,7 +13,11 @@
 		AlertTriangle,
 		Gauge,
 		Monitor,
-		ExternalLink
+		ExternalLink,
+		FileText,
+		BookOpen,
+		Newspaper,
+		ArrowRight
 	} from '@lucide/svelte';
 
 	let scrollY = $state(0);
@@ -105,14 +109,17 @@
 		{ name: 'Klien & Mitra', href: '/tentang-kami#klien' }
 	];
 
-	const insightLinks = [
-		{ name: 'Semua Wawasan', href: '/wawasan' },
-		{ name: 'ADR Bendungan Ciawi', href: '/wawasan/adr-bendungan-ciawi' },
-		{ name: 'Standar SNI AWLR', href: '/wawasan/standar-sni-awlr' },
-		{ name: 'STESY 3.0 Update', href: '/wawasan/stesy-3-update' },
-		{ name: 'EWS DAS Citarum', href: '/wawasan/ews-citarum' },
-		{ name: 'Panduan Maintenance', href: '/wawasan/panduan-maintenance-telemetri' }
+	const insightCategories = [
+		{ name: 'Studi Kasus', desc: 'Implementasi nyata di lapangan', icon: FileText, href: '/wawasan?kategori=studi-kasus', color: '#C8102E' },
+		{ name: 'Artikel Teknis', desc: 'Panduan & standar teknis', icon: BookOpen, href: '/wawasan?kategori=artikel-teknis', color: '#0EA5E9' },
+		{ name: 'Berita Produk', desc: 'Update produk & fitur', icon: Newspaper, href: '/wawasan?kategori=berita-produk', color: '#8B5CF6' }
 	];
+
+	const latestArticle = {
+		title: 'ADR Menyelamatkan Bendungan Ciawi',
+		category: 'Studi Kasus',
+		href: '/wawasan/adr-bendungan-ciawi'
+	};
 
 	let mobileAccordion = $state<string | null>(null);
 
@@ -285,16 +292,36 @@
 
 					{#if activeMegaMenu === 'wawasan'}
 						<div
-							class="absolute top-full right-0 w-56 mt-2 p-3 rounded-xl glass-surface"
-							style="box-shadow: 0 12px 40px rgba(0,0,0,0.06);"
+							class="absolute top-full right-0 w-[340px] mt-2 p-4 rounded-2xl glass-surface"
+							style="box-shadow: 0 20px 60px rgba(0,0,0,0.08);"
 							onmouseleave={closeMegaMenu}
 							role="menu"
 						>
-							{#each insightLinks as link}
-								<a href={link.href} onclick={closeMegaMenu} class="block px-3 py-2 text-sm text-[#1A1A1A] hover:text-[#C8102E] hover:bg-[#FBE9EC] rounded-lg transition-colors" role="menuitem">
-									{link.name}
+							<p class="text-xs font-semibold text-[#5C5C5C] uppercase tracking-widest mb-3">Kategori</p>
+							<div class="space-y-1 mb-4">
+								{#each insightCategories as cat}
+									<a href={cat.href} onclick={closeMegaMenu} class="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#FBE9EC] transition-colors" role="menuitem">
+										<div class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style="background: {cat.color}10;">
+											<svelte:component this={cat.icon} size={16} style="color: {cat.color};" />
+										</div>
+										<div>
+											<span class="text-sm font-semibold text-[#1A1A1A] group-hover:text-[#C8102E] transition-colors">{cat.name}</span>
+											<span class="block text-[11px] text-[#9A9A9A]">{cat.desc}</span>
+										</div>
+									</a>
+								{/each}
+							</div>
+
+							<div class="border-t border-[#E5E5E5] pt-3">
+								<p class="text-[10px] font-semibold text-[#C8102E] uppercase tracking-wider mb-2">Terbaru</p>
+								<a href={latestArticle.href} onclick={closeMegaMenu} class="group block p-2.5 rounded-lg hover:bg-[#FBE9EC] transition-colors">
+									<span class="text-[10px] uppercase tracking-wider" style="color: #C8102E;">{latestArticle.category}</span>
+									<span class="block text-sm font-medium text-[#1A1A1A] group-hover:text-[#C8102E] transition-colors mt-0.5">{latestArticle.title}</span>
 								</a>
-							{/each}
+								<a href="/wawasan" onclick={closeMegaMenu} class="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-[#C8102E] hover:underline">
+									Lihat Semua Wawasan <ArrowRight size={11} />
+								</a>
+							</div>
 						</div>
 					{/if}
 				</div>
@@ -405,11 +432,14 @@
 					</button>
 					{#if mobileAccordion === 'wawasan'}
 						<div class="pl-4 space-y-1 mt-1">
-							{#each insightLinks as link}
-								<a href={link.href} onclick={closeMobileMenu} class="block px-4 py-2 text-sm text-[#5C5C5C] hover:text-[#C8102E] hover:bg-[#FBE9EC] rounded-lg transition-colors">
-									{link.name}
+							{#each insightCategories as cat}
+								<a href={cat.href} onclick={closeMobileMenu} class="block px-4 py-2 text-sm text-[#5C5C5C] hover:text-[#C8102E] hover:bg-[#FBE9EC] rounded-lg transition-colors">
+									{cat.name}
 								</a>
 							{/each}
+							<a href="/wawasan" onclick={closeMobileMenu} class="block px-4 py-2 text-sm font-semibold hover:bg-[#FBE9EC] rounded-lg transition-colors" style="color: #C8102E;">
+								Semua Wawasan →
+							</a>
 						</div>
 					{/if}
 				</div>

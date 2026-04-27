@@ -1,10 +1,38 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import { ArrowRight, Clock, BookOpen, FileText, Newspaper, Search } from '@lucide/svelte';
 	import Ornaments from '$lib/components/Ornaments.svelte';
 
 	let activeTab = $state('semua');
 	let searchQuery = $state('');
 	const tabs = ['semua', 'Studi Kasus', 'Artikel Teknis', 'Berita Produk'];
+
+	// Map URL slugs to tab names
+	const kategoriMap: Record<string, string> = {
+		'studi-kasus': 'Studi Kasus',
+		'artikel-teknis': 'Artikel Teknis',
+		'berita-produk': 'Berita Produk'
+	};
+
+	onMount(() => {
+		const url = new URL(window.location.href);
+		const kategori = url.searchParams.get('kategori');
+		if (kategori && kategoriMap[kategori]) {
+			activeTab = kategoriMap[kategori];
+		}
+	});
+
+	// Also react to SvelteKit navigation changes
+	$effect(() => {
+		const url = $page.url;
+		const kategori = url.searchParams.get('kategori');
+		if (kategori && kategoriMap[kategori]) {
+			activeTab = kategoriMap[kategori];
+		} else if (!kategori) {
+			activeTab = 'semua';
+		}
+	});
 
 	const articles = [
 		{ title: 'Bagaimana Telemetri ADR Menyelamatkan Keamanan Bendungan Ciawi', excerpt: 'Studi kasus implementasi Automatic Deformation Recorder di Bendungan Ciawi-Sukamahi yang mampu mendeteksi pergeseran mikro-milimeter secara real-time.', category: 'Studi Kasus', readTime: '8 min', date: '12 Apr 2026', href: '/wawasan/adr-bendungan-ciawi', featured: true, products: ['ADR', 'STESY'] },
