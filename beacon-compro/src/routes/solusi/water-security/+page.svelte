@@ -21,7 +21,8 @@
 <section class="relative py-20 lg:py-32 overflow-hidden" style="background: linear-gradient(165deg, #FFFFFF 0%, #EBF8FF 30%, #FFF5F6 60%, #FBE9EC 100%);">
 	<Ornaments variant="hero" />
 
-	<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-3xl">
 		<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: #FBE9EC; color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
 			<Droplets size={12} />
 			Water Security
@@ -35,6 +36,7 @@
 		<p class="text-lg font-heading font-semibold" style="color: #C8102E;">
 			Enam perangkat Water Security Beacon dirancang supaya Anda tidak pernah terlambat lagi.
 		</p>
+		</div>
 	</div>
 
 	<!-- Wave divider -->
@@ -50,16 +52,16 @@
 	<Ornaments />
 
 	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="text-center mb-12">
+		<div class="max-w-2xl mb-14 space-y-3">
 			<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">6 Produk Water Security</span>
-			<h2 class="font-heading text-3xl sm:text-4xl font-bold mt-3" style="color: #1A1A1A;">Satu Ekosistem untuk Keamanan Air</h2>
+			<h2 class="font-heading text-3xl sm:text-4xl font-bold leading-[1.1]" style="color: #1A1A1A; letter-spacing: -0.025em;">Satu Ekosistem untuk Keamanan Air</h2>
 		</div>
 
-		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+		<div class="grid md:grid-cols-2 gap-6">
 			{#each products as product, i}
 				<a
 					href="/solusi/water-security/{product.slug}"
-					class="group relative p-8 rounded-2xl bg-[#FAFAFA] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:bg-white"
+					class="group relative p-8 rounded-[20px] bg-[#FAFAFA] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-white"
 					style="border: 1px solid #E5E5E5;"
 				>
 					<!-- Red top accent -->
@@ -137,7 +139,7 @@
 		<h2 class="font-heading text-2xl sm:text-3xl font-bold mb-4" style="color: #1A1A1A;">Butuh Solusi Water Security untuk Proyek Anda?</h2>
 		<p class="text-sm mb-8" style="color: #5C5C5C;">Tim engineer kami akan bantu Anda memilih konfigurasi yang tepat untuk lokasi proyek Anda.</p>
 		<a href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20tertarik%20dengan%20solusi%20Water%20Security." target="_blank" rel="noopener"
-			class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold text-white transition-all hover:scale-[1.02]"
+			class="btn-tactile inline-flex items-center gap-2 px-7 py-3.5 rounded-[14px] text-sm font-semibold text-white"
 			style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 4px 16px rgba(200,16,46,0.25);">
 			<MessageCircle size={16} />
 			Konsultasi Water Security

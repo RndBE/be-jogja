@@ -32,9 +32,9 @@
 <section id="logo-klien" class="relative py-16 lg:py-24 bg-white overflow-hidden">
 	<Ornaments />
 	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="text-center mb-12">
+		<div class="max-w-3xl mb-12 space-y-3">
 			<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">Mitra & Klien</span>
-			<h2 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mt-3" style="letter-spacing: -0.02em;">
+			<h2 class="font-heading text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#1A1A1A] leading-[1.15]" style="letter-spacing: -0.025em;">
 				Dipercaya Lembaga & Korporasi yang Memegang Tanggung Jawab Besar
 			</h2>
 		</div>

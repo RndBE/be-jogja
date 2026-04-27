@@ -74,13 +74,13 @@
 <section id="bukti-lapangan" class="relative py-20 lg:py-28 section-offwhite overflow-hidden">
 	<Ornaments variant="dense" />
 	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<!-- Heading -->
-		<div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+		<!-- Heading — SKILL: Left-aligned -->
+		<div class="max-w-3xl mb-16 space-y-4">
 			<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">Portfolio Proyek</span>
-			<h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] leading-tight" style="letter-spacing: -0.02em;">
+			<h2 class="font-heading text-3xl sm:text-4xl lg:text-[48px] font-bold text-[#1A1A1A] leading-[1.1]" style="letter-spacing: -0.025em;">
 				Kami Sudah di Sana, Kami <span style="color: #C8102E;">Tetap</span> di Sana.
 			</h2>
-			<p class="text-base text-[#5C5C5C]">
+			<p class="text-base text-[#5C5C5C] max-w-2xl">
 				Tiga ratus lebih proyek tersebar dari Aceh sampai Papua. Inilah beberapa yang membentuk siapa kami hari ini.
 			</p>
 		</div>
@@ -95,7 +95,7 @@
 					transition: all 0.8s ease-out;
 				"
 			>
-				<div class="relative rounded-2xl p-6" style="background: #FAFAFA; border: 1px solid #E5E5E5;">
+				<div class="relative rounded-[20px] p-6" style="background: #FAFAFA; border: 1px solid #E5E5E5; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
 					<!-- Simplified Indonesia Map SVG -->
 					<svg viewBox="0 0 100 80" class="w-full h-auto" fill="none">
 						<!-- Simplified map outline -->
@@ -130,7 +130,7 @@
 			<div class="lg:col-span-3 space-y-4">
 				{#each projects as project, i}
 					<button
-						class="w-full text-left group relative p-5 rounded-2xl transition-all duration-300 cursor-pointer"
+						class="w-full text-left group relative p-5 rounded-[16px] transition-all duration-300 cursor-pointer"
 						style="
 							background: {activeProject === i ? '#FFFFFF' : 'transparent'};
 							border: 1px solid {activeProject === i ? '#C8102E' : '#E5E5E5'};

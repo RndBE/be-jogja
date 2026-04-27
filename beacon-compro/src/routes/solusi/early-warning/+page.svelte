@@ -10,7 +10,8 @@
 
 <section class="relative py-20 lg:py-32 overflow-hidden" style="background: linear-gradient(165deg, #FFFFFF 0%, #FEF9C3 30%, #FFF5F6 60%, #FBE9EC 100%);">
 	<Ornaments variant="hero" />
-	<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-3xl">
 		<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: #FEF9C3; color: #D97706; border: 1px solid rgba(217,119,6,0.15);">
 			<AlertTriangle size={12} />
 			Early Warning
@@ -21,6 +22,7 @@
 		<p class="text-lg max-w-2xl mx-auto mb-6" style="color: #5C5C5C;">
 			Sistem peringatan dini multi-level untuk wilayah rawan banjir, longsor, dan bencana hidrometeorologi. Real-time dari sensor ke sirene, SMS, dan dashboard.
 		</p>
+		</div>
 	</div>
 	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);"><svg viewBox="0 0 1440 50" fill="none" preserveAspectRatio="none" class="w-full h-10"><path d="M0,50 L0,25 Q360,0 720,25 T1440,25 L1440,50 Z" fill="white"/></svg></div>
 </section>
@@ -29,7 +31,7 @@
 	<Ornaments variant="dense" />
 	<div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 		<!-- EWS Product Card -->
-		<div class="max-w-2xl mx-auto p-10 rounded-2xl bg-[#FAFAFA] text-center" style="border: 1px solid #E5E5E5;">
+		<div class="max-w-2xl p-10 rounded-[24px] bg-[#FAFAFA]" style="border: 1px solid #E5E5E5;">
 			<div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-5" style="background: #FEF9C3;">
 				<Siren size={28} style="color: #D97706;" />
 			</div>

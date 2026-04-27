@@ -41,8 +41,8 @@
 				"
 			>
 				<!-- Laptop mockup with bright theme -->
-				<div class="relative rounded-2xl overflow-hidden p-[2px]" style="background: linear-gradient(135deg, #C8102E 0%, #E5E5E5 50%, #C8102E 100%);">
-					<div class="rounded-[14px] overflow-hidden bg-white">
+				<div class="relative rounded-[24px] overflow-hidden p-[2px]" style="background: linear-gradient(135deg, #C8102E 0%, #E5E5E5 50%, #C8102E 100%); box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+					<div class="rounded-[22px] overflow-hidden bg-white">
 						<!-- Top bar -->
 						<div class="flex items-center gap-2 px-4 py-2.5" style="background: #F5F5F5; border-bottom: 1px solid #E5E5E5;">
 							<div class="flex gap-1.5">
@@ -111,7 +111,7 @@
 				</div>
 
 				<!-- Floating phone mockup -->
-				<div class="absolute -bottom-4 -right-4 w-32 rounded-2xl overflow-hidden hidden md:block bg-white" style="border: 1px solid #E5E5E5; box-shadow: 0 12px 40px rgba(0,0,0,0.1);">
+				<div class="absolute -bottom-4 -right-4 w-32 rounded-[16px] overflow-hidden hidden md:block bg-white" style="border: 1px solid #E5E5E5; box-shadow: 0 12px 40px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.3);">
 					<div class="p-2 space-y-1.5" style="background: #FAFAFA;">
 						<div class="rounded-lg p-2 bg-white" style="border: 1px solid #E5E5E5;">
 							<span class="text-[8px] block" style="color: #9A9A9A;">Bendungan IKN</span>
@@ -159,7 +159,7 @@
 				<div class="flex flex-col sm:flex-row gap-3 pt-4">
 					<a
 						href="/solusi/stesy"
-						class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[12px] text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+						class="btn-tactile inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[12px] text-sm font-semibold text-white"
 						style="background: linear-gradient(135deg, #C8102E 0%, #A50D25 100%); box-shadow: 0 4px 12px rgba(200,16,46,0.25);"
 					>
 						Lihat Demo STESY
@@ -167,7 +167,7 @@
 					</a>
 					<a
 						href="/solusi/stesy"
-						class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[12px] text-sm font-semibold transition-all duration-200 hover:bg-[#FBE9EC]"
+						class="btn-tactile inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[12px] text-sm font-semibold transition-all duration-200 hover:bg-[#FBE9EC]"
 						style="border: 1.5px solid #E5E5E5; color: #1A1A1A;"
 					>
 						Pelajari Lebih Lanjut

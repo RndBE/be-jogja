@@ -10,7 +10,8 @@
 
 <section class="relative py-20 lg:py-32 overflow-hidden" style="background: linear-gradient(165deg, #FFFFFF 0%, #D1FAE5 30%, #FFF5F6 60%, #FBE9EC 100%);">
 	<Ornaments variant="hero" />
-	<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-3xl">
 		<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: #D1FAE5; color: #059669; border: 1px solid rgba(5,150,105,0.15);">
 			<Gauge size={12} />
 			Pressure Measurement
@@ -21,6 +22,7 @@
 		<p class="text-lg max-w-2xl mx-auto" style="color: #5C5C5C;">
 			Pengukuran tekanan untuk sumur geothermal, well testing, dan infrastruktur kritis. Spesifikasi setara impor, lead time 1/3 nya, support langsung dari Indonesia.
 		</p>
+		</div>
 	</div>
 	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);"><svg viewBox="0 0 1440 50" fill="none" preserveAspectRatio="none" class="w-full h-10"><path d="M0,50 L0,25 Q360,0 720,25 T1440,25 L1440,50 Z" fill="white"/></svg></div>
 </section>
@@ -28,7 +30,7 @@
 <section class="relative py-16 lg:py-24 bg-white overflow-hidden">
 	<Ornaments variant="dense" />
 	<div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="p-10 rounded-2xl bg-[#FAFAFA] text-center" style="border: 1px solid #E5E5E5;">
+		<div class="max-w-2xl p-10 rounded-[24px] bg-[#FAFAFA]" style="border: 1px solid #E5E5E5;">
 			<div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-5" style="background: #D1FAE5;">
 				<Flame size={28} style="color: #059669;" />
 			</div>
@@ -57,7 +59,8 @@
 
 <section class="relative py-16 lg:py-20 overflow-hidden" style="background: linear-gradient(135deg, #FBE9EC 0%, #F8D7DC 100%);">
 	<Ornaments />
-	<div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-xl">
 		<h2 class="font-heading text-2xl sm:text-3xl font-bold mb-4" style="color: #1A1A1A;">Punya Kebutuhan Pressure Monitoring?</h2>
 		<p class="text-sm mb-8" style="color: #5C5C5C;">Spesifikasi setara impor, dengan lead time dan harga yang jauh lebih kompetitif.</p>
 		<a href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20konsultasi%20tentang%20pressure%20measurement." target="_blank" rel="noopener"
@@ -65,5 +68,6 @@
 			style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 4px 16px rgba(200,16,46,0.25);">
 			<MessageCircle size={16} /> Konsultasi Sekarang
 		</a>
+		</div>
 	</div>
 </section>

@@ -27,21 +27,21 @@
 	<meta name="description" content="300+ proyek telemetri dari Aceh sampai Papua. Lihat track record Beacon Engineering di infrastruktur strategis Indonesia." />
 </svelte:head>
 
-<!-- Hero -->
-<section class="relative py-20 lg:py-28 overflow-hidden" style="background: linear-gradient(165deg, #FFFFFF 0%, #FFF5F6 40%, #FBE9EC 100%);">
+<!-- Hero — SKILL: Left-aligned -->
+<section class="relative py-24 lg:py-32 overflow-hidden" style="background: linear-gradient(168deg, #FFFFFF 0%, #FFF8F9 30%, #FBE9EC 65%, #F5D2D8 100%);">
 	<div class="absolute -top-20 -left-20 w-72 h-72 rounded-full pointer-events-none opacity-[0.06]" style="border: 2px solid #C8102E;"></div>
-	<svg class="absolute top-[40%] right-[5%] w-10 h-10 opacity-[0.05] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="1.5">
-		<polygon points="12,2 22,22 2,22"/>
-	</svg>
+	<div class="absolute top-[40%] right-[5%] w-10 h-10 rotate-45 rounded-lg pointer-events-none opacity-[0.05] animate-float" style="background: #C8102E;"></div>
 
-	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-		<span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: #FBE9EC; color: #C8102E;">Portfolio</span>
-		<h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6" style="letter-spacing: -0.03em; color: #1A1A1A;">
-			<span class="gradient-text">300+</span> Titik. Satu Indonesia.
-		</h1>
-		<p class="text-lg max-w-2xl mx-auto" style="color: #5C5C5C;">
-			Setiap pin di peta ini adalah cerita tentang bendungan yang dijaga, sungai yang dipantau, atau wilayah yang dilindungi dari bencana.
-		</p>
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-3xl">
+			<span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: rgba(255,255,255,0.65); backdrop-filter: blur(12px); color: #C8102E; border: 1px solid rgba(200,16,46,0.12);">Portfolio</span>
+			<h1 class="font-heading text-4xl sm:text-5xl lg:text-[60px] font-extrabold leading-[1.06] mb-6" style="letter-spacing: -0.035em; color: #1A1A1A;">
+				<span class="gradient-text-animated">300+</span> Titik.<br/>Satu Indonesia.
+			</h1>
+			<p class="text-lg max-w-[50ch]" style="color: #5C5C5C;">
+				Setiap pin di peta ini adalah cerita tentang bendungan yang dijaga, sungai yang dipantau, atau wilayah yang dilindungi dari bencana.
+			</p>
+		</div>
 	</div>
 
 	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);">
@@ -50,17 +50,18 @@
 </section>
 
 <!-- Filter + Grid -->
-<section class="py-16 lg:py-20 bg-white">
+<section class="py-20 lg:py-24 bg-white">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<!-- Filters -->
-		<div class="flex flex-wrap gap-2 mb-10">
+		<!-- Filters — SKILL: pill-style with active indicator -->
+		<div class="flex flex-wrap gap-2 mb-12">
 			{#each categories as cat}
 				<button
-					class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
+					class="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 btn-tactile"
 					style="
-						background: {activeFilter === cat ? '#C8102E' : '#FAFAFA'};
+						background: {activeFilter === cat ? '#C8102E' : 'white'};
 						color: {activeFilter === cat ? 'white' : '#5C5C5C'};
 						border: 1px solid {activeFilter === cat ? '#C8102E' : '#E5E5E5'};
+						box-shadow: {activeFilter === cat ? '0 4px 12px rgba(200,16,46,0.2)' : 'none'};
 					"
 					onclick={() => activeFilter = cat}
 				>
@@ -69,25 +70,25 @@
 			{/each}
 		</div>
 
-		<!-- Project Grid -->
-		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-			{#each filteredProjects as project}
-				<div class="group p-6 rounded-2xl bg-[#FAFAFA] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:bg-white" style="border: 1px solid #E5E5E5;">
-					<!-- Year Badge -->
-					<div class="flex items-center gap-3 mb-3">
-						<span class="text-xs font-semibold px-2.5 py-1 rounded-md text-white tabular-nums" style="background: #C8102E;">{project.year}</span>
-						<span class="text-xs flex items-center gap-1" style="color: #7A7A7A;">
+		<!-- Project Grid — SKILL: Staggered 2-column layout, not 3 equal -->
+		<div class="grid md:grid-cols-2 gap-5">
+			{#each filteredProjects as project, i}
+				<div class="group p-6 rounded-[20px] bg-[#FAFAFA] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-white" style="border: 1px solid #E5E5E5;">
+					<!-- Year Badge + Location -->
+					<div class="flex items-center gap-3 mb-4">
+						<span class="text-xs font-bold px-3 py-1.5 rounded-[10px] text-white tabular-nums" style="background: #C8102E;">{project.year}</span>
+						<span class="text-xs flex items-center gap-1.5" style="color: #7A7A7A;">
 							<MapPin size={11} />
 							{project.location}
 						</span>
 					</div>
 
-					<h3 class="font-heading text-base font-bold mb-2 group-hover:text-[#C8102E] transition-colors" style="color: #1A1A1A;">{project.name}</h3>
+					<h3 class="font-heading text-lg font-bold mb-2 group-hover:text-[#C8102E] transition-colors" style="color: #1A1A1A;">{project.name}</h3>
 					<p class="text-sm mb-4" style="color: #5C5C5C;">{project.client}</p>
 
 					<div class="flex flex-wrap gap-1.5">
 						{#each project.products as prod}
-							<span class="text-[10px] px-2 py-0.5 rounded-full font-medium" style="background: #FBE9EC; color: #C8102E;">{prod}</span>
+							<span class="text-[10px] px-2.5 py-1 rounded-full font-medium" style="background: #FBE9EC; color: #C8102E;">{prod}</span>
 						{/each}
 					</div>
 				</div>

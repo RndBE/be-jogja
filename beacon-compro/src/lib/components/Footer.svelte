@@ -123,7 +123,7 @@
 				</div>
 			</div>
 			<p class="text-center text-[11px] mt-3" style="color: #B0B0B0; font-style: italic;">
-				Made with pride in Yogyakarta, Indonesia 🇮🇩
+				Made with pride in Yogyakarta, Indonesia
 			</p>
 		</div>
 	</div>

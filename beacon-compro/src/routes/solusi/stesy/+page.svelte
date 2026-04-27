@@ -31,7 +31,8 @@
 
 <section class="relative py-20 lg:py-32 overflow-hidden" style="background: linear-gradient(165deg, #FFFFFF 0%, #FFF5F6 30%, #FBE9EC 60%, #F8D7DC 100%);">
 	<Ornaments variant="hero" />
-	<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-3xl">
 		<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: #FBE9EC; color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
 			<Monitor size={12} />
 			STESY Platform
@@ -55,7 +56,8 @@
 			<a href="#stesy-features" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold transition-all hover:bg-[#FBE9EC]" style="border: 1.5px solid #E5E5E5; color: #1A1A1A;">
 				Lihat Fitur <ArrowRight size={14} />
 			</a>
-		</div>
+			</div>
+	</div>
 	</div>
 	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);"><svg viewBox="0 0 1440 50" fill="none" preserveAspectRatio="none" class="w-full h-10"><path d="M0,50 L0,25 Q360,0 720,25 T1440,25 L1440,50 Z" fill="white"/></svg></div>
 </section>
@@ -64,8 +66,8 @@
 <section class="relative py-16 lg:py-24 bg-white overflow-hidden">
 	<Ornaments />
 	<div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="rounded-2xl overflow-hidden p-[2px]" style="background: linear-gradient(135deg, #C8102E 0%, #E5E5E5 50%, #C8102E 100%);">
-			<div class="rounded-[14px] overflow-hidden bg-white">
+		<div class="rounded-[24px] overflow-hidden p-[2px]" style="background: linear-gradient(135deg, #C8102E 0%, #E5E5E5 50%, #C8102E 100%); box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+			<div class="rounded-[22px] overflow-hidden bg-white">
 				<div class="flex items-center gap-2 px-4 py-2.5" style="background: #F5F5F5; border-bottom: 1px solid #E5E5E5;">
 					<div class="flex gap-1.5"><div class="w-2.5 h-2.5 rounded-full" style="background: #FF5F56;"></div><div class="w-2.5 h-2.5 rounded-full" style="background: #FFBD2E;"></div><div class="w-2.5 h-2.5 rounded-full" style="background: #27C93F;"></div></div>
 					<div class="flex-1 text-center"><span class="text-[10px] font-mono" style="color: #9A9A9A;">stesy.bejogja.com</span></div>
@@ -106,14 +108,14 @@
 <section id="stesy-features" class="relative py-16 lg:py-24 overflow-hidden" style="background: linear-gradient(180deg, #FAFAFA 0%, #FBE9EC 100%);">
 	<Ornaments variant="dense" />
 	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="text-center mb-12">
+		<div class="max-w-2xl mb-14 space-y-3">
 			<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">Fitur Utama</span>
-			<h2 class="font-heading text-3xl sm:text-4xl font-bold mt-3" style="color: #1A1A1A;">Semua yang Anda Butuhkan, dalam Satu Platform</h2>
+			<h2 class="font-heading text-3xl sm:text-4xl font-bold leading-[1.1]" style="color: #1A1A1A; letter-spacing: -0.025em;">Semua yang Anda Butuhkan, dalam Satu Platform</h2>
 		</div>
-		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+		<div class="grid sm:grid-cols-2 gap-6">
 			{#each features as feat, i}
 				<div
-					class="group p-8 rounded-2xl bg-white hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+					class="group p-8 rounded-[20px] bg-white hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
 					style="border: 1px solid #E5E5E5; opacity: {visible ? 1 : 0}; transform: translateY({visible ? 0 : 24}px); transition: opacity 0.6s ease-out {i * 0.08}s, transform 0.6s ease-out {i * 0.08}s, box-shadow 0.3s;"
 				>
 					<div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" style="background: #FBE9EC;">
