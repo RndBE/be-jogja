@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import logoBeacon from '$lib/assets/logo_be.png';
 	import {
 		Phone,
 		Mail,
@@ -175,13 +176,7 @@
 		<div class="flex items-center justify-between transition-all duration-300" style="height: {scrollY > 50 ? '64px' : '72px'};">
 			<!-- Logo -->
 			<a href="/" class="flex items-center gap-3 shrink-0">
-				<div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: #C8102E;">
-					<span class="text-white font-heading text-lg font-extrabold">B</span>
-				</div>
-				<div class="flex flex-col">
-					<span class="font-heading text-lg font-bold text-[#1A1A1A] leading-tight">Beacon</span>
-					<span class="text-[10px] text-[#5C5C5C] tracking-widest uppercase leading-none">Smart Telemetry</span>
-				</div>
+				<img src={logoBeacon} alt="Beacon Engineering" class="transition-all duration-300" style="height: {scrollY > 50 ? '32px' : '40px'}; width: auto;" />
 			</a>
 
 			<!-- Desktop Navigation -->

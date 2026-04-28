@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Phone, Mail, MessageCircle, MapPin, Clock } from '@lucide/svelte';
+	import logoBeacon from '$lib/assets/logo_be.png';
 </script>
 
 <footer class="relative overflow-hidden" style="background: linear-gradient(180deg, #F5F5F5 0%, #FAFAFA 100%);">
@@ -24,13 +25,7 @@
 			<!-- Column 1: Brand -->
 			<div class="space-y-4">
 				<div class="flex items-center gap-3">
-					<div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: #C8102E;">
-						<span class="text-white font-heading text-lg font-extrabold">B</span>
-					</div>
-					<div>
-						<span class="font-heading text-lg font-bold" style="color: #1A1A1A;">Beacon</span>
-						<span class="block text-[10px] tracking-widest uppercase" style="color: #5C5C5C;">Engineering</span>
-					</div>
+					<img src={logoBeacon} alt="Beacon Engineering" style="height: 36px; width: auto;" />
 				</div>
 				<p class="text-sm leading-relaxed" style="color: #5C5C5C; font-style: italic;">
 					"Pionir Sistem Telemetri Pintar di Indonesia"

@@ -66,11 +66,50 @@
 
 <!-- SKILL: Accordion Image Slider style — narrow strips expand on hover/click -->
 <section id="pilar-solusi" class="relative py-20 lg:py-28 bg-white overflow-hidden">
-	<!-- Subtle ornaments -->
+	<!-- Decorative ornaments — SKILL: Asymmetric for DESIGN_VARIANCE 8 -->
 	<div class="absolute top-10 left-[3%] w-20 h-20 rounded-full pointer-events-none opacity-[0.03]" style="border: 2px solid #C8102E;"></div>
+	<div class="absolute -top-12 -right-12 w-48 h-48 rounded-full pointer-events-none opacity-[0.04]" style="border: 2px solid #C8102E;"></div>
+	<div class="absolute -top-6 -right-6 w-32 h-32 rounded-full pointer-events-none opacity-[0.03]" style="border: 1.5px solid #C8102E;"></div>
+
+	<!-- Floating diamond -->
+	<div class="absolute top-[20%] right-[6%] w-8 h-8 rotate-45 rounded-md pointer-events-none opacity-[0.04] animate-float" style="background: #C8102E;"></div>
+	<div class="absolute bottom-[15%] left-[5%] w-6 h-6 rotate-45 pointer-events-none opacity-[0.03]" style="border: 1.5px solid #C8102E;"></div>
+
+	<!-- Dot circle -->
 	<svg class="absolute top-[60%] left-[2%] w-6 h-6 opacity-[0.03] pointer-events-none" viewBox="0 0 24 24" fill="#C8102E">
 		<circle cx="12" cy="12" r="4"/>
 	</svg>
+
+	<!-- Plus sign -->
+	<svg class="absolute bottom-[30%] right-[4%] w-7 h-7 opacity-[0.04] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2">
+		<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+	</svg>
+
+	<!-- Dot grid cluster -->
+	<svg class="absolute top-[35%] left-[1.5%] w-12 h-12 opacity-[0.04] pointer-events-none" viewBox="0 0 40 40" fill="#C8102E">
+		<circle cx="5" cy="5" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="25" cy="5" r="2"/>
+		<circle cx="5" cy="15" r="2"/><circle cx="15" cy="15" r="2"/><circle cx="25" cy="15" r="2"/>
+		<circle cx="5" cy="25" r="2"/><circle cx="15" cy="25" r="2"/><circle cx="25" cy="25" r="2"/>
+	</svg>
+
+	<!-- Triangle -->
+	<svg class="absolute bottom-[20%] right-[10%] w-8 h-8 opacity-[0.03] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="1.5">
+		<polygon points="12,3 22,21 2,21"/>
+	</svg>
+
+	<!-- Wavy line -->
+	<svg class="absolute bottom-[40%] right-[2%] w-16 h-6 opacity-[0.03] pointer-events-none" viewBox="0 0 100 30" fill="none">
+		<path d="M0,15 Q25,30 50,15 T100,15" stroke="#C8102E" stroke-width="1.5" fill="none"/>
+	</svg>
+
+	<!-- Arc -->
+	<svg class="absolute top-[75%] left-[6%] w-10 h-10 opacity-[0.03] pointer-events-none" viewBox="0 0 50 50" fill="none">
+		<path d="M50,0 A50,50 0 0,1 0,50" stroke="#C8102E" stroke-width="1.5" fill="none"/>
+	</svg>
+
+	<!-- Scattered small circles -->
+	<div class="absolute top-[40%] right-[16%] w-2 h-2 rounded-full pointer-events-none opacity-[0.05]" style="background: #C8102E;"></div>
+	<div class="absolute bottom-[8%] left-[12%] w-3 h-3 rounded-full pointer-events-none opacity-[0.03]" style="border: 1.5px solid #C8102E;"></div>
 
 	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<!-- Heading — SKILL: Left-aligned -->

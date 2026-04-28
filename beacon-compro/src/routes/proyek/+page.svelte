@@ -1,33 +1,42 @@
 <script lang="ts">
-	import { MapPin, Calendar, Filter, ArrowRight } from '@lucide/svelte';
+	import { MapPin, Calendar, Filter, ArrowRight, SearchX, Inbox } from '@lucide/svelte';
 
 	let activeFilter = $state('semua');
 
 	const categories = ['semua', 'Water Security', 'Weather Forecast', 'Early Warning', 'Pressure', 'STESY'];
 
 	const projects = [
-		{ name: 'Telemetri ADR Bendungan Ciawi-Sukamahi', year: '2024', client: 'BBWS Ciliwung-Cisadane', location: 'Bogor, Jawa Barat', products: ['ADR', 'STESY'], category: 'Water Security' },
-		{ name: 'Telemetri AWLR Bendungan Sepaku IKN', year: '2024', client: 'BWS Kalimantan IV', location: 'Kalimantan Timur', products: ['AWLR', 'STESY'], category: 'Water Security' },
-		{ name: 'Telemetri APLR Kawah Ijen', year: '2023', client: 'PT Medco Energi', location: 'Banyuwangi, Jawa Timur', products: ['APLR'], category: 'Pressure' },
-		{ name: 'Telemetri AWGC Sungai Cisadane BKC 3', year: '2023', client: 'BBWS Ciliwung-Cisadane', location: 'Tangerang, Banten', products: ['AWGC', 'STESY'], category: 'Water Security' },
-		{ name: 'Sistem Telemetri Bendungan Keureuto', year: '2023', client: 'BWS Sumatera I', location: 'Aceh', products: ['AWLR', 'ADR', 'STESY'], category: 'Water Security' },
-		{ name: 'Stasiun Cuaca Otomatis DAS Bogowonto', year: '2023', client: 'BBWS Serayu Opak', location: 'Jawa Tengah', products: ['AWR', 'ARR'], category: 'Weather Forecast' },
-		{ name: 'EWS Peringatan Dini Banjir Citarum', year: '2022', client: 'BBWS Citarum', location: 'Jawa Barat', products: ['EWS', 'AWLR'], category: 'Early Warning' },
-		{ name: 'Monitoring Bendungan Cipanas', year: '2022', client: 'BWS Ciliwung-Cisadane', location: 'Jawa Barat', products: ['AWLR', 'ADR', 'STESY'], category: 'Water Security' },
-		{ name: 'Telemetri AWLR Sungai Bengawan Solo', year: '2022', client: 'BBWS Bengawan Solo', location: 'Jawa Timur', products: ['AWLR', 'STESY'], category: 'Water Security' },
+		{ name: 'Telemetri ADR Bendungan Ciawi-Sukamahi', year: '2024', client: 'BBWS Ciliwung-Cisadane', location: 'Bogor, Jawa Barat', products: ['ADR', 'STESY'], category: 'Water Security', highlight: 'Proyek strategis pengendalian banjir Jakarta' },
+		{ name: 'Telemetri AWLR Bendungan Sepaku IKN', year: '2024', client: 'BWS Kalimantan IV', location: 'Kalimantan Timur', products: ['AWLR', 'STESY'], category: 'Water Security', highlight: 'Mendukung infrastruktur Ibu Kota Nusantara' },
+		{ name: 'Telemetri APLR Kawah Ijen', year: '2023', client: 'PT Medco Energi', location: 'Banyuwangi, Jawa Timur', products: ['APLR'], category: 'Pressure', highlight: '' },
+		{ name: 'Telemetri AWGC Sungai Cisadane BKC 3', year: '2023', client: 'BBWS Ciliwung-Cisadane', location: 'Tangerang, Banten', products: ['AWGC', 'STESY'], category: 'Water Security', highlight: '' },
+		{ name: 'Sistem Telemetri Bendungan Keureuto', year: '2023', client: 'BWS Sumatera I', location: 'Aceh', products: ['AWLR', 'ADR', 'STESY'], category: 'Water Security', highlight: '' },
+		{ name: 'Stasiun Cuaca Otomatis DAS Bogowonto', year: '2023', client: 'BBWS Serayu Opak', location: 'Jawa Tengah', products: ['AWR', 'ARR'], category: 'Weather Forecast', highlight: '' },
+		{ name: 'EWS Peringatan Dini Banjir Citarum', year: '2022', client: 'BBWS Citarum', location: 'Jawa Barat', products: ['EWS', 'AWLR'], category: 'Early Warning', highlight: '' },
+		{ name: 'Monitoring Bendungan Cipanas', year: '2022', client: 'BWS Ciliwung-Cisadane', location: 'Jawa Barat', products: ['AWLR', 'ADR', 'STESY'], category: 'Water Security', highlight: '' },
+		{ name: 'Telemetri AWLR Sungai Bengawan Solo', year: '2022', client: 'BBWS Bengawan Solo', location: 'Jawa Timur', products: ['AWLR', 'STESY'], category: 'Water Security', highlight: '' },
 	];
 
 	let filteredProjects = $derived(
 		activeFilter === 'semua' ? projects : projects.filter(p => p.category === activeFilter)
 	);
+
+	// Reset stagger key when filter changes to re-trigger animations
+	let filterKey = $state(0);
+
+	function setFilter(cat: string) {
+		activeFilter = cat;
+		filterKey++;
+	}
 </script>
 
 <svelte:head>
 	<title>Proyek — Beacon Engineering</title>
 	<meta name="description" content="300+ proyek telemetri dari Aceh sampai Papua. Lihat track record Beacon Engineering di infrastruktur strategis Indonesia." />
+	<link rel="canonical" href="https://beaconengineering.co.id/proyek" />
 </svelte:head>
 
-<!-- Hero — SKILL: Left-aligned -->
+<!-- Hero — SKILL: Left-aligned, DESIGN_VARIANCE: 8 -->
 <section class="relative py-24 lg:py-32 overflow-hidden" style="background: linear-gradient(168deg, #FFFFFF 0%, #FFF8F9 30%, #FBE9EC 65%, #F5D2D8 100%);">
 	<div class="absolute -top-20 -left-20 w-72 h-72 rounded-full pointer-events-none opacity-[0.06]" style="border: 2px solid #C8102E;"></div>
 	<div class="absolute top-[40%] right-[5%] w-10 h-10 rotate-45 rounded-lg pointer-events-none opacity-[0.05] animate-float" style="background: #C8102E;"></div>
@@ -63,36 +72,128 @@
 						border: 1px solid {activeFilter === cat ? '#C8102E' : '#E5E5E5'};
 						box-shadow: {activeFilter === cat ? '0 4px 12px rgba(200,16,46,0.2)' : 'none'};
 					"
-					onclick={() => activeFilter = cat}
+					onclick={() => setFilter(cat)}
 				>
 					{cat === 'semua' ? 'Semua' : cat}
 				</button>
 			{/each}
 		</div>
 
-		<!-- Project Grid — SKILL: Staggered 2-column layout, not 3 equal -->
-		<div class="grid md:grid-cols-2 gap-5">
-			{#each filteredProjects as project, i}
-				<div class="group p-6 rounded-[20px] bg-[#FAFAFA] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-white" style="border: 1px solid #E5E5E5;">
-					<!-- Year Badge + Location -->
-					<div class="flex items-center gap-3 mb-4">
-						<span class="text-xs font-bold px-3 py-1.5 rounded-[10px] text-white tabular-nums" style="background: #C8102E;">{project.year}</span>
-						<span class="text-xs flex items-center gap-1.5" style="color: #7A7A7A;">
-							<MapPin size={11} />
-							{project.location}
-						</span>
-					</div>
-
-					<h3 class="font-heading text-lg font-bold mb-2 group-hover:text-[#C8102E] transition-colors" style="color: #1A1A1A;">{project.name}</h3>
-					<p class="text-sm mb-4" style="color: #5C5C5C;">{project.client}</p>
-
-					<div class="flex flex-wrap gap-1.5">
-						{#each project.products as prod}
-							<span class="text-[10px] px-2.5 py-1 rounded-full font-medium" style="background: #FBE9EC; color: #C8102E;">{prod}</span>
-						{/each}
-					</div>
+		<!-- Project Grid — SKILL: Staggered 2-column, featured first card -->
+		{#if filteredProjects.length === 0}
+			<!-- SKILL Rule 5: Empty State -->
+			<div class="flex flex-col items-center justify-center py-24 animate-fade-in-up">
+				<div class="w-20 h-20 rounded-full flex items-center justify-center mb-6" style="background: #FBE9EC;">
+					<Inbox size={32} style="color: #C8102E;" />
 				</div>
-			{/each}
-		</div>
+				<h3 class="font-heading text-xl font-bold mb-2" style="color: #1A1A1A;">Belum ada proyek di kategori ini</h3>
+				<p class="text-sm max-w-[40ch] text-center mb-6" style="color: #5C5C5C;">
+					Coba pilih kategori lain, atau lihat semua proyek untuk melihat portfolio lengkap kami.
+				</p>
+				<button
+					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white btn-tactile"
+					style="background: #C8102E; box-shadow: 0 4px 12px rgba(200,16,46,0.2);"
+					onclick={() => setFilter('semua')}
+				>
+					Lihat Semua Proyek
+					<ArrowRight size={14} />
+				</button>
+			</div>
+		{:else}
+			{#key filterKey}
+				<div class="grid md:grid-cols-2 gap-5">
+					{#each filteredProjects as project, i}
+						<!-- SKILL: Featured first card spans full width for DESIGN_VARIANCE: 8 -->
+						{#if i === 0 && project.highlight}
+							<div
+								class="group md:col-span-2 relative p-8 rounded-[24px] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden stagger-item"
+								style="
+									background: linear-gradient(135deg, #1A1A1A 0%, #2D0A10 100%);
+									border: 1px solid rgba(200,16,46,0.15);
+									--stagger-index: {i};
+								"
+							>
+								<!-- Subtle decorative glow -->
+								<div class="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none opacity-[0.08]" style="background: radial-gradient(circle, #C8102E, transparent 70%); transform: translate(30%, -30%);"></div>
+
+								<div class="relative z-10">
+									<div class="flex flex-wrap items-center gap-3 mb-5">
+										<span class="text-xs font-bold px-3 py-1.5 rounded-[10px] text-white tabular-nums" style="background: #C8102E;">{project.year}</span>
+										<span class="text-xs flex items-center gap-1.5" style="color: rgba(255,255,255,0.5);">
+											<MapPin size={11} />
+											{project.location}
+										</span>
+									</div>
+
+									<h3 class="font-heading text-2xl lg:text-3xl font-bold mb-3 text-white group-hover:text-[#F5D2D8] transition-colors" style="letter-spacing: -0.02em;">
+										{project.name}
+									</h3>
+									<p class="text-sm mb-2" style="color: rgba(255,255,255,0.6);">{project.client}</p>
+									{#if project.highlight}
+										<p class="text-sm mb-5 max-w-[60ch]" style="color: rgba(200,16,46,0.7); font-style: italic;">{project.highlight}</p>
+									{/if}
+
+									<div class="flex flex-wrap gap-1.5">
+										{#each project.products as prod}
+											<span class="text-[10px] px-2.5 py-1 rounded-full font-medium" style="background: rgba(200,16,46,0.15); color: #F5A0AD; border: 1px solid rgba(200,16,46,0.2);">{prod}</span>
+										{/each}
+									</div>
+								</div>
+							</div>
+						{:else}
+							<div
+								class="group p-6 rounded-[20px] bg-[#FAFAFA] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-white stagger-item"
+								style="border: 1px solid #E5E5E5; --stagger-index: {i};"
+							>
+								<!-- Year Badge + Location -->
+								<div class="flex items-center gap-3 mb-4">
+									<span class="text-xs font-bold px-3 py-1.5 rounded-[10px] text-white tabular-nums" style="background: #C8102E;">{project.year}</span>
+									<span class="text-xs flex items-center gap-1.5" style="color: #7A7A7A;">
+										<MapPin size={11} />
+										{project.location}
+									</span>
+								</div>
+
+								<h3 class="font-heading text-lg font-bold mb-2 group-hover:text-[#C8102E] transition-colors" style="color: #1A1A1A;">{project.name}</h3>
+								<p class="text-sm mb-4" style="color: #5C5C5C;">{project.client}</p>
+
+								<div class="flex flex-wrap gap-1.5">
+									{#each project.products as prod}
+										<span class="text-[10px] px-2.5 py-1 rounded-full font-medium" style="background: #FBE9EC; color: #C8102E;">{prod}</span>
+									{/each}
+								</div>
+							</div>
+						{/if}
+					{/each}
+				</div>
+			{/key}
+		{/if}
 	</div>
 </section>
+
+<style>
+	/* SKILL Section 4: Staggered Orchestration — CSS cascade animation-delay */
+	.stagger-item {
+		opacity: 0;
+		animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		animation-delay: calc(var(--stagger-index, 0) * 80ms);
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.stagger-item {
+			animation: none !important;
+			opacity: 1;
+		}
+	}
+</style>

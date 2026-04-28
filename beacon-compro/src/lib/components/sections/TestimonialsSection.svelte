@@ -51,9 +51,57 @@
 
 <!-- SKILL: Replace 3-equal-column with single-spotlight carousel + side dots -->
 <section id="suara-mitra" class="relative py-20 lg:py-28 overflow-hidden" style="background: linear-gradient(180deg, #FFF5F6 0%, #FBE9EC 50%, #F8D7DC 100%);">
-	<!-- Decorative ornaments -->
+	<!-- Decorative ornaments — SKILL: Asymmetric scatter for DESIGN_VARIANCE 8 -->
 	<div class="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none opacity-[0.06]" style="border: 2px solid #C8102E;"></div>
+	<div class="absolute -top-10 -right-10 w-48 h-48 rounded-full pointer-events-none opacity-[0.04]" style="border: 1.5px solid #C8102E;"></div>
+	<div class="absolute -bottom-16 -left-16 w-56 h-56 rounded-full pointer-events-none opacity-[0.04]" style="border: 2px solid #C8102E;"></div>
+
+	<!-- Floating diamonds -->
 	<div class="absolute bottom-10 left-[5%] w-12 h-12 rotate-45 rounded-lg pointer-events-none opacity-[0.04]" style="background: #C8102E;"></div>
+	<div class="absolute top-[20%] left-[8%] w-6 h-6 rotate-45 pointer-events-none opacity-[0.05] animate-float-delayed" style="background: #C8102E;"></div>
+	<div class="absolute top-[50%] right-[4%] w-5 h-5 rotate-45 pointer-events-none opacity-[0.04]" style="border: 1.5px solid #C8102E;"></div>
+
+	<!-- Plus signs -->
+	<svg class="absolute top-[35%] right-[6%] w-7 h-7 opacity-[0.05] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2">
+		<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+	</svg>
+
+	<!-- Dot grid cluster -->
+	<svg class="absolute bottom-[20%] right-[8%] w-14 h-14 opacity-[0.04] pointer-events-none" viewBox="0 0 40 40" fill="#C8102E">
+		<circle cx="5" cy="5" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="25" cy="5" r="2"/>
+		<circle cx="5" cy="15" r="2"/><circle cx="15" cy="15" r="2"/><circle cx="25" cy="15" r="2"/>
+		<circle cx="5" cy="25" r="2"/><circle cx="15" cy="25" r="2"/><circle cx="25" cy="25" r="2"/>
+	</svg>
+
+	<!-- Wavy line -->
+	<svg class="absolute bottom-[35%] left-[2%] w-20 h-6 opacity-[0.04] pointer-events-none" viewBox="0 0 100 30" fill="none">
+		<path d="M0,15 Q25,30 50,15 T100,15" stroke="#C8102E" stroke-width="1.5" fill="none"/>
+	</svg>
+
+	<!-- Hexagon -->
+	<svg class="absolute top-[65%] left-[6%] w-10 h-10 opacity-[0.03] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="1.5">
+		<polygon points="12,2 21,7 21,17 12,22 3,17 3,7"/>
+	</svg>
+
+	<!-- Triangle -->
+	<svg class="absolute top-[15%] right-[12%] w-7 h-7 opacity-[0.03] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="1.5">
+		<polygon points="12,3 22,21 2,21"/>
+	</svg>
+
+	<!-- Arc -->
+	<svg class="absolute bottom-[5%] right-[10%] w-12 h-12 opacity-[0.03] pointer-events-none" viewBox="0 0 50 50" fill="none">
+		<path d="M50,0 A50,50 0 0,1 0,50" stroke="#C8102E" stroke-width="1.5" fill="none"/>
+	</svg>
+
+	<!-- Scattered small circles -->
+	<div class="absolute top-[30%] left-[16%] w-3 h-3 rounded-full pointer-events-none opacity-[0.05]" style="background: #C8102E;"></div>
+	<div class="absolute top-[45%] right-[15%] w-2 h-2 rounded-full pointer-events-none opacity-[0.04]" style="background: #C8102E;"></div>
+	<div class="absolute bottom-[12%] left-[20%] w-4 h-4 rounded-full pointer-events-none opacity-[0.03]" style="border: 1.5px solid #C8102E;"></div>
+
+	<!-- Dotted vertical line -->
+	<svg class="absolute top-[25%] left-[1.5%] w-1 h-20 opacity-[0.04] pointer-events-none" viewBox="0 0 4 100" fill="none">
+		<line x1="2" y1="0" x2="2" y2="100" stroke="#C8102E" stroke-width="2" stroke-dasharray="4 6"/>
+	</svg>
 
 	<!-- Large decorative quote watermark -->
 	<div class="absolute top-8 left-8 opacity-[0.03] pointer-events-none">
