@@ -112,70 +112,86 @@
 </svelte:head>
 
 <!-- Hero: Asymmetric Split Layout (SKILL Rule 3: ANTI-CENTER BIAS) -->
-<section class="relative min-h-[100dvh] overflow-hidden flex items-center" style="background: linear-gradient(165deg, #FFFFFF 0%, #FFF5F6 35%, #FBE9EC 100%);">
+<section class="relative pt-40 pb-24 lg:pt-48 lg:pb-32 overflow-hidden" style="background: linear-gradient(165deg, #FFFFFF 0%, #FFF5F6 45%, #FBE9EC 100%);">
 	<Ornaments variant="hero" />
 
-	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 lg:py-0">
-		<div class="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center">
-			<!-- Left: Text Content -->
-			<div class="max-w-xl" style="opacity: {mounted ? 1 : 0}; transform: translateY({mounted ? 0 : 24}px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);">
-				<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-8" style="background: rgba(200,16,46,0.06); color: #C8102E; border: 1px solid rgba(200,16,46,0.12);">
-					<BookOpen size={12} />
-					Wawasan & Riset
+	<div class="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 w-full">
+		<div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+			<!-- Left: Text Content (7 cols) -->
+			<div class="lg:col-span-7" style="opacity: {mounted ? 1 : 0}; transform: translateY({mounted ? 0 : 24}px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);">
+				<div class="inline-flex items-center gap-3 px-4 py-2 rounded-full mb-8 relative overflow-hidden" style="background: rgba(200,16,46,0.06); border: 1px solid rgba(200,16,46,0.12);">
+					<BookOpen size={14} style="color: #C8102E;" />
+					<span class="text-xs font-mono font-bold uppercase tracking-[0.2em]" style="color: #C8102E;">Wawasan & Riset</span>
 				</div>
 
-				<h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-none mb-6" style="letter-spacing: -0.03em; color: #1A1A1A;">
-					Dari <span class="red-underline" style="color: #C8102E;">Lapangan</span>,<br />
+				<h1 class="font-heading text-5xl sm:text-6xl lg:text-[72px] font-extrabold leading-[1.05] tracking-tighter text-zinc-950 mb-8">
+					Dari <span style="color: #C8102E;">Lapangan</span>,<br />
 					Untuk Lapangan
 				</h1>
 
-				<p class="text-lg leading-relaxed mb-10" style="color: #5C5C5C; max-width: 50ch;">
+				<p class="text-xl leading-relaxed mb-14 font-medium text-zinc-600 max-w-[45ch]">
 					Studi kasus implementasi nyata, panduan teknis mendalam, dan berita terbaru dari tim engineer Beacon.
 				</p>
 
-				<!-- Stats Row — left-aligned -->
-				<div class="flex gap-10">
+				<!-- Stats Row — Bento Data Pills -->
+				<div class="flex flex-wrap gap-4 sm:gap-6">
 					{#each [
-						{ icon: FileText, value: '4', label: 'Studi Kasus' },
-						{ icon: BookOpen, value: '3', label: 'Artikel Teknis' },
-						{ icon: Newspaper, value: '2', label: 'Berita Produk' }
+						{ value: '4', label: 'Studi Kasus', color: '#C8102E' },
+						{ value: '3', label: 'Artikel Teknis', color: '#0EA5E9' },
+						{ value: '2', label: 'Berita Produk', color: '#1B7F3A' }
 					] as stat, i}
-						<div class="relative" style="opacity: {mounted ? 1 : 0}; transform: translateY({mounted ? 0 : 16}px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) {0.3 + i * 0.1}s;">
-							<span class="font-heading text-3xl font-extrabold tabular-nums" style="color: #C8102E;">{stat.value}</span>
-							<span class="block text-xs font-medium mt-1" style="color: #5C5C5C;">{stat.label}</span>
+						<div 
+							class="flex items-center gap-4 bg-white/60 border border-white px-5 py-3.5 rounded-2xl shadow-sm backdrop-blur-md hover:-translate-y-1 transition-transform"
+							style="opacity: {mounted ? 1 : 0}; transform: translateY({mounted ? 0 : 16}px); transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) {0.3 + i * 0.1}s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) {0.3 + i * 0.1}s;"
+						>
+							<span class="font-heading text-3xl font-extrabold tabular-nums leading-none tracking-tighter" style="color: {stat.color};">{stat.value}</span>
+							<span class="block text-[11px] font-bold uppercase tracking-[0.1em] text-zinc-500 max-w-[50px] leading-tight">{stat.label}</span>
 						</div>
 					{/each}
 				</div>
 			</div>
 
-			<!-- Right: Featured Preview Stack -->
-			<div class="hidden lg:block relative" style="opacity: {mounted ? 1 : 0}; transform: translateX({mounted ? 0 : 40}px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;">
-				<div class="space-y-4">
-					{#each featuredArticles as article, i}
+			<!-- Right: Featured Preview Stack (5 cols) -->
+			<div class="hidden lg:block lg:col-span-5 relative" style="opacity: {mounted ? 1 : 0}; transform: translateX({mounted ? 0 : 40}px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;">
+				<div class="relative w-full h-[400px]">
+					<!-- Glow effect -->
+					<div class="absolute inset-0 bg-gradient-to-tr from-[#C8102E]/20 to-transparent blur-[60px] rounded-full pointer-events-none"></div>
+					
+					{#each featuredArticles.slice(0, 2) as article, i}
 						<a href={article.href}
-							class="group block p-6 rounded-[20px] transition-all duration-300 hover:-translate-y-1 btn-tactile"
-							style="background: rgba(255,255,255,0.75); backdrop-filter: blur(16px); border: 1px solid rgba(229,229,229,0.6); box-shadow: 0 8px 32px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.3);"
+							class="absolute group block p-6 sm:p-8 rounded-[2rem] w-full sm:w-[420px] transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
+							style="
+								background: rgba(255,255,255,0.85); backdrop-filter: blur(24px); 
+								border: 1px solid rgba(255,255,255,1); 
+								box-shadow: 0 20px 40px -15px rgba(200,16,46,0.15), inset 0 2px 4px rgba(255,255,255,0.8);
+								top: {i * 140}px;
+								right: {i * 20}px;
+								z-index: {10 - i};
+							"
 						>
-							<div class="flex items-start gap-4">
-								<div class="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style="background: {categoryColors[article.category]}10; border: 1px solid {categoryColors[article.category]}20;">
-									<span class="text-xs font-bold font-mono" style="color: {categoryColors[article.category]};">{categoryIcons[article.category]}</span>
-								</div>
-								<div class="flex-1 min-w-0">
-									<div class="flex items-center gap-2 mb-1.5">
-										<span class="text-[10px] font-semibold uppercase tracking-wider" style="color: {categoryColors[article.category]};">{article.category}</span>
-										<span class="text-[10px]" style="color: #BFBFBF;">·</span>
-										<span class="text-[10px]" style="color: #9A9A9A;">{article.readTime}</span>
+							<div class="flex flex-col gap-4">
+								<div class="flex items-center justify-between mb-2">
+									<div class="flex items-center gap-2">
+										<span class="text-[10px] font-mono font-bold uppercase tracking-[0.15em] px-2.5 py-1 rounded-md text-white" style="background: {categoryColors[article.category]};">{article.category}</span>
+										<span class="text-[11px] font-medium text-zinc-400">{article.readTime}</span>
 									</div>
-									<h3 class="font-heading text-sm font-bold leading-snug group-hover:text-[#C8102E] transition-colors" style="color: #1A1A1A;">{article.title}</h3>
+									<div class="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center border border-zinc-100 group-hover:bg-[#FBE9EC] group-hover:border-[#C8102E]/20 transition-colors">
+										<ArrowUpRight size={14} class="text-zinc-400 group-hover:text-[#C8102E] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+									</div>
 								</div>
-								<ArrowUpRight size={14} class="shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style="color: #C8102E;" />
+								
+								<h3 class="font-heading text-xl font-bold leading-snug group-hover:text-[#C8102E] transition-colors tracking-tight text-zinc-950">{article.title}</h3>
+								
+								<!-- Micro products pill -->
+								<div class="flex flex-wrap gap-1.5 mt-2">
+									{#each article.products as prod}
+										<span class="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider" style="background: {categoryColors[article.category]}10; color: {categoryColors[article.category]}; border: 1px solid {categoryColors[article.category]}20;">{prod}</span>
+									{/each}
+								</div>
 							</div>
 						</a>
 					{/each}
 				</div>
-
-				<!-- Decorative glow -->
-				<div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(200,16,46,0.06) 0%, transparent 70%);"></div>
 			</div>
 		</div>
 	</div>

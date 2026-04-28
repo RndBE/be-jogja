@@ -53,11 +53,14 @@
 	<Ornaments variant="dense" />
 	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<!-- Heading — left-aligned with CTA right -->
-		<div class="flex items-end justify-between mb-12">
-			<div class="space-y-2">
-				<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">Wawasan</span>
-				<h2 class="font-heading text-3xl sm:text-4xl font-bold text-[#1A1A1A]" style="letter-spacing: -0.02em;">
-					Wawasan Terbaru
+		<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+			<div class="space-y-4">
+				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest" style="background: rgba(200,16,46,0.08); color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
+					<span class="w-1.5 h-1.5 rounded-full" style="background: #C8102E;"></span>
+					Wawasan
+				</div>
+				<h2 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tighter text-zinc-950">
+					Wawasan <span class="text-zinc-400">Terbaru</span>
 				</h2>
 			</div>
 			<a href="/wawasan" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:gap-3" style="color: #C8102E;">

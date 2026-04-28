@@ -63,17 +63,22 @@
 	</div>
 
 	<h2 class="font-heading text-2xl font-bold" style="color: #1A1A1A;">Hasil Implementasi</h2>
-	<div class="grid grid-cols-3 gap-4">
-		{#each [
-			{ value: '8', label: 'Stasiun monitoring' },
-			{ value: '< 30s', label: 'Waktu respons alert' },
-			{ value: '99.2%', label: 'Uptime sistem' }
-		] as stat}
-			<div class="text-center p-5 rounded-2xl" style="background: #FAFAFA; border: 1px solid #E5E5E5;">
-				<span class="font-heading text-xl font-bold tabular-nums" style="color: #C8102E;">{stat.value}</span>
-				<span class="block text-xs mt-1" style="color: #5C5C5C;">{stat.label}</span>
+	<div class="grid sm:grid-cols-2 gap-4">
+		<div class="p-5 rounded-2xl" style="background: #FAFAFA; border: 1px solid #E5E5E5;">
+			<span class="text-[10px] uppercase tracking-widest font-semibold" style="color: #9A9A9A;">Stasiun monitoring</span>
+			<span class="block font-heading text-2xl font-bold mt-1 font-mono tabular-nums" style="color: #C8102E;">8 unit</span>
+		</div>
+		<div class="p-5 rounded-2xl" style="background: #FAFAFA; border: 1px solid #E5E5E5;">
+			<span class="text-[10px] uppercase tracking-widest font-semibold" style="color: #9A9A9A;">Waktu respons alert</span>
+			<span class="block font-heading text-2xl font-bold mt-1 font-mono tabular-nums" style="color: #C8102E;">&lt; 30 detik</span>
+		</div>
+		<div class="sm:col-span-2 p-5 rounded-2xl flex items-center justify-between" style="background: #FBE9EC; border: 1px solid rgba(200,16,46,0.1);">
+			<div>
+				<span class="text-[10px] uppercase tracking-widest font-semibold" style="color: #9A9A9A;">Uptime sistem</span>
+				<span class="block font-heading text-lg font-bold mt-0.5 font-mono tabular-nums" style="color: #C8102E;">97.8%</span>
 			</div>
-		{/each}
+			<div class="w-2 h-2 rounded-full animate-pulse" style="background: #1B7F3A;"></div>
+		</div>
 	</div>
 
 	<h2 class="font-heading text-2xl font-bold" style="color: #1A1A1A;">Pelajaran Utama</h2>

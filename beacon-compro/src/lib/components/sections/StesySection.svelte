@@ -138,8 +138,8 @@
 											<stop offset="100%" style="stop-color: #C8102E; stop-opacity: 0;" />
 										</linearGradient>
 									</defs>
-									<path d="M0,40 Q30,35 60,38 T120,30 T180,25 T240,32 T300,20" stroke="#C8102E" stroke-width="2" fill="none" />
-									<path d="M0,40 Q30,35 60,38 T120,30 T180,25 T240,32 T300,20 V60 H0 Z" fill="url(#chartGradLight)" />
+									<path d="M0,40 Q30,35 60,38 T120,30 T180,25 T240,32 T300,20" stroke="#C8102E" stroke-width="2" fill="none" style="stroke-dasharray: 400; stroke-dashoffset: 400; animation: chartDraw 4s ease-out infinite alternate;" />
+									<path d="M0,40 Q30,35 60,38 T120,30 T180,25 T240,32 T300,20 V60 H0 Z" fill="url(#chartGradLight)" style="opacity: 0; animation: fadeUp 4s ease-out infinite alternate;" />
 								</svg>
 							</div>
 
@@ -180,16 +180,19 @@
 
 			<!-- Right: Copy -->
 			<div
-				class="space-y-6"
+				class="space-y-8"
 				style="
 					opacity: {visible ? 1 : 0};
 					transform: translateX({visible ? 0 : 40}px);
-					transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
+					transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s;
 				"
 			>
-				<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">Platform Monitoring</span>
-				<h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight" style="letter-spacing: -0.02em; color: #1A1A1A;">
-					Satu Layar untuk Memantau <span style="color: #C8102E;">Semua Aset</span> Anda
+				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest" style="background: rgba(200,16,46,0.08); color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
+					<span class="w-1.5 h-1.5 rounded-full" style="background: #C8102E;"></span>
+					Platform Monitoring
+				</div>
+				<h2 class="font-heading text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.05] tracking-tighter text-zinc-950">
+					Satu Layar untuk Memantau <br /> <span style="color: #C8102E;">Semua Aset</span> <span class="text-zinc-400">Anda</span>
 				</h2>
 				<div>
 					<span class="font-heading text-lg font-semibold" style="color: #1A1A1A;">STESY — Smart Telemetry System</span>

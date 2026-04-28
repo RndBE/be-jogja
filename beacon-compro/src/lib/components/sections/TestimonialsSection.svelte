@@ -108,13 +108,16 @@
 		<Quote size={200} style="color: #C8102E;" />
 	</div>
 
-	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+	<div class="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
 		<!-- Heading — left-aligned with nav controls on right -->
-		<div class="flex items-end justify-between mb-16">
-			<div class="max-w-2xl space-y-4">
-				<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">Testimoni</span>
-				<h2 class="font-heading text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1]" style="letter-spacing: -0.025em; color: #1A1A1A;">
-					"Mitra yang Berkomitmen Terhadap Kualitas <span style="color: #C8102E;">Buatan Anak Negeri</span>."
+		<div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+			<div class="max-w-3xl space-y-6">
+				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest" style="background: rgba(200,16,46,0.08); color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
+					<span class="w-1.5 h-1.5 rounded-full" style="background: #C8102E;"></span>
+					Testimoni
+				</div>
+				<h2 class="font-heading text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.05] tracking-tighter text-zinc-950">
+					<span class="text-zinc-300">"</span>Mitra yang Berkomitmen Terhadap <span class="text-zinc-400">Kualitas</span> <span style="color: #C8102E;">Buatan Anak Negeri</span>.<span class="text-zinc-300">"</span>
 				</h2>
 			</div>
 			<!-- Navigation arrows — desktop only -->

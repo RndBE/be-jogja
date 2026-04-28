@@ -1,6 +1,10 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { Monitor, Smartphone, BarChart3, Camera, Bell, Shield } from '@lucide/svelte';
 	import ArticleLayout from '$lib/components/ArticleLayout.svelte';
+
+	let mounted = $state(false);
+	onMount(() => { mounted = true; });
 </script>
 
 <ArticleLayout
@@ -38,7 +42,7 @@
 			{ icon: Bell, title: 'Smart Notification', desc: 'Alert berdasarkan pola data, bukan hanya threshold statis. Notifikasi via push, SMS, dan email sekaligus.' },
 			{ icon: Shield, title: 'End-to-End Encryption', desc: 'Semua data dienkripsi dari sensor ke dashboard. Compliance dengan standar keamanan data pemerintah.' }
 		] as feat}
-			<div class="group p-5 rounded-xl hover:bg-[#ECFDF5] transition-all btn-tactile" style="border: 1px solid #E5E5E5;">
+			<div class="group p-5 rounded-xl hover:bg-[#ECFDF5] transition-all active:scale-[0.98]" style="border: 1px solid #E5E5E5; opacity: {mounted ? 1 : 0}; transform: translateY({mounted ? 0 : 16}px); transition: opacity 0.5s ease-out {0.1 + i * 0.08}s, transform 0.5s ease-out {0.1 + i * 0.08}s, background-color 0.2s;">
 				<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3" style="background: #ECFDF5;">
 					<feat.icon size={18} style="color: #1B7F3A;" />
 				</div>

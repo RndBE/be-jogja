@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ArrowRight, Check, MessageCircle, Download, ChevronRight, Waves } from '@lucide/svelte';
 	import Ornaments from '$lib/components/Ornaments.svelte';
+	import productImage from '$lib/assets/product_awlr.webp';
 
 	const specs = [
 		{ label: 'Range Pengukuran', value: '0 – 30 m' },
@@ -18,8 +19,8 @@
 	];
 
 	const variants = [
-		{ name: 'BL-1100', desc: 'Varian utama untuk pos hidrologi bendungan dan sungai besar. Full feature, multi-sensor.', use: 'Bendungan, sungai besar, DAS utama' },
-		{ name: 'BL-110', desc: 'Varian kompak untuk sumur pantau, saluran irigasi, dan titik monitoring terdistribusi.', use: 'Sumur pantau, irigasi, monitoring terdistribusi' }
+		{ name: 'BL-1100', desc: 'Varian utama untuk pos hidrologi bendungan dan sungai besar. Full feature, multi-sensor.', use: 'Bendungan, sungai besar, DAS utama', image: productImage },
+		{ name: 'BL-110', desc: 'Varian kompak untuk sumur pantau, saluran irigasi, dan titik monitoring terdistribusi.', use: 'Sumur pantau, irigasi, monitoring terdistribusi', image: null }
 	];
 
 	const useCases = [
@@ -72,25 +73,30 @@
 <section class="relative py-16 lg:py-28 overflow-hidden" style="background: linear-gradient(165deg, #FFFFFF 0%, #EBF8FF 30%, #FFF5F6 60%, #FBE9EC 100%);">
 	<Ornaments variant="hero" />
 
-	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="grid lg:grid-cols-2 gap-12 items-center">
-			<div class="space-y-6">
-				<div class="flex items-center gap-2">
-					<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">Water Security</span>
-					<span style="color: #E5E5E5;">·</span>
-					<span class="text-xs" style="color: #9A9A9A;">Produk Unggulan</span>
+	<div class="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+		<div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+			<div class="space-y-8">
+				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest" style="background: rgba(200,16,46,0.08); color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
+					<span class="w-1.5 h-1.5 rounded-full" style="background: #C8102E;"></span>
+					Water Security
+					<span class="mx-1" style="color: #C8102E; opacity: 0.5;">/</span>
+					Produk Unggulan
 				</div>
-				<h1 class="font-heading text-3xl sm:text-4xl lg:text-[52px] font-extrabold leading-tight" style="letter-spacing: -0.03em; color: #1A1A1A;">
-					Karena Setiap Sentimeter <span style="color: #C8102E;">Berarti</span>
+				
+				<h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tighter text-zinc-950">
+					Karena Setiap Sentimeter <br /> <span style="color: #C8102E;">Berarti</span>
 				</h1>
+				
 				<div>
-					<span class="font-heading text-xl font-bold" style="color: #1A1A1A;">AWLR</span>
-					<span class="text-sm ml-2" style="color: #5C5C5C;">— Automatic Water Level Recorder</span>
+					<span class="font-heading text-2xl font-bold text-zinc-950">AWLR</span>
+					<span class="text-base ml-2 text-zinc-500 font-medium">— Automatic Water Level Recorder</span>
 				</div>
-				<p class="text-base leading-relaxed" style="color: #5C5C5C;">
+				
+				<p class="text-lg leading-relaxed text-zinc-600 max-w-[50ch] font-medium">
 					Pengukuran ketinggian muka air otomatis, 100% online, terkirim langsung ke STESY. Akurasi ±1mm, IP68, solar-powered — siap di pos hidrologi manapun di Indonesia.
 				</p>
-				<div class="flex flex-wrap gap-3">
+				
+				<div class="flex flex-wrap gap-4 pt-2">
 					<a href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20konsultasi%20tentang%20AWLR." target="_blank" rel="noopener"
 						class="inline-flex items-center gap-2 px-6 py-3 rounded-[12px] text-sm font-semibold text-white transition-all hover:scale-[1.02]"
 						style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 4px 12px rgba(200,16,46,0.25);">
@@ -104,32 +110,27 @@
 				</div>
 			</div>
 
-			<!-- Product Visual Mockup -->
-			<div class="relative flex justify-center">
-				<div class="relative w-64 h-80 rounded-3xl overflow-hidden" style="background: linear-gradient(180deg, #0EA5E9 0%, #0369A1 100%); box-shadow: 0 20px 60px rgba(14,165,233,0.2);">
-					<!-- Simulated product visual -->
-					<div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-white">
-						<Waves size={48} class="mb-4 opacity-80" />
-						<span class="font-heading text-3xl font-extrabold">AWLR</span>
-						<span class="text-xs mt-1 opacity-70 uppercase tracking-widest">BL-1100</span>
-						<div class="mt-6 w-full space-y-2">
-							<div class="flex justify-between text-xs opacity-80">
-								<span>Level</span>
-								<span class="font-mono tabular-nums">142.3 m</span>
-							</div>
-							<div class="h-1 rounded-full bg-white/20">
-								<div class="h-full rounded-full bg-white/80" style="width: 67%;"></div>
-							</div>
-							<div class="flex justify-between text-xs opacity-80">
-								<span>Status</span>
-								<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>Online</span>
-							</div>
-						</div>
-					</div>
+			<!-- Product Visual Mockup using Uploaded Image -->
+			<div class="relative flex justify-center lg:justify-end">
+				<div class="relative w-full max-w-[460px] aspect-[4/5] sm:aspect-square rounded-[2rem] overflow-hidden group" style="background: #FAFAFA; border: 1px solid #E5E5E5; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.08), inset 0 2px 4px rgba(255,255,255,1);">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-[#C8102E]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10"></div>
+					<img src={productImage} alt="Varian Produk AWLR Beacon" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+					
+					<!-- Inner Shadow Overlay for depth -->
+					<div class="absolute inset-0 pointer-events-none" style="box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04);"></div>
 				</div>
-				<!-- Float badge -->
-				<div class="absolute -bottom-3 -right-3 px-4 py-2 rounded-xl bg-white text-xs font-semibold" style="border: 1px solid #E5E5E5; box-shadow: 0 4px 12px rgba(0,0,0,0.06); color: #C8102E;">
-					SNI Compliant ✓
+				
+				<!-- Premium Float Badge -->
+				<div class="absolute -bottom-6 -left-4 sm:left-[-10%] px-5 py-4 rounded-2xl bg-white/85 backdrop-blur-xl z-20 hover:-translate-y-1 transition-transform cursor-default" style="border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6);">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#1B7F3A]/10 flex items-center justify-center">
+                            <Check size={18} class="text-[#1B7F3A]" />
+                        </div>
+                        <div class="pr-4">
+                            <span class="block text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-500 mb-0.5">Sertifikasi Resmi</span>
+                            <span class="block text-sm font-extrabold text-zinc-950 font-heading">SNI Compliant</span>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -202,22 +203,57 @@
 	</div>
 </section>
 
-<!-- Varian -->
-<section class="relative py-16 lg:py-20 overflow-hidden" style="background: linear-gradient(180deg, #FAFAFA 0%, #FBE9EC 100%);">
+<!-- Varian (Bento 2.0 Architecture) -->
+<section class="relative py-24 lg:py-32 overflow-hidden" style="background: linear-gradient(180deg, #FAFAFA 0%, #FBE9EC 100%);">
 	<Ornaments variant="dense" />
-	<div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="text-center mb-10">
-			<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">Varian</span>
-			<h2 class="font-heading text-3xl font-bold mt-3" style="color: #1A1A1A;">Pilih Varian yang Tepat</h2>
+	<div class="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+		<div class="max-w-4xl mb-16 space-y-6 text-center mx-auto">
+			<div class="inline-flex items-center justify-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mx-auto" style="background: rgba(200,16,46,0.08); color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
+				<span class="w-1.5 h-1.5 rounded-full" style="background: #C8102E;"></span>
+				Varian Perangkat
+			</div>
+			<h2 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tighter text-zinc-950">
+				Pilih <span style="color: #C8102E;">Varian</span> yang <span class="text-zinc-400">Tepat</span>
+			</h2>
 		</div>
-		<div class="grid md:grid-cols-2 gap-6">
-			{#each variants as v}
-				<div class="p-8 rounded-2xl bg-white hover:shadow-lg transition-all" style="border: 1px solid #E5E5E5;">
-					<span class="font-heading text-2xl font-bold" style="color: #C8102E;">{v.name}</span>
-					<p class="text-sm leading-relaxed mt-3 mb-4" style="color: #5C5C5C;">{v.desc}</p>
-					<div class="flex items-center gap-2 text-xs" style="color: #9A9A9A;">
-						<span class="font-semibold">Cocok untuk:</span>
-						<span>{v.use}</span>
+
+		<div class="grid lg:grid-cols-2 gap-8 lg:gap-10">
+			{#each variants as v, i}
+				<div class="group relative flex flex-col rounded-[2.5rem] bg-white/80 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 cursor-pointer overflow-hidden" 
+					style="border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 20px 40px -15px rgba(200,16,46,0.08), inset 0 2px 4px rgba(255,255,255,0.8);">
+					
+					<!-- Glow Effect -->
+					<div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-gradient-to-bl from-[#C8102E]/10 to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"></div>
+
+					<!-- Image Area -->
+					<div class="relative h-64 sm:h-80 w-full overflow-hidden bg-[#FAFAFA] flex items-center justify-center p-8 z-10" style="border-bottom: 1px solid #E5E5E5;">
+						{#if v.image}
+							<img src={v.image} alt="Varian {v.name}" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-xl" />
+						{:else}
+							<div class="w-full h-full flex flex-col items-center justify-center border-2 border-dashed border-[#E5E5E5] rounded-2xl bg-white/50">
+								<Waves size={32} class="text-zinc-300 mb-2" />
+								<span class="text-xs font-semibold text-zinc-400 uppercase tracking-widest">Gambar Menyusul</span>
+							</div>
+						{/if}
+						<div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none"></div>
+					</div>
+
+					<div class="relative z-10 p-10 sm:p-12 flex-1 flex flex-col">
+						<div class="flex items-center justify-between mb-8">
+							<h3 class="font-heading text-4xl sm:text-5xl font-extrabold text-[#C8102E] tracking-tighter group-hover:scale-105 group-hover:text-[#A50D25] transition-all duration-500 origin-left">{v.name}</h3>
+							<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-[#E5E5E5] group-hover:bg-[#C8102E] group-hover:border-[#C8102E] transition-colors duration-300 shadow-sm">
+								<ArrowRight size={20} class="text-zinc-400 group-hover:text-white transition-colors duration-300 group-hover:-rotate-45" />
+							</div>
+						</div>
+						
+						<p class="text-lg leading-relaxed text-zinc-600 font-medium mb-12 flex-1 max-w-[40ch]">{v.desc}</p>
+						
+						<div class="pt-6" style="border-top: 1px solid #E5E5E5;">
+							<div class="flex flex-col sm:flex-row sm:items-center gap-3">
+								<span class="inline-flex text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400 bg-[#FAFAFA] px-3 py-1.5 rounded-lg border border-[#E5E5E5]">Cocok Untuk</span>
+								<span class="text-sm font-bold text-zinc-950">{v.use}</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			{/each}

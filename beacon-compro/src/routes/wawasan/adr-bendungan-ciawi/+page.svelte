@@ -61,17 +61,22 @@
 	</ul>
 
 	<h2 class="font-heading text-2xl font-bold" style="color: #1A1A1A;">Hasil & Dampak</h2>
-	<div class="grid sm:grid-cols-3 gap-4">
-		{#each [
-			{ value: '0.001mm', label: 'Resolusi deteksi' },
-			{ value: '24/7', label: 'Monitoring non-stop' },
-			{ value: 'Real-time', label: 'Transmisi data' }
-		] as stat}
-			<div class="text-center p-5 rounded-2xl" style="background: #FAFAFA; border: 1px solid #E5E5E5;">
-				<span class="font-heading text-xl font-bold tabular-nums" style="color: #C8102E;">{stat.value}</span>
-				<span class="block text-xs mt-1" style="color: #5C5C5C;">{stat.label}</span>
+	<div class="grid sm:grid-cols-2 gap-4">
+		<div class="p-5 rounded-2xl" style="background: #FAFAFA; border: 1px solid #E5E5E5;">
+			<span class="text-[10px] uppercase tracking-widest font-semibold" style="color: #9A9A9A;">Resolusi deteksi</span>
+			<span class="block font-heading text-2xl font-bold mt-1 font-mono tabular-nums" style="color: #C8102E;">0.001mm</span>
+		</div>
+		<div class="p-5 rounded-2xl" style="background: #FAFAFA; border: 1px solid #E5E5E5;">
+			<span class="text-[10px] uppercase tracking-widest font-semibold" style="color: #9A9A9A;">Monitoring</span>
+			<span class="block font-heading text-2xl font-bold mt-1" style="color: #C8102E;">24/7 Non-stop</span>
+		</div>
+		<div class="sm:col-span-2 p-5 rounded-2xl flex items-center justify-between" style="background: #FBE9EC; border: 1px solid rgba(200,16,46,0.1);">
+			<div>
+				<span class="text-[10px] uppercase tracking-widest font-semibold" style="color: #9A9A9A;">Transmisi data</span>
+				<span class="block font-heading text-lg font-bold mt-0.5" style="color: #C8102E;">Real-time ke STESY</span>
 			</div>
-		{/each}
+			<div class="w-2 h-2 rounded-full animate-pulse" style="background: #1B7F3A;"></div>
+		</div>
 	</div>
 
 	<!-- Testimoni -->

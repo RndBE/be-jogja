@@ -251,6 +251,17 @@
   100% { background-position: 0% 50%; }
 }
 
+@keyframes chartDraw {
+  0% { stroke-dashoffset: 400; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  50% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 /* ===== Utility Classes ===== */
 .animate-float {
   animation: float 4s ease-in-out infinite;

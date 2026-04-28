@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { ArrowRight, Droplets, Cloud, AlertTriangle, Gauge, Monitor } from '@lucide/svelte';
+	import { ArrowUpRight, Droplets, CloudSun, Siren, Activity, MonitorPlay } from '@lucide/svelte';
+	import Ornaments from '$lib/components/Ornaments.svelte';
 
 	let visible = $state(false);
 	let activePillar = $state(0);
@@ -21,188 +22,197 @@
 			name: 'Water Security',
 			hook: 'Amankan setiap meter kubik air. Dari ketinggian, debit, kualitas, hingga deformasi struktur penampungnya.',
 			products: ['AWLR', 'AWGC', 'AFMR', 'ADR', 'AWQR', 'AVWR'],
-			cta: 'Eksplor Water Security',
+			cta: 'Eksplorasi',
 			href: '/solusi/water-security',
-			accent: '#0EA5E9'
+			image: 'https://picsum.photos/seed/hydro1/1200/800'
 		},
 		{
-			icon: Cloud,
+			icon: CloudSun,
 			name: 'Weather Forecast',
 			hook: 'Cuaca tidak bisa dilawan, tapi bisa diprediksi. Stasiun cuaca otomatis untuk pertanian, bendungan, dan aviasi.',
 			products: ['AWR', 'ARR'],
-			cta: 'Eksplor Weather Forecast',
+			cta: 'Eksplorasi',
 			href: '/solusi/weather-forecast',
-			accent: '#F5A623'
+			image: 'https://picsum.photos/seed/weather2/1200/800'
 		},
 		{
-			icon: AlertTriangle,
+			icon: Siren,
 			name: 'Early Warning',
 			hook: 'Detik pertama menentukan nyawa. Sistem peringatan dini multi-level untuk wilayah rawan.',
 			products: ['EWS'],
-			cta: 'Eksplor Early Warning',
+			cta: 'Eksplorasi',
 			href: '/solusi/early-warning',
-			accent: '#E53935'
+			image: 'https://picsum.photos/seed/warning3/1200/800'
 		},
 		{
-			icon: Gauge,
-			name: 'Pressure Measurement',
+			icon: Activity,
+			name: 'Pressure Measure',
 			hook: 'Akurasi tinggi untuk medan ekstrem — geothermal, well testing, infrastruktur kritis.',
 			products: ['APLR'],
-			cta: 'Eksplor Pressure Measurement',
+			cta: 'Eksplorasi',
 			href: '/solusi/pressure-measurement',
-			accent: '#7C3AED'
+			image: 'https://picsum.photos/seed/pressure4/1200/800'
 		},
 		{
-			icon: Monitor,
-			name: 'STESY Application',
+			icon: MonitorPlay,
+			name: 'STESY Platform',
 			hook: 'Platform tunggal yang mengikat semua perangkat menjadi satu dashboard real-time.',
-			products: ['Smart Telemetry System'],
-			cta: 'Pelajari STESY',
+			products: ['Smart Telemetry'],
+			cta: 'Pelajari',
 			href: '/solusi/stesy',
-			accent: '#C8102E'
+			image: 'https://picsum.photos/seed/dashboard5/1200/800'
 		}
 	];
 </script>
 
-<!-- SKILL: Accordion Image Slider style — narrow strips expand on hover/click -->
-<section id="pilar-solusi" class="relative py-20 lg:py-28 bg-white overflow-hidden">
-	<!-- Decorative ornaments — SKILL: Asymmetric for DESIGN_VARIANCE 8 -->
-	<div class="absolute top-10 left-[3%] w-20 h-20 rounded-full pointer-events-none opacity-[0.03]" style="border: 2px solid #C8102E;"></div>
-	<div class="absolute -top-12 -right-12 w-48 h-48 rounded-full pointer-events-none opacity-[0.04]" style="border: 2px solid #C8102E;"></div>
-	<div class="absolute -top-6 -right-6 w-32 h-32 rounded-full pointer-events-none opacity-[0.03]" style="border: 1.5px solid #C8102E;"></div>
+<section id="pilar-solusi" class="relative py-24 lg:py-32 bg-white overflow-hidden">
+	<Ornaments variant="default" />
 
-	<!-- Floating diamond -->
-	<div class="absolute top-[20%] right-[6%] w-8 h-8 rotate-45 rounded-md pointer-events-none opacity-[0.04] animate-float" style="background: #C8102E;"></div>
-	<div class="absolute bottom-[15%] left-[5%] w-6 h-6 rotate-45 pointer-events-none opacity-[0.03]" style="border: 1.5px solid #C8102E;"></div>
-
-	<!-- Dot circle -->
-	<svg class="absolute top-[60%] left-[2%] w-6 h-6 opacity-[0.03] pointer-events-none" viewBox="0 0 24 24" fill="#C8102E">
-		<circle cx="12" cy="12" r="4"/>
-	</svg>
-
-	<!-- Plus sign -->
-	<svg class="absolute bottom-[30%] right-[4%] w-7 h-7 opacity-[0.04] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2">
-		<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-	</svg>
-
-	<!-- Dot grid cluster -->
-	<svg class="absolute top-[35%] left-[1.5%] w-12 h-12 opacity-[0.04] pointer-events-none" viewBox="0 0 40 40" fill="#C8102E">
-		<circle cx="5" cy="5" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="25" cy="5" r="2"/>
-		<circle cx="5" cy="15" r="2"/><circle cx="15" cy="15" r="2"/><circle cx="25" cy="15" r="2"/>
-		<circle cx="5" cy="25" r="2"/><circle cx="15" cy="25" r="2"/><circle cx="25" cy="25" r="2"/>
-	</svg>
-
-	<!-- Triangle -->
-	<svg class="absolute bottom-[20%] right-[10%] w-8 h-8 opacity-[0.03] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="1.5">
-		<polygon points="12,3 22,21 2,21"/>
-	</svg>
-
-	<!-- Wavy line -->
-	<svg class="absolute bottom-[40%] right-[2%] w-16 h-6 opacity-[0.03] pointer-events-none" viewBox="0 0 100 30" fill="none">
-		<path d="M0,15 Q25,30 50,15 T100,15" stroke="#C8102E" stroke-width="1.5" fill="none"/>
-	</svg>
-
-	<!-- Arc -->
-	<svg class="absolute top-[75%] left-[6%] w-10 h-10 opacity-[0.03] pointer-events-none" viewBox="0 0 50 50" fill="none">
-		<path d="M50,0 A50,50 0 0,1 0,50" stroke="#C8102E" stroke-width="1.5" fill="none"/>
-	</svg>
-
-	<!-- Scattered small circles -->
-	<div class="absolute top-[40%] right-[16%] w-2 h-2 rounded-full pointer-events-none opacity-[0.05]" style="background: #C8102E;"></div>
-	<div class="absolute bottom-[8%] left-[12%] w-3 h-3 rounded-full pointer-events-none opacity-[0.03]" style="border: 1.5px solid #C8102E;"></div>
-
-	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<!-- Heading — SKILL: Left-aligned -->
-		<div class="max-w-3xl mb-16 space-y-4">
-			<span class="text-xs font-semibold uppercase tracking-widest" style="color: #C8102E;">5 Pilar Solusi</span>
-			<h2 class="font-heading text-3xl sm:text-4xl lg:text-[48px] font-bold text-[#1A1A1A] leading-[1.1]" style="letter-spacing: -0.025em;">
-				Lima Lini Pertahanan untuk Air, Cuaca, dan Struktur Indonesia
-			</h2>
-			<p class="text-base text-[#5C5C5C] max-w-2xl leading-relaxed">
-				Dari pemantauan ketinggian air bendungan hingga peringatan dini bencana — solusi Beacon dirancang untuk skenario nyata di lapangan Indonesia.
-			</p>
+	<div class="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+		<!-- Left-Aligned Header -->
+		<div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+			<div class="max-w-2xl space-y-6">
+				<div class="flex items-center gap-3">
+					<div class="w-8 h-[1px] bg-[#C8102E]"></div>
+					<span class="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#C8102E]">
+						Infrastructure Defense
+					</span>
+				</div>
+				<h2 class="font-heading text-4xl md:text-5xl lg:text-[56px] font-bold text-zinc-950 leading-[1.05] tracking-tight">
+					Lima Pilar Keamanan <br/><span class="text-zinc-400">Untuk Nusantara.</span>
+				</h2>
+			</div>
+			<div class="max-w-md pb-2">
+				<p class="text-base text-zinc-600 leading-relaxed font-medium">
+					Dari pemantauan debit air ekstrem hingga peringatan dini presisi tinggi — arsitektur telemetri kami dirancang untuk memitigasi risiko tanpa kompromi.
+				</p>
+			</div>
 		</div>
 
-		<!-- Accordion strip layout for desktop, stack for mobile -->
-		<div class="hidden lg:flex gap-2 h-[380px]">
+		<!-- Accordion Desktop -->
+		<div class="hidden lg:flex gap-4 h-[600px] w-full">
 			{#each pillars as pillar, i}
-				<button
-					class="group relative rounded-[20px] overflow-hidden cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					class="group relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
 					style="
-						flex: {activePillar === i ? 4 : 1};
+						flex: {activePillar === i ? 6 : 1};
 						opacity: {visible ? 1 : 0};
-						transform: translateY({visible ? 0 : 30}px);
-						transition: flex 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease-out {i * 0.06}s, transform 0.6s ease-out {i * 0.06}s;
+						transform: translateY({visible ? 0 : 40}px);
+						transition: flex 0.8s cubic-bezier(0.16,1,0.3,1), opacity 0.8s ease-out {i * 0.1}s, transform 0.8s ease-out {i * 0.1}s, box-shadow 0.4s ease;
 					"
-					onclick={() => activePillar = i}
 					onmouseenter={() => activePillar = i}
+					onclick={() => activePillar = i}
 				>
-					<!-- Background gradient -->
-					<div class="absolute inset-0" style="background: linear-gradient(135deg, {pillar.accent}08 0%, {pillar.accent}15 100%);"></div>
-					<div class="absolute inset-0" style="border: 1px solid {activePillar === i ? pillar.accent + '30' : '#E5E5E5'}; border-radius: 20px; transition: border-color 0.3s;"></div>
-
-					<!-- Collapsed state — vertical label -->
-					<div
-						class="absolute inset-0 flex flex-col items-center justify-center gap-4 transition-opacity duration-300"
-						style="opacity: {activePillar === i ? 0 : 1}; pointer-events: {activePillar === i ? 'none' : 'auto'};"
-					>
-						<div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: {pillar.accent}15;">
-							<svelte:component this={pillar.icon} size={22} style="color: {pillar.accent};" />
-						</div>
-						<span class="text-sm font-semibold text-[#1A1A1A] [writing-mode:vertical-lr] rotate-180">{pillar.name}</span>
+					<!-- Background Image -->
+					<div class="absolute inset-0 bg-zinc-900">
+						<img 
+							src={pillar.image} 
+							alt={pillar.name} 
+							class="w-full h-full object-cover transition-all duration-[1200ms] ease-out {activePillar === i ? 'opacity-90 scale-105' : 'opacity-40 scale-100 grayscale'}"
+						/>
 					</div>
 
-					<!-- Expanded state -->
+					<!-- Gradients & Overlays -->
+					<div class="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-900/20 to-zinc-950/90 transition-opacity duration-700 {activePillar === i ? 'opacity-100' : 'opacity-80'}"></div>
+					<div class="absolute inset-0 bg-[#C8102E]/20 mix-blend-multiply transition-opacity duration-700 {activePillar === i ? 'opacity-0' : 'opacity-100'}"></div>
+
+					<!-- Collapsed State (Vertical Text) -->
 					<div
-						class="absolute inset-0 p-8 flex flex-col justify-between transition-opacity duration-300"
-						style="opacity: {activePillar === i ? 1 : 0}; pointer-events: {activePillar === i ? 'auto' : 'none'};"
+						class="absolute inset-0 flex flex-col items-center justify-end pb-12 transition-all duration-500"
+						style="opacity: {activePillar === i ? 0 : 1}; pointer-events: {activePillar === i ? 'none' : 'auto'}; transform: translateY({activePillar === i ? '20px' : '0'});"
 					>
-						<div>
-							<div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style="background: {pillar.accent}15;">
-								<svelte:component this={pillar.icon} size={26} style="color: {pillar.accent};" />
+						<span class="text-sm font-medium text-white/80 tracking-widest [writing-mode:vertical-lr] rotate-180 mb-8 whitespace-nowrap">{pillar.name}</span>
+						<div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-md bg-white/5">
+							<svelte:component this={pillar.icon} size={18} class="text-white/70" />
+						</div>
+					</div>
+
+					<!-- Expanded State (Content) -->
+					<div
+						class="absolute inset-0 p-10 flex flex-col justify-end transition-all duration-700 delay-100"
+						style="opacity: {activePillar === i ? 1 : 0}; pointer-events: {activePillar === i ? 'auto' : 'none'}; transform: translateY({activePillar === i ? '0' : '30px'});"
+					>
+						<div class="max-w-xl">
+							<div class="flex items-center gap-4 mb-6">
+								<div class="w-12 h-12 rounded-2xl bg-[#C8102E] flex items-center justify-center text-white shadow-lg shadow-[#C8102E]/30">
+									<svelte:component this={pillar.icon} size={24} />
+								</div>
+								<h3 class="font-heading text-3xl font-bold text-white tracking-tight">{pillar.name}</h3>
 							</div>
-							<h3 class="font-heading text-2xl font-bold text-[#1A1A1A] mb-3">{pillar.name}</h3>
-							<p class="text-sm text-[#5C5C5C] leading-relaxed max-w-sm mb-4">{pillar.hook}</p>
-							<div class="flex flex-wrap gap-1.5">
-								{#each pillar.products as prod}
-									<span class="text-[10px] px-2.5 py-1 rounded-full font-medium" style="background: {pillar.accent}10; color: {pillar.accent}; border: 1px solid {pillar.accent}20;">{prod}</span>
-								{/each}
+							
+							<p class="text-lg text-zinc-300 leading-relaxed mb-8 font-medium">
+								{pillar.hook}
+							</p>
+							
+							<div class="flex items-center justify-between">
+								<div class="flex flex-wrap gap-2">
+									{#each pillar.products as prod}
+										<span class="text-xs px-3 py-1.5 rounded-md font-mono bg-white/10 text-white backdrop-blur-md border border-white/10">
+											{prod}
+										</span>
+									{/each}
+								</div>
+								
+								<a
+									href={pillar.href}
+									class="group/btn flex items-center gap-2 text-sm font-semibold text-white bg-white/10 hover:bg-white border border-white/20 hover:text-zinc-950 px-5 py-2.5 rounded-full backdrop-blur-md transition-all duration-300"
+								>
+									{pillar.cta}
+									<ArrowUpRight size={16} class="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+								</a>
 							</div>
 						</div>
-						<a
-							href={pillar.href}
-							class="inline-flex items-center gap-2 text-sm font-semibold transition-all hover:gap-3"
-							style="color: {pillar.accent};"
-						>
-							{pillar.cta}
-							<ArrowRight size={14} />
-						</a>
 					</div>
-				</button>
+					
+					<!-- Inner Liquid Glass Border -->
+					<div class="absolute inset-0 rounded-3xl border border-white/10 pointer-events-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]"></div>
+				</div>
 			{/each}
 		</div>
 
-		<!-- Mobile: stacked cards -->
-		<div class="lg:hidden space-y-4">
+		<!-- Mobile Bento Grid -->
+		<div class="lg:hidden grid grid-cols-1 gap-4">
 			{#each pillars as pillar, i}
 				<a
 					href={pillar.href}
-					class="group flex items-center gap-5 p-6 rounded-[16px] bg-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+					class="group relative rounded-3xl overflow-hidden bg-zinc-900 aspect-[4/3] flex flex-col justify-end p-6"
 					style="
-						border: 1px solid #E5E5E5;
 						opacity: {visible ? 1 : 0};
-						transform: translateY({visible ? 0 : 20}px);
-						transition: opacity 0.5s ease-out {i * 0.08}s, transform 0.5s ease-out {i * 0.08}s, box-shadow 0.3s;
+						transform: translateY({visible ? 0 : 30}px);
+						transition: opacity 0.6s ease-out {i * 0.1}s, transform 0.6s ease-out {i * 0.1}s;
 					"
 				>
-					<div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform" style="background: {pillar.accent}12;">
-						<svelte:component this={pillar.icon} size={22} style="color: {pillar.accent};" />
+					<!-- Background Image -->
+					<div class="absolute inset-0">
+						<img 
+							src={pillar.image} 
+							alt={pillar.name} 
+							class="w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 ease-out"
+						/>
 					</div>
-					<div class="flex-1 min-w-0">
-						<h3 class="font-heading text-base font-bold text-[#1A1A1A] group-hover:text-[#C8102E] transition-colors">{pillar.name}</h3>
-						<p class="text-xs text-[#5C5C5C] mt-1 line-clamp-2">{pillar.hook}</p>
+					
+					<div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-900/40 to-transparent pointer-events-none"></div>
+
+					<div class="relative z-10">
+						<div class="w-10 h-10 rounded-xl bg-[#C8102E] flex items-center justify-center text-white shadow-lg mb-4">
+							<svelte:component this={pillar.icon} size={20} />
+						</div>
+						<h3 class="font-heading text-2xl font-bold text-white mb-2">{pillar.name}</h3>
+						<p class="text-sm text-zinc-300 line-clamp-2 mb-4 font-medium">{pillar.hook}</p>
+						
+						<div class="flex flex-wrap gap-1.5">
+							{#each pillar.products.slice(0, 3) as prod}
+								<span class="text-[10px] px-2 py-1 rounded border border-white/20 text-white/90 bg-white/10 backdrop-blur-sm">
+									{prod}
+								</span>
+							{/each}
+						</div>
 					</div>
-					<ArrowRight size={16} class="shrink-0 text-[#C8102E] group-hover:translate-x-1 transition-transform" />
+					
+					<!-- Inner Border -->
+					<div class="absolute inset-0 rounded-3xl border border-white/10 pointer-events-none"></div>
 				</a>
 			{/each}
 		</div>

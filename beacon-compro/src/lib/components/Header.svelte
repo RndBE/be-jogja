@@ -18,13 +18,28 @@
 		FileText,
 		BookOpen,
 		Newspaper,
-		ArrowRight
+		ArrowRight,
+		Building2,
+		Target,
+		Award,
+		Users,
+		Command,
+		MapPin
 	} from '@lucide/svelte';
 
 	let scrollY = $state(0);
 	let mobileMenuOpen = $state(false);
 	let activeMegaMenu = $state<string | null>(null);
 	let scrollProgress = $state(0);
+	
+	let searchOpen = $state(false);
+	let searchQuery = $state('');
+
+	const dummyResults = [
+		{ type: 'Solusi', title: 'Sistem Telemetri AWLR', icon: Droplets },
+		{ type: 'Proyek', title: 'Bendungan Sepaku Semoi IKN', icon: MapPin },
+		{ type: 'Wawasan', title: 'Pentingnya Early Warning System', icon: FileText }
+	];
 
 	function updateScroll() {
 		scrollY = window.scrollY;
@@ -32,9 +47,35 @@
 		scrollProgress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
 	}
 
+	function openSearch() {
+		searchOpen = true;
+		document.body.style.overflow = 'hidden';
+	}
+
+	function closeSearch() {
+		searchOpen = false;
+		searchQuery = '';
+		document.body.style.overflow = '';
+	}
+
 	onMount(() => {
 		window.addEventListener('scroll', updateScroll, { passive: true });
-		return () => window.removeEventListener('scroll', updateScroll);
+		
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+				e.preventDefault();
+				searchOpen ? closeSearch() : openSearch();
+			}
+			if (e.key === 'Escape' && searchOpen) {
+				closeSearch();
+			}
+		};
+		window.addEventListener('keydown', handleKeyDown);
+
+		return () => {
+			window.removeEventListener('scroll', updateScroll);
+			window.removeEventListener('keydown', handleKeyDown);
+		};
 	});
 
 	function toggleMegaMenu(menu: string) {
@@ -104,10 +145,10 @@
 	];
 
 	const aboutLinks = [
-		{ name: 'Profil Perusahaan', href: '/tentang-kami' },
-		{ name: 'Visi & Misi', href: '/tentang-kami#visi-misi' },
-		{ name: 'Sertifikasi', href: '/tentang-kami#sertifikasi' },
-		{ name: 'Klien & Mitra', href: '/tentang-kami#klien' }
+		{ name: 'Profil Perusahaan', desc: 'Sejarah & identitas Beacon', icon: Building2, href: '/tentang-kami', color: '#C8102E' },
+		{ name: 'Visi & Misi', desc: 'Arah & tujuan perusahaan', icon: Target, href: '/tentang-kami#visi-misi', color: '#0EA5E9' },
+		{ name: 'Sertifikasi', desc: 'ISO, SNI & legalitas resmi', icon: Award, href: '/tentang-kami#sertifikasi', color: '#10B981' },
+		{ name: 'Klien & Mitra', desc: 'BBWS, BUMN & institusi', icon: Users, href: '/tentang-kami#klien', color: '#F59E0B' }
 	];
 
 	const insightCategories = [
@@ -198,8 +239,8 @@
 
 					{#if activeMegaMenu === 'solusi'}
 						<div
-							class="absolute top-full left-1/2 -translate-x-1/2 w-[720px] mt-2 p-6 rounded-2xl glass-surface"
-							style="box-shadow: 0 20px 60px rgba(0,0,0,0.08);"
+							class="absolute top-full left-1/2 -translate-x-1/2 w-[720px] mt-2 p-6 rounded-2xl"
+							style="background: #FFFFFF; border: 1px solid rgba(229,229,229,0.7); box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.5);"
 							onmouseleave={closeMegaMenu}
 							role="menu"
 						>
@@ -260,16 +301,31 @@
 
 					{#if activeMegaMenu === 'tentang'}
 						<div
-							class="absolute top-full right-0 w-56 mt-2 p-3 rounded-xl glass-surface"
-							style="box-shadow: 0 12px 40px rgba(0,0,0,0.06);"
+							class="absolute top-full right-0 w-[340px] mt-2 p-4 rounded-2xl"
+							style="background: #FFFFFF; border: 1px solid rgba(229,229,229,0.7); box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.5);"
 							onmouseleave={closeMegaMenu}
 							role="menu"
 						>
-							{#each aboutLinks as link}
-								<a href={link.href} onclick={closeMegaMenu} class="block px-3 py-2 text-sm text-[#1A1A1A] hover:text-[#C8102E] hover:bg-[#FBE9EC] rounded-lg transition-colors" role="menuitem">
-									{link.name}
+							<p class="text-xs font-semibold text-[#5C5C5C] uppercase tracking-widest mb-3">Perusahaan</p>
+							<div class="space-y-1 mb-4">
+								{#each aboutLinks as link}
+									<a href={link.href} onclick={closeMegaMenu} class="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#FBE9EC] transition-colors" role="menuitem">
+										<div class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style="background: {link.color}10;">
+											<svelte:component this={link.icon} size={16} style="color: {link.color};" />
+										</div>
+										<div>
+											<span class="text-sm font-semibold text-[#1A1A1A] group-hover:text-[#C8102E] transition-colors">{link.name}</span>
+											<span class="block text-[11px] text-[#9A9A9A]">{link.desc}</span>
+										</div>
+									</a>
+								{/each}
+							</div>
+
+							<div class="border-t border-[#E5E5E5] pt-3">
+								<a href="/tentang-kami" onclick={closeMegaMenu} class="inline-flex items-center gap-1 text-xs font-semibold text-[#C8102E] hover:underline">
+									Selengkapnya Tentang Beacon <ArrowRight size={11} />
 								</a>
-							{/each}
+							</div>
 						</div>
 					{/if}
 				</div>
@@ -287,8 +343,8 @@
 
 					{#if activeMegaMenu === 'wawasan'}
 						<div
-							class="absolute top-full right-0 w-[340px] mt-2 p-4 rounded-2xl glass-surface"
-							style="box-shadow: 0 20px 60px rgba(0,0,0,0.08);"
+							class="absolute top-full right-0 w-[340px] mt-2 p-4 rounded-2xl"
+							style="background: #FFFFFF; border: 1px solid rgba(229,229,229,0.7); box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.5);"
 							onmouseleave={closeMegaMenu}
 							role="menu"
 						>
@@ -328,8 +384,16 @@
 
 			<!-- Right Actions -->
 			<div class="flex items-center gap-3">
-				<button class="hidden lg:flex p-2 text-[#5C5C5C] hover:text-[#C8102E] transition-colors rounded-lg hover:bg-[#FBE9EC]" aria-label="Search">
-					<Search size={18} />
+				<button 
+					class="hidden lg:flex items-center gap-2 px-3 py-2 text-zinc-500 hover:text-zinc-900 transition-colors rounded-xl bg-zinc-50 hover:bg-zinc-100 border border-zinc-200/80" 
+					aria-label="Search"
+					onclick={openSearch}
+				>
+					<Search size={16} />
+					<span class="text-xs font-medium mr-2">Cari...</span>
+					<kbd class="hidden xl:inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-white border border-zinc-200 text-zinc-400">
+						<Command size={10} /> K
+					</kbd>
 				</button>
 
 				<a
@@ -362,6 +426,80 @@
 		</div>
 	</div>
 </header>
+
+<!-- Command Palette Search Overlay -->
+{#if searchOpen}
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div class="fixed inset-0 z-[100] flex items-start justify-center pt-[10vh] px-4 transition-all duration-300" style="background: rgba(255,255,255,0.4); backdrop-filter: blur(16px);" onclick={closeSearch}>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div 
+			class="w-full max-w-2xl bg-white rounded-[2rem] overflow-hidden flex flex-col relative transition-transform duration-300 scale-100" 
+			style="box-shadow: 0 40px 80px -20px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);"
+			onclick={(e) => e.stopPropagation()}
+		>
+			<!-- Liquid Glass Inner Border -->
+			<div class="absolute inset-0 border border-white/50 pointer-events-none rounded-[2rem] z-20"></div>
+
+			<!-- Search Input Area -->
+			<div class="relative flex items-center px-6 py-5 border-b border-zinc-100">
+				<Search size={22} class="text-zinc-400 shrink-0" />
+				<!-- svelte-ignore a11y_autofocus -->
+				<input 
+					type="text" 
+					class="flex-1 bg-transparent border-none outline-none px-4 text-lg font-heading font-medium text-zinc-900 placeholder:text-zinc-400 focus:ring-0"
+					placeholder="Cari solusi, proyek, atau wawasan..."
+					bind:value={searchQuery}
+					autofocus
+				/>
+				<button class="p-1.5 text-zinc-400 hover:text-zinc-900 transition-colors rounded-lg hover:bg-zinc-100 shrink-0" onclick={closeSearch}>
+					<X size={20} />
+				</button>
+			</div>
+
+			<!-- Search Results Area -->
+			<div class="p-4 overflow-y-auto max-h-[50vh] bg-zinc-50/50">
+				{#if searchQuery.trim() !== ''}
+					<div class="px-2 py-8 text-center">
+						<div class="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center mx-auto mb-3">
+							<Search size={20} class="text-zinc-400" />
+						</div>
+						<p class="text-sm font-medium text-zinc-900">Mencari "{searchQuery}"...</p>
+						<p class="text-xs text-zinc-500 mt-1">Ini adalah simulasi dummy tampilan pencarian.</p>
+					</div>
+				{:else}
+					<div class="px-2 mb-3 mt-1">
+						<span class="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-zinc-400">Pencarian Populer</span>
+					</div>
+					<div class="space-y-1">
+						{#each dummyResults as result}
+							<button class="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-white hover:shadow-sm border border-transparent hover:border-zinc-200/60 transition-all text-left group">
+								<div class="w-10 h-10 rounded-[10px] bg-white border border-zinc-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform" style="color: #C8102E;">
+									<svelte:component this={result.icon} size={18} />
+								</div>
+								<div class="flex-1">
+									<p class="text-sm font-bold text-zinc-900 group-hover:text-[#C8102E] transition-colors">{result.title}</p>
+									<p class="text-[11px] font-medium text-zinc-500 mt-0.5">{result.type}</p>
+								</div>
+								<ArrowRight size={14} class="text-zinc-300 group-hover:text-[#C8102E] group-hover:translate-x-1 transition-all" />
+							</button>
+						{/each}
+					</div>
+				{/if}
+			</div>
+
+			<!-- Footer -->
+			<div class="px-6 py-3 bg-zinc-100/50 border-t border-zinc-100 flex items-center justify-between text-[11px] font-medium text-zinc-500">
+				<div class="flex items-center gap-4">
+					<span class="flex items-center gap-1.5"><kbd class="px-1.5 py-0.5 rounded bg-white border border-zinc-200 font-mono text-[10px] text-zinc-700 shadow-sm">↑↓</kbd> Navigasi</span>
+					<span class="flex items-center gap-1.5"><kbd class="px-1.5 py-0.5 rounded bg-white border border-zinc-200 font-mono text-[10px] text-zinc-700 shadow-sm">Enter</kbd> Pilih</span>
+				</div>
+				<span class="flex items-center gap-1.5"><kbd class="px-1.5 py-0.5 rounded bg-white border border-zinc-200 font-mono text-[10px] text-zinc-700 shadow-sm">Esc</kbd> Tutup</span>
+			</div>
+		</div>
+	</div>
+{/if}
 
 <!-- Mobile Menu Overlay -->
 {#if mobileMenuOpen}
