@@ -2,6 +2,9 @@
 	import { onMount } from 'svelte';
 	import { ArrowRight, MapPin, Radio } from '@lucide/svelte';
 	import Ornaments from '$lib/components/Ornaments.svelte';
+	import type { FeaturedProject } from '$lib/api';
+
+	let { featuredProjects = undefined }: { featuredProjects?: FeaturedProject[] | null } = $props();
 
 	let visible = $state(false);
 	let activeProject = $state(0);
@@ -10,49 +13,47 @@
 	let stationCount = $state(0);
 	let mapReady = $state(false);
 
-	// Project data
-	const projects = [
-		{
-			name: 'Telemetri ADR Bendungan Ciawi-Sukamahi',
-			year: '2024',
-			client: 'BBWS Ciliwung-Cisadane',
-			products: ['ADR', 'STESY'],
-			location: 'Bogor, Jawa Barat',
-			coords: [-6.6708, 106.8813] as [number, number]
-		},
-		{
-			name: 'Telemetri AWLR Bendungan Sepaku IKN',
-			year: '2024',
-			client: 'BWS Kalimantan IV',
-			products: ['AWLR', 'STESY'],
-			location: 'Kalimantan Timur',
-			coords: [-0.9002, 116.7682] as [number, number]
-		},
-		{
-			name: 'Telemetri APLR Kawah Ijen',
-			year: '2023',
-			client: 'PT Medco Energi',
-			products: ['APLR'],
-			location: 'Banyuwangi, Jawa Timur',
-			coords: [-8.0468, 114.1676] as [number, number]
-		},
-		{
-			name: 'Telemetri AWGC Sungai Cisadane BKC 3',
-			year: '2023',
-			client: 'BBWS Ciliwung-Cisadane',
-			products: ['AWGC', 'STESY'],
-			location: 'Tangerang, Banten',
-			coords: [-6.1607, 106.6295] as [number, number]
-		},
-		{
-			name: 'Sistem Telemetri Bendungan Keureuto',
-			year: '2023',
-			client: 'BWS Sumatera I',
-			products: ['AWLR', 'ADR', 'STESY'],
-			location: 'Aceh',
-			coords: [4.9376, 97.1524] as [number, number]
-		}
+	// Coordinate lookup for map flyTo (not from API — geo data is local)
+	const coordsMap: Record<string, [number, number]> = {
+		'Bogor, Jawa Barat': [-6.6708, 106.8813],
+		'Kalimantan Timur': [-0.9002, 116.7682],
+		'Jawa Timur': [-8.0468, 114.1676],
+		'Tangerang, Banten': [-6.1607, 106.6295],
+		'Aceh': [4.9376, 97.1524],
+		'Aceh Utara': [4.9376, 97.1524],
+		'Purworejo, Jawa Tengah': [-7.7193, 110.0047],
+		'Banyumas, Jawa Tengah': [-7.4832, 109.1404],
+		'Jawa Barat': [-6.9175, 107.6191],
+		'Jawa Tengah': [-7.1508, 110.1403],
+		'DKI Jakarta': [-6.2088, 106.8456],
+		'Yogyakarta': [-7.7956, 110.3695],
+		'Nusa Tenggara Barat': [-8.6529, 117.3616],
+		'Nusa Tenggara Timur': [-8.6574, 121.0794],
+		'Jakarta': [-6.2088, 106.8456],
+	};
+
+	// Fallback hardcoded projects
+	const fallbackProjects = [
+		{ name: 'Telemetri ADR Bendungan Ciawi-Sukamahi', year: '2024', client: 'BBWS Ciliwung-Cisadane', products: ['ADR', 'STESY'], location: 'Bogor, Jawa Barat', coords: [-6.6708, 106.8813] as [number, number] },
+		{ name: 'Telemetri AWLR Bendungan Sepaku IKN', year: '2024', client: 'BWS Kalimantan IV', products: ['AWLR', 'STESY'], location: 'Kalimantan Timur', coords: [-0.9002, 116.7682] as [number, number] },
+		{ name: 'Telemetri APLR Kawah Ijen', year: '2023', client: 'PT Medco Energi', products: ['APLR'], location: 'Banyuwangi, Jawa Timur', coords: [-8.0468, 114.1676] as [number, number] },
+		{ name: 'Telemetri AWGC Sungai Cisadane BKC 3', year: '2023', client: 'BBWS Ciliwung-Cisadane', products: ['AWGC', 'STESY'], location: 'Tangerang, Banten', coords: [-6.1607, 106.6295] as [number, number] },
+		{ name: 'Sistem Telemetri Bendungan Keureuto', year: '2023', client: 'BWS Sumatera I', products: ['AWLR', 'ADR', 'STESY'], location: 'Aceh', coords: [4.9376, 97.1524] as [number, number] }
 	];
+
+	// Build projects from API data or fallback
+	const projects = $derived(
+		featuredProjects && featuredProjects.length > 0
+			? featuredProjects.map((p) => ({
+					name: p.name,
+					year: p.year,
+					client: p.client_name ?? '',
+					products: [p.category_name ?? ''].filter(Boolean),
+					location: p.location,
+					coords: coordsMap[p.location] ?? [-2.5, 118] as [number, number]
+				}))
+			: fallbackProjects
+	);
 
 	onMount(async () => {
 		// Intersection Observer for section visibility
@@ -118,8 +119,7 @@
 						.addTo(mapInstance!)
 						.bindPopup(
 							`<div style="font-family: 'Outfit', sans-serif; padding: 2px 0;">
-								<strong style="font-size: 12px; color: #1A1A1A;">${station.nama_pos}</strong><br/>
-								<span style="font-size: 10px; color: #5C5C5C; font-family: 'JetBrains Mono', monospace;">${station.latitude.toFixed(4)}, ${station.longitude.toFixed(4)}</span>
+								<strong style="font-size: 12px; color: #1A1A1A;">${station.nama_pos}</strong>
 							</div>`,
 							{ closeButton: false }
 						);
@@ -298,22 +298,13 @@
 	:global(.beacon-pulse-marker) {
 		background: rgba(200, 16, 46, 0.7);
 		border-radius: 50%;
-		box-shadow: 0 0 0 0 rgba(200, 16, 46, 0.4);
-		animation: beaconPulse 2.5s ease-out infinite;
 		border: none !important;
 	}
 	:global(.beacon-featured-marker) {
 		background: #C8102E;
 		border: 2.5px solid white !important;
 		border-radius: 50%;
-		box-shadow: 0 2px 8px rgba(200, 16, 46, 0.4), 0 0 0 0 rgba(200, 16, 46, 0.3);
-		animation: beaconPulse 2s ease-out infinite;
-	}
-
-	@keyframes beaconPulse {
-		0% { box-shadow: 0 0 0 0 rgba(200, 16, 46, 0.4); }
-		70% { box-shadow: 0 0 0 6px rgba(200, 16, 46, 0); }
-		100% { box-shadow: 0 0 0 0 rgba(200, 16, 46, 0); }
+		box-shadow: 0 2px 8px rgba(200, 16, 46, 0.4);
 	}
 
 	/* Leaflet popup customization */

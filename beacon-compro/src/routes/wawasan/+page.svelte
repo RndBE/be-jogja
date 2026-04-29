@@ -112,8 +112,9 @@
 </svelte:head>
 
 <!-- Hero: Asymmetric Split Layout (SKILL Rule 3: ANTI-CENTER BIAS) -->
-<section class="relative pt-40 pb-24 lg:pt-48 lg:pb-32 overflow-hidden" style="background: linear-gradient(165deg, #FFFFFF 0%, #FFF5F6 45%, #FBE9EC 100%);">
-	<Ornaments variant="hero" />
+<section class="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden bg-[#FAFAFA] border-b border-[#E5E5E5]">
+	<!-- Subtle Grid Pattern -->
+	<div class="absolute inset-0 z-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
 
 	<div class="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 w-full">
 		<div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -196,7 +197,6 @@
 		</div>
 	</div>
 
-	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);"><svg viewBox="0 0 1440 50" fill="none" preserveAspectRatio="none" class="w-full h-10"><path d="M0,50 L0,25 Q360,0 720,25 T1440,25 L1440,50 Z" fill="white"/></svg></div>
 </section>
 
 <!-- Filter + Grid Section -->

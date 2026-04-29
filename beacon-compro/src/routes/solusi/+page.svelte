@@ -1,6 +1,30 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { ArrowRight, Droplets, Cloud, AlertTriangle, Gauge, Monitor, ChevronRight, MessageCircle } from '@lucide/svelte';
+	import { ArrowRight, ChevronRight, MessageCircle } from '@lucide/svelte';
+	import { solutions as fallbackSolutions } from '$lib/data/solutions';
+
+	let { data } = $props();
+
+	// Merge API data with editorial metadata (icons, taglines, stats, colors)
+	const solutions = $derived(
+		data.apiSolutions && data.apiSolutions.length > 0
+			? data.apiSolutions.map((s: any) => {
+					const fallback = fallbackSolutions.find(f => f.href === `/solusi/${s.slug}`);
+					return {
+						icon: fallback?.icon ?? fallbackSolutions[0].icon,
+						name: s.name,
+						tagline: fallback?.tagline ?? s.description,
+						desc: fallback?.desc ?? s.description,
+						products: fallback?.products ?? [],
+						href: `/solusi/${s.slug}`,
+						color: s.color || fallback?.color || '#0EA5E9',
+						stat: fallback?.stat ?? String(s.sub_solutions_count),
+						statLabel: fallback?.statLabel ?? 'Produk',
+						accent: fallback?.accent ?? 'from-sky-500/10 to-blue-500/5'
+					};
+				})
+			: fallbackSolutions
+	);
 
 	let mounted = $state(false);
 	let activePillar = $state(0);
@@ -21,59 +45,6 @@
 		mouseX = e.clientX - rect.left;
 		mouseY = e.clientY - rect.top;
 	}
-
-	const solutions = [
-		{
-			icon: Droplets, name: 'Water Security',
-			tagline: 'Amankan setiap meter kubik air',
-			desc: 'Dari ketinggian, debit, kualitas, hingga deformasi struktur penampungnya. Enam perangkat dirancang supaya Anda tidak pernah terlambat lagi.',
-			products: ['AWLR', 'AWGC', 'AFMR', 'ADR', 'AWQR', 'AVWR'],
-			href: '/solusi/water-security',
-			color: '#0EA5E9',
-			stat: '6', statLabel: 'Produk',
-			accent: 'from-sky-500/10 to-blue-500/5'
-		},
-		{
-			icon: Cloud, name: 'Weather Forecast',
-			tagline: 'Pantau cuaca akurat',
-			desc: 'Cuaca tidak bisa dilawan, tapi bisa diprediksi. Stasiun cuaca otomatis untuk pertanian, bendungan, dan aviasi.',
-			products: ['AWR', 'ARR'],
-			href: '/solusi/weather-forecast',
-			color: '#6366F1',
-			stat: '2', statLabel: 'Produk',
-			accent: 'from-indigo-500/10 to-violet-500/5'
-		},
-		{
-			icon: AlertTriangle, name: 'Early Warning',
-			tagline: 'Cegah bencana',
-			desc: 'Detik pertama menentukan nyawa. Sistem peringatan dini multi-level untuk wilayah rawan banjir, longsor, dan bencana hidrometeorologi.',
-			products: ['EWS'],
-			href: '/solusi/early-warning',
-			color: '#F59E0B',
-			stat: '4', statLabel: 'Level Alert',
-			accent: 'from-amber-500/10 to-yellow-500/5'
-		},
-		{
-			icon: Gauge, name: 'Pressure Measurement',
-			tagline: 'Tekanan presisi tinggi',
-			desc: 'Akurasi tinggi untuk medan ekstrem — geothermal, well testing, infrastruktur kritis. Terbukti di Kawah Ijen.',
-			products: ['APLR'],
-			href: '/solusi/pressure-measurement',
-			color: '#10B981',
-			stat: '1', statLabel: 'Produk',
-			accent: 'from-emerald-500/10 to-green-500/5'
-		},
-		{
-			icon: Monitor, name: 'STESY Application',
-			tagline: 'Platform monitoring 1 pintu',
-			desc: 'Platform tunggal yang mengikat semua perangkat menjadi satu dashboard real-time. Cross-platform, multi-tenant, AI-powered.',
-			products: ['Smart Telemetry System'],
-			href: '/solusi/stesy',
-			color: '#C8102E',
-			stat: '47', statLabel: 'Stasiun Aktif',
-			accent: 'from-red-500/10 to-rose-500/5'
-		}
-	];
 </script>
 
 <svelte:head>
@@ -82,7 +53,9 @@
 </svelte:head>
 
 <!-- Hero — SKILL: Asymmetric, gradient text, animated ornaments -->
-<section class="relative min-h-[85dvh] flex flex-col justify-center overflow-hidden" style="background: linear-gradient(168deg, #FFFFFF 0%, #FFF8F9 30%, #FBE9EC 65%, #F5D2D8 100%);">
+<section class="relative min-h-[85dvh] flex flex-col justify-center overflow-hidden bg-[#FAFAFA] border-b border-[#E5E5E5]">
+	<!-- Subtle Grid Pattern -->
+	<div class="absolute inset-0 z-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
 	<!-- Animated ambient orbs -->
 	<div class="absolute top-[15%] right-[12%] w-[300px] h-[300px] rounded-full pointer-events-none animate-breathe" style="background: radial-gradient(circle, rgba(200,16,46,0.06) 0%, transparent 70%);"></div>
 	<div class="absolute bottom-[20%] left-[8%] w-[200px] h-[200px] rounded-full pointer-events-none animate-breathe" style="animation-delay: 2s; background: radial-gradient(circle, rgba(14,165,233,0.05) 0%, transparent 70%);"></div>
@@ -214,12 +187,6 @@
 		</div>
 	</div>
 
-	<!-- Wave divider -->
-	<div class="pointer-events-none mt-auto" style="margin-bottom: -1px;">
-		<svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none" class="w-full h-12">
-			<path d="M0,60 L0,30 Q360,0 720,30 T1440,30 L1440,60 Z" fill="white"/>
-		</svg>
-	</div>
 </section>
 
 <!-- Solutions Deep Dive — SKILL: Spotlight cards with hover glow -->
@@ -299,11 +266,9 @@
 								</div>
 							</div>
 
-							<!-- CTA -->
-							<div class="flex items-center gap-2 text-sm font-semibold group-hover:gap-3 transition-all {i === 4 ? '' : 'mt-0'}" style="color: #C8102E;">
-								Eksplor {sol.name}
-								<ArrowRight size={15} class="group-hover:translate-x-1 transition-transform" />
-							</div>
+							<span class="flex items-center gap-2 text-sm font-semibold btn-tactile px-5 py-2.5 rounded-xl transition-all" style="background: {sol.color}; color: white; box-shadow: 0 4px 14px {sol.color}40;">
+								Pelajari <ArrowRight size={16} />
+							</span>
 						</div>
 					</div>
 				</a>
@@ -311,78 +276,33 @@
 		</div>
 	</div>
 </section>
+<!-- Premium Floating CTA (SKILL: Cockpit Mode) -->
+<section class="relative py-20 bg-white">
+	<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="relative overflow-hidden rounded-[2.5rem] bg-zinc-950 p-10 sm:p-16 lg:p-20 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-12 group" style="box-shadow: 0 40px 80px -20px rgba(0,0,0,0.25), inset 0 2px 4px rgba(255,255,255,0.05);">
+			
+			<!-- Subtle glow / Liquid Glass refraction -->
+			<div class="absolute inset-0 bg-gradient-to-br from-[#C8102E]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"></div>
+			<div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#C8102E]/10 blur-3xl pointer-events-none z-0"></div>
 
-<!-- Trust / Summary Strip -->
-<section class="py-16 relative overflow-hidden" style="background: #FAFAFA;">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-			{#each [
-				{ number: '14', label: 'Tahun Pengalaman', color: '#C8102E' },
-				{ number: '300+', label: 'Proyek Selesai', color: '#0EA5E9' },
-				{ number: '98.7%', label: 'Uptime Rata-rata', color: '#10B981' },
-				{ number: '30+', label: 'BBWS & BUMN', color: '#6366F1' }
-			] as stat}
-				<div class="p-6 rounded-[20px] glass-premium" style="border: 1px solid rgba(229,229,229,0.5);">
-					<span class="font-heading text-3xl sm:text-4xl font-extrabold tabular-nums leading-none" style="color: {stat.color};">{stat.number}</span>
-					<span class="block text-[11px] uppercase tracking-widest font-medium mt-2" style="color: #5C5C5C;">{stat.label}</span>
-				</div>
-			{/each}
-		</div>
-	</div>
-</section>
-
-<!-- CTA — SKILL: Dark themed premium -->
-<section class="relative py-20 lg:py-28 overflow-hidden" style="background: #1A0508;">
-	<!-- Animated orbs -->
-	<div class="absolute top-0 right-[10%] w-[400px] h-[400px] rounded-full pointer-events-none animate-breathe" style="background: radial-gradient(circle, rgba(200,16,46,0.12) 0%, transparent 60%);"></div>
-	<div class="absolute bottom-0 left-[5%] w-[300px] h-[300px] rounded-full pointer-events-none animate-breathe" style="animation-delay: 3s; background: radial-gradient(circle, rgba(200,16,46,0.08) 0%, transparent 60%);"></div>
-
-	<!-- Noise overlay -->
-	<div class="absolute inset-0 pointer-events-none opacity-[0.35]" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/></filter><rect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22 opacity=%220.08%22/></svg>');"></div>
-
-	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="grid lg:grid-cols-12 gap-8 items-center">
-			<div class="lg:col-span-7">
-				<span class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: rgba(200,16,46,0.12); color: #FF6B6B; border: 1px solid rgba(200,16,46,0.2);">
-					<span class="w-2 h-2 rounded-full bg-[#FF6B6B] animate-pulse-dot"></span>
-					Siap Memulai
+			<div class="relative z-10 text-center lg:text-left flex-1 max-w-2xl">
+				<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6" style="background: rgba(200,16,46,0.15); color: #FF4D6D; border: 1px solid rgba(200,16,46,0.3);">
+					<span class="w-1.5 h-1.5 rounded-full" style="background: #FF4D6D; box-shadow: 0 0 10px #FF4D6D;"></span>
+					Next Step
 				</span>
-				<h2 class="font-heading text-3xl sm:text-4xl lg:text-[48px] font-bold leading-[1.08] mb-5" style="letter-spacing: -0.03em; color: white;">
-					Butuh Konfigurasi yang Tepat untuk Proyek Anda?
-				</h2>
-				<p class="text-base leading-relaxed max-w-[50ch]" style="color: rgba(255,255,255,0.5);">
-					Tim engineer kami akan bantu memilih produk dan konfigurasi yang optimal — gratis, tanpa komitmen.
-				</p>
+				<h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white tracking-tighter mb-4">Mulai Proyek dengan Beacon</h2>
+				<p class="text-lg text-zinc-400 font-medium">Tim engineer kami akan merancang arsitektur telemetri yang tepat dan menghitung kebutuhan riil proyek Anda.</p>
 			</div>
-			<div class="lg:col-span-5 flex flex-col gap-4">
-				<a
-					href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20konsultasi%20tentang%20solusi%20telemetri."
-					target="_blank" rel="noopener"
-					class="group flex items-center gap-4 p-5 rounded-[20px] btn-tactile transition-all duration-300"
-					style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 8px 24px rgba(200,16,46,0.3);"
-				>
-					<div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: rgba(255,255,255,0.15);">
-						<MessageCircle size={20} class="text-white" />
-					</div>
-					<div class="flex-1">
-						<span class="text-sm font-semibold block text-white">Konsultasi via WhatsApp</span>
-						<span class="text-xs" style="color: rgba(255,255,255,0.5);">Respons cepat di jam kerja</span>
-					</div>
-					<ArrowRight size={16} class="text-white/40 group-hover:translate-x-1 transition-transform" />
+
+			<div class="relative z-10 flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto shrink-0">
+				<a href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20konsultasi%20tentang%20Beacon%20untuk%20proyek%20saya." target="_blank" rel="noopener"
+					class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full text-sm font-bold text-zinc-950 bg-white transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)] btn-tactile">
+					<MessageCircle size={18} />
+					Konsultasi Beacon
 				</a>
-				<a
-					href="/kontak"
-					class="group flex items-center gap-4 p-5 rounded-[20px] btn-tactile transition-all duration-300"
-					style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);"
-				>
-					<div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: rgba(255,255,255,0.06);">
-						<ArrowRight size={20} style="color: rgba(255,255,255,0.6);" />
-					</div>
-					<div class="flex-1">
-						<span class="text-sm font-semibold block text-white">Form Konsultasi</span>
-						<span class="text-xs" style="color: rgba(255,255,255,0.35);">Isi form dan kami yang hubungi Anda</span>
-					</div>
-					<ChevronRight size={16} class="text-white/20 group-hover:translate-x-1 transition-transform" />
+				<a href="/solusi" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full text-sm font-bold text-white transition-all hover:bg-zinc-800 btn-tactile" style="border: 1px solid rgba(255,255,255,0.15);">
+					<ArrowRight size={18} />
+					Jelajahi Produk Lain
 				</a>
 			</div>
 		</div>

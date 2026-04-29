@@ -2,6 +2,9 @@
 	import { onMount } from 'svelte';
 	import { ArrowUpRight, Droplets, CloudSun, Siren, Activity, MonitorPlay } from '@lucide/svelte';
 	import Ornaments from '$lib/components/Ornaments.svelte';
+	import type { SolutionSummary } from '$lib/api';
+
+	let { solutions = undefined }: { solutions?: SolutionSummary[] | null } = $props();
 
 	let visible = $state(false);
 	let activePillar = $state(0);
@@ -16,53 +19,55 @@
 		return () => observer.disconnect();
 	});
 
-	const pillars = [
-		{
-			icon: Droplets,
-			name: 'Water Security',
-			hook: 'Amankan setiap meter kubik air. Dari ketinggian, debit, kualitas, hingga deformasi struktur penampungnya.',
-			products: ['AWLR', 'AWGC', 'AFMR', 'ADR', 'AWQR', 'AVWR'],
-			cta: 'Eksplorasi',
-			href: '/solusi/water-security',
-			image: 'https://picsum.photos/seed/hydro1/1200/800'
-		},
-		{
-			icon: CloudSun,
-			name: 'Weather Forecast',
-			hook: 'Cuaca tidak bisa dilawan, tapi bisa diprediksi. Stasiun cuaca otomatis untuk pertanian, bendungan, dan aviasi.',
-			products: ['AWR', 'ARR'],
-			cta: 'Eksplorasi',
-			href: '/solusi/weather-forecast',
-			image: 'https://picsum.photos/seed/weather2/1200/800'
-		},
-		{
-			icon: Siren,
-			name: 'Early Warning',
-			hook: 'Detik pertama menentukan nyawa. Sistem peringatan dini multi-level untuk wilayah rawan.',
-			products: ['EWS'],
-			cta: 'Eksplorasi',
-			href: '/solusi/early-warning',
-			image: 'https://picsum.photos/seed/warning3/1200/800'
-		},
-		{
-			icon: Activity,
-			name: 'Pressure Measure',
-			hook: 'Akurasi tinggi untuk medan ekstrem — geothermal, well testing, infrastruktur kritis.',
-			products: ['APLR'],
-			cta: 'Eksplorasi',
-			href: '/solusi/pressure-measurement',
-			image: 'https://picsum.photos/seed/pressure4/1200/800'
-		},
-		{
-			icon: MonitorPlay,
-			name: 'STESY Platform',
-			hook: 'Platform tunggal yang mengikat semua perangkat menjadi satu dashboard real-time.',
-			products: ['Smart Telemetry'],
-			cta: 'Pelajari',
-			href: '/solusi/stesy',
-			image: 'https://picsum.photos/seed/dashboard5/1200/800'
-		}
+	// Icon map for each solution slug
+	const iconMap: Record<string, any> = {
+		'water-security': Droplets,
+		'weather-forecast': CloudSun,
+		'early-warning': Siren,
+		'pressure-measurement': Activity,
+		'stesy': MonitorPlay
+	};
+
+	// Hardcoded hooks per slug (editorial copy — not from DB)
+	const hookMap: Record<string, string> = {
+		'water-security': 'Amankan setiap meter kubik air. Dari ketinggian, debit, kualitas, hingga deformasi struktur penampungnya.',
+		'weather-forecast': 'Cuaca tidak bisa dilawan, tapi bisa diprediksi. Stasiun cuaca otomatis untuk pertanian, bendungan, dan aviasi.',
+		'early-warning': 'Detik pertama menentukan nyawa. Sistem peringatan dini multi-level untuk wilayah rawan.',
+		'pressure-measurement': 'Akurasi tinggi untuk medan ekstrem — geothermal, well testing, infrastruktur kritis.',
+		'stesy': 'Platform tunggal yang mengikat semua perangkat menjadi satu dashboard real-time.'
+	};
+
+	// Sub-solution abbreviation labels per solution
+	const productLabelsMap: Record<string, string[]> = {
+		'water-security': ['AWLR', 'AWGC', 'AFMR', 'ADR', 'AWQR', 'AVWR'],
+		'weather-forecast': ['AWR', 'ARR'],
+		'early-warning': ['EWS'],
+		'pressure-measurement': ['APLR'],
+		'stesy': ['Smart Telemetry']
+	};
+
+	// Fallback hardcoded data
+	const fallbackPillars = [
+		{ icon: Droplets, name: 'Water Security', hook: hookMap['water-security'], products: productLabelsMap['water-security'], cta: 'Eksplorasi', href: '/solusi/water-security', image: 'https://picsum.photos/seed/hydro1/1200/800' },
+		{ icon: CloudSun, name: 'Weather Forecast', hook: hookMap['weather-forecast'], products: productLabelsMap['weather-forecast'], cta: 'Eksplorasi', href: '/solusi/weather-forecast', image: 'https://picsum.photos/seed/weather2/1200/800' },
+		{ icon: Siren, name: 'Early Warning', hook: hookMap['early-warning'], products: productLabelsMap['early-warning'], cta: 'Eksplorasi', href: '/solusi/early-warning', image: 'https://picsum.photos/seed/warning3/1200/800' },
+		{ icon: Activity, name: 'Pressure Measure', hook: hookMap['pressure-measurement'], products: productLabelsMap['pressure-measurement'], cta: 'Eksplorasi', href: '/solusi/pressure-measurement', image: 'https://picsum.photos/seed/pressure4/1200/800' },
+		{ icon: MonitorPlay, name: 'STESY Platform', hook: hookMap['stesy'], products: productLabelsMap['stesy'], cta: 'Pelajari', href: '/solusi/stesy', image: 'https://picsum.photos/seed/dashboard5/1200/800' }
 	];
+
+	const pillars = $derived(
+		solutions && solutions.length > 0
+			? solutions.map((s) => ({
+					icon: iconMap[s.slug] ?? Activity,
+					name: s.name,
+					hook: hookMap[s.slug] ?? s.description,
+					products: productLabelsMap[s.slug] ?? [],
+					cta: s.slug === 'stesy' ? 'Pelajari' : 'Eksplorasi',
+					href: `/solusi/${s.slug}`,
+					image: s.thumbnail ?? `https://picsum.photos/seed/${s.slug}/1200/800`
+				}))
+			: fallbackPillars
+	);
 </script>
 
 <section id="pilar-solusi" class="relative py-24 lg:py-32 bg-white overflow-hidden">

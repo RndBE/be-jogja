@@ -23,21 +23,24 @@
 			title: 'Dimengerti oleh Tangan Indonesia',
 			desc: 'Hak cipta sendiri. R&D di Yogyakarta. Tim teknis yang bisa datang ke lokasi proyek dalam hitungan hari, bukan bulan.',
 			metric: '14',
-			metricLabel: 'Tahun R&D'
+			metricLabel: 'Tahun R&D',
+			image: 'https://picsum.photos/seed/beacon-rd/800/1000'
 		},
 		{
 			icon: ShieldCheck,
 			title: 'Terbukti di Infrastruktur Strategis',
 			desc: 'Dipasang di Bendungan IKN, Ciawi-Sukamahi, Cipanas, Keureuto, Kawah Ijen, dan ratusan titik lainnya. Bertahan di iklim tropis, banjir, dan suhu ekstrem.',
 			metric: '300+',
-			metricLabel: 'Titik Proyek'
+			metricLabel: 'Titik Proyek',
+			image: 'https://picsum.photos/seed/beacon-infra/800/1000'
 		},
 		{
 			icon: Network,
 			title: 'Satu Ekosistem, Real-time',
 			desc: 'Semua perangkat tersambung ke STESY — platform monitoring tunggal, lintas Windows, macOS, iOS, Android. Plus integrasi CCTV.',
 			metric: '98.7%',
-			metricLabel: 'Avg Uptime'
+			metricLabel: 'Avg Uptime',
+			image: 'https://picsum.photos/seed/beacon-network/800/1000'
 		}
 	];
 </script>
@@ -76,19 +79,24 @@
 					<!-- Inner Glass Border -->
 					<div class="absolute inset-0 border border-white pointer-events-none rounded-[2rem] z-20"></div>
 
-					<!-- Metric block — alternating side -->
-					<div
-						class="w-full md:w-1/3 p-8 lg:p-12 flex flex-col justify-center items-center text-center relative overflow-hidden {i % 2 === 1 ? 'md:order-2' : ''}"
-						style="background: linear-gradient(135deg, #FFF8F9 0%, #FBE9EC 100%);"
-					>
-						<!-- Decorative background elements -->
-						<div class="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-2xl opacity-60 pointer-events-none"></div>
-						<div class="absolute inset-y-0 {i % 2 === 1 ? 'left-0' : 'right-0'} w-[1px] bg-gradient-to-b from-transparent via-[#C8102E]/20 to-transparent"></div>
+					<!-- Metric block — alternating side with Image Background -->
+					<div class="w-full md:w-1/3 p-8 lg:p-12 flex flex-col justify-center items-center text-center relative overflow-hidden {i % 2 === 1 ? 'md:order-2' : ''}">
+						<!-- Image Background with Zoom on Hover -->
+						<div class="absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110" style="background-image: url('{prop.image}');"></div>
+						
+						<!-- Dark Tint Overlay -->
+						<div class="absolute inset-0 bg-zinc-950/60 group-hover:bg-zinc-950/50 transition-colors duration-700"></div>
+						
+						<!-- Red Brand Gradient Fade from Center -->
+						<div class="absolute inset-0 bg-gradient-to-t from-[#C8102E]/40 via-transparent to-transparent opacity-80 mix-blend-multiply"></div>
 
-						<span class="relative z-10 font-heading text-5xl lg:text-[72px] font-extrabold text-[#C8102E] tracking-tighter tabular-nums leading-none mb-3">
+						<!-- Inner Refraction Line for Liquid Glass feel -->
+						<div class="absolute inset-0 border border-white/10 pointer-events-none z-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]"></div>
+
+						<span class="relative z-10 font-heading text-5xl lg:text-[72px] font-extrabold text-white tracking-tighter tabular-nums leading-none mb-3 drop-shadow-xl">
 							{prop.metric}
 						</span>
-						<span class="relative z-10 text-[13px] font-mono font-bold uppercase tracking-[0.2em] text-[#C8102E]/80">
+						<span class="relative z-10 text-[13px] font-mono font-bold uppercase tracking-[0.2em] text-white/90 drop-shadow-md">
 							{prop.metricLabel}
 						</span>
 					</div>

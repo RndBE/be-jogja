@@ -3,6 +3,7 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import WhatsAppFloat from '$lib/components/WhatsAppFloat.svelte';
+	import Chatbot from '$lib/components/Chatbot.svelte';
 
 	let { children } = $props();
 </script>
@@ -18,4 +19,5 @@
 	</main>
 	<Footer />
 	<WhatsAppFloat />
+	<Chatbot />
 </div>

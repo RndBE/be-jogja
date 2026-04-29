@@ -6,20 +6,6 @@
 	const waUrl = `https://wa.me/628112850986?text=${encodeURIComponent(contextMessage)}`;
 </script>
 
-<a
-	href={waUrl}
-	target="_blank"
-	rel="noopener"
-	class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 group"
-	style="background: #C8102E; box-shadow: 0 4px 20px rgba(200,16,46,0.4);"
-	aria-label="Chat WhatsApp"
->
-	<MessageCircle size={24} class="group-hover:animate-bounce" />
-
-	<!-- Pulse ring -->
-	<span class="absolute inset-0 rounded-full animate-ping opacity-20" style="background: #C8102E;"></span>
-</a>
-
 <!-- Mobile Sticky CTA Strip -->
 <div class="fixed bottom-0 left-0 right-0 z-40 lg:hidden" style="backdrop-filter: blur(12px); background: rgba(255,255,255,0.95); border-top: 1px solid #E5E5E5;">
 	<div class="flex h-[60px]">

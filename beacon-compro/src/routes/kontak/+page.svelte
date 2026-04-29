@@ -23,13 +23,15 @@
 </svelte:head>
 
 <!-- Hero — SKILL: Left-aligned -->
-<section class="relative py-24 lg:py-32 overflow-hidden" style="background: linear-gradient(168deg, #FFFFFF 0%, #FFF8F9 30%, #FBE9EC 65%, #F5D2D8 100%);">
+<section class="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden bg-[#FAFAFA] border-b border-[#E5E5E5]">
+	<!-- Subtle Grid Pattern -->
+	<div class="absolute inset-0 z-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
 	<div class="absolute -top-16 -left-16 w-56 h-56 rounded-full pointer-events-none opacity-[0.05]" style="border: 2px solid #C8102E;"></div>
 	<div class="absolute top-[40%] right-[8%] w-8 h-8 rotate-45 pointer-events-none opacity-[0.04] animate-float" style="background: #C8102E;"></div>
 
 	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="max-w-3xl">
-			<span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: rgba(255,255,255,0.65); backdrop-filter: blur(12px); color: #C8102E; border: 1px solid rgba(200,16,46,0.12);">Kontak</span>
+			<span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: rgba(200,16,46,0.06); color: #C8102E; border: 1px solid rgba(200,16,46,0.12);">Kontak</span>
 			<h1 class="font-heading text-3xl sm:text-4xl lg:text-[56px] font-extrabold leading-[1.08] mb-6" style="letter-spacing: -0.03em; color: #1A1A1A;">
 				Bicara Langsung dengan <span style="color: #C8102E;">Engineer</span> Kami
 			</h1>
@@ -37,10 +39,6 @@
 				Konsultasi pertama selalu gratis. Kami akan bantu memetakan kebutuhan, menyarankan konfigurasi, dan memberikan estimasi.
 			</p>
 		</div>
-	</div>
-
-	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);">
-		<svg viewBox="0 0 1440 50" fill="none" preserveAspectRatio="none" class="w-full h-10"><path d="M0,50 L0,25 Q360,0 720,25 T1440,25 L1440,50 Z" fill="white"/></svg>
 	</div>
 </section>
 
@@ -197,20 +195,74 @@
 	</div>
 </section>
 
-<!-- Map -->
-<section class="bg-[#FAFAFA] pb-8">
+<!-- Map — SKILL: Premium Liquid Glass Overlay & Monospace Coordinates -->
+<section class="relative bg-[#FAFAFA] py-20 lg:py-28">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="rounded-[20px] overflow-hidden" style="border: 1px solid #E5E5E5; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+		<!-- Section Header -->
+		<div class="text-center mb-12 sm:mb-16">
+			<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4" style="background: rgba(200,16,46,0.06); color: #C8102E; border: 1px solid rgba(200,16,46,0.12);">
+				<span class="w-1.5 h-1.5 rounded-full bg-[#C8102E] mr-2"></span>
+				Headquarters
+			</span>
+			<h2 class="font-heading text-3xl md:text-4xl font-extrabold mb-4" style="letter-spacing: -0.02em; color: #1A1A1A;">
+				Kunjungi Fasilitas <span style="color: #C8102E;">Kami</span>
+			</h2>
+			<p class="text-sm sm:text-base max-w-[55ch] mx-auto leading-relaxed" style="color: #5C5C5C;">
+				Pusat riset, perakitan, dan pengujian kalibrasi seluruh perangkat telemetri Beacon Engineering berada di Yogyakarta.
+			</p>
+		</div>
+
+		<div class="relative w-full h-[500px] sm:h-[600px] rounded-[2.5rem] overflow-hidden group" style="border: 1px solid #E5E5E5; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.05);">
+			
+			<!-- Map Iframe with Premium Grayscale Filter -->
 			<iframe
-				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.2!2d110.44!3d-7.72!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNDMnMTIuMCJTIDExMMKwMjYnMjQuMCJF!5e0!3m2!1sid!2sid!4v1"
-				width="100%"
-				height="350"
-				style="border: 0;"
+				src="https://maps.google.com/maps?q=-7.7741691,110.4498592+(PT.+Arta+Teknologi+Comunindo)&t=&z=17&ie=UTF8&iwloc=&output=embed"
+				class="absolute inset-0 w-full h-full transition-all duration-700"
+				style="border: 0; filter: grayscale(100%) contrast(1.1) opacity(0.85);"
 				allowfullscreen
 				loading="lazy"
 				referrerpolicy="no-referrer-when-downgrade"
 				title="Lokasi Beacon Engineering"
 			></iframe>
+
+			<!-- Gradient Overlay to blend map edges -->
+			<div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_60px_rgba(250,250,250,0.8)]"></div>
+
+			<!-- Technical Overlay Panel (Bento / Cockpit Style) -->
+			<div class="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 p-6 rounded-[1.5rem] bg-white/80 backdrop-blur-2xl max-w-[320px] w-full transition-transform duration-500 hover:-translate-y-2 cursor-default pointer-events-auto" style="border: 1px solid rgba(255,255,255,1); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.8);">
+				<div class="flex items-center gap-4 mb-5">
+					<div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background: rgba(200,16,46,0.08); border: 1px solid rgba(200,16,46,0.15);">
+						<MapPin size={20} style="color: #C8102E;" />
+					</div>
+					<div>
+						<span class="block text-[10px] font-mono font-bold uppercase tracking-[0.2em]" style="color: #C8102E;">HQ Location</span>
+						<span class="block text-base font-extrabold text-zinc-950 font-heading">Beacon Engineering</span>
+					</div>
+				</div>
+				
+				<div class="space-y-3 pt-5" style="border-top: 1px dashed rgba(200,16,46,0.2);">
+					<div class="flex justify-between items-center">
+						<span class="text-xs font-semibold text-zinc-500">Status Fasilitas</span>
+						<span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md" style="background: rgba(34,197,94,0.1); color: #16A34A;">
+							<span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse-dot"></span>
+							Active
+						</span>
+					</div>
+					<div class="flex justify-between items-center">
+						<span class="text-xs font-semibold text-zinc-500">Koordinat</span>
+						<span class="text-xs font-mono font-bold text-zinc-950 bg-zinc-100 px-2 py-1 rounded-md">7.7741°S 110.4498°E</span>
+					</div>
+					<div class="flex justify-between items-center">
+						<span class="text-xs font-semibold text-zinc-500">Elevasi (AMSL)</span>
+						<span class="text-xs font-mono font-bold text-zinc-950 bg-zinc-100 px-2 py-1 rounded-md">~ 150m</span>
+					</div>
+				</div>
+				
+				<a href="https://www.google.com/maps/place/PT.+Arta+Teknologi+Comunindo+(Beacon+Engineering)/@-7.7741691,110.4498592,17z/data=!3m1!4b1!4m6!3m5!1s0x2e7a5a4b345e07f3:0x512d4db928ceedd!8m2!3d-7.7741691!4d110.4498592!16s%2Fg%2F1pzpp1qd0?entry=ttu" target="_blank" rel="noopener" class="mt-6 w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold transition-all btn-tactile group" style="background: white; border: 1px solid #E5E5E5; color: #1A1A1A; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+					Buka di Google Maps
+					<ArrowRight size={14} class="text-zinc-400 group-hover:text-[#C8102E] group-hover:translate-x-1 transition-all" />
+				</a>
+			</div>
 		</div>
 	</div>
 </section>

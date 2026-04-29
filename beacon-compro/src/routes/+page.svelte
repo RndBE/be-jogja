@@ -9,6 +9,9 @@
 	import ServicesSection from '$lib/components/sections/ServicesSection.svelte';
 	import InsightsSection from '$lib/components/sections/InsightsSection.svelte';
 	import CtaSection from '$lib/components/sections/CtaSection.svelte';
+
+	let { data } = $props();
+	const hp = data.homepage;
 </script>
 
 <svelte:head>
@@ -18,10 +21,10 @@
 
 <HeroSection />
 <WhyBeaconSection />
-<PillarSection />
+<PillarSection solutions={hp?.solutions} />
 <StesySection />
-<ProjectsSection />
-<ClientLogosSection />
+<ProjectsSection featuredProjects={hp?.featured_projects} />
+<ClientLogosSection clients={hp?.clients} />
 <TestimonialsSection />
 <ServicesSection />
 <InsightsSection />

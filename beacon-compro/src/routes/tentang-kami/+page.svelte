@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Target, Eye, Building2, MapPin, ArrowUpRight } from '@lucide/svelte';
+	import { Target, Eye, Building2, MapPin, ArrowUpRight, ShieldCheck, Award, FileBadge, CheckCircle2 } from '@lucide/svelte';
 	import Ornaments from '$lib/components/Ornaments.svelte';
 
 	let timelineVisible = $state(false);
@@ -47,8 +47,9 @@
 </svelte:head>
 
 <!-- Hero — SKILL: Left-aligned, asymmetric, premium gradients -->
-<section class="relative py-24 lg:py-36 min-h-[85dvh] flex flex-col justify-center overflow-hidden" style="background: linear-gradient(168deg, #FFFFFF 0%, #FFF8F9 30%, #FBE9EC 65%, #F5D2D8 100%);">
-	<Ornaments variant="hero" />
+<section class="relative py-24 lg:py-36 min-h-[75dvh] flex flex-col justify-center overflow-hidden bg-[#FAFAFA] border-b border-[#E5E5E5]">
+	<!-- Subtle Grid Pattern -->
+	<div class="absolute inset-0 z-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
 
 	<div class="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 w-full">
 		<div class="max-w-4xl">
@@ -219,6 +220,105 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Sertifikasi & HAKI -->
+<section id="sertifikasi" class="py-24 lg:py-32 bg-[#FAFAFA] border-y border-[#E5E5E5] relative overflow-hidden">
+	<!-- Ornamental Background -->
+	<div class="absolute inset-0 z-0 opacity-30 mix-blend-multiply" style="background: radial-gradient(circle at top right, rgba(200,16,46,0.05), transparent 40%), radial-gradient(circle at bottom left, rgba(200,16,46,0.05), transparent 40%);"></div>
+
+	<div class="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+		<div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+			<div class="max-w-2xl">
+				<div class="flex items-center gap-3 mb-6">
+					<div class="w-8 h-[1px] bg-[#C8102E]"></div>
+					<span class="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#C8102E]">Standar Kualitas</span>
+				</div>
+				<h2 class="font-heading text-4xl sm:text-5xl font-extrabold tracking-tighter text-zinc-950 leading-[1.05]">Sertifikasi & <span style="color: #C8102E;">HAKI</span></h2>
+			</div>
+			<p class="text-lg font-medium leading-relaxed text-zinc-500 max-w-md">Berkomitmen pada standar kualitas dan keamanan internasional dalam setiap lini produk telemetri kami.</p>
+		</div>
+
+		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+			<!-- ISO 9001 -->
+			<div class="group relative p-8 rounded-[2rem] bg-white border border-[#E5E5E5] hover:border-[#C8102E]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(200,16,46,0.1)]">
+				<div class="absolute inset-0 bg-gradient-to-br from-white to-zinc-50/50 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+				
+				<div class="relative z-10 flex flex-col h-full">
+					<div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 mb-6 transition-transform duration-500 group-hover:scale-110 shadow-sm" style="background: #FBE9EC;">
+						<Award size={24} style="color: #C8102E;" />
+					</div>
+					<h3 class="font-heading text-2xl font-bold text-zinc-950 tracking-tight mb-2">ISO 9001:2025</h3>
+					<span class="inline-block text-[11px] font-mono font-bold uppercase tracking-widest text-[#C8102E] mb-4">Manajemen Mutu</span>
+					<p class="text-sm font-medium leading-relaxed text-zinc-500 flex-1">Standar internasional untuk sistem manajemen mutu R&D dan manufaktur perangkat.</p>
+					
+					<div class="pt-6 mt-6 border-t border-[#E5E5E5] flex items-center gap-2">
+						<CheckCircle2 size={16} class="text-[#1B7F3A]" />
+						<span class="text-xs font-bold text-zinc-900">Certified</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ISO 27001 -->
+			<div class="group relative p-8 rounded-[2rem] bg-white border border-[#E5E5E5] hover:border-[#C8102E]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(200,16,46,0.1)]">
+				<div class="absolute inset-0 bg-gradient-to-br from-white to-zinc-50/50 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+				
+				<div class="relative z-10 flex flex-col h-full">
+					<div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 mb-6 transition-transform duration-500 group-hover:scale-110 shadow-sm" style="background: #FBE9EC;">
+						<ShieldCheck size={24} style="color: #C8102E;" />
+					</div>
+					<h3 class="font-heading text-2xl font-bold text-zinc-950 tracking-tight mb-2">ISO 27001</h3>
+					<span class="inline-block text-[11px] font-mono font-bold uppercase tracking-widest text-[#C8102E] mb-4">Keamanan Informasi</span>
+					<p class="text-sm font-medium leading-relaxed text-zinc-500 flex-1">Jaminan keamanan data tingkat tinggi untuk arsitektur STESY dan perlindungan data klien.</p>
+					
+					<div class="pt-6 mt-6 border-t border-[#E5E5E5] flex items-center gap-2">
+						<CheckCircle2 size={16} class="text-[#1B7F3A]" />
+						<span class="text-xs font-bold text-zinc-900">Certified</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ISO 30141 -->
+			<div class="group relative p-8 rounded-[2rem] bg-white border border-[#E5E5E5] hover:border-[#C8102E]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(200,16,46,0.1)]">
+				<div class="absolute inset-0 bg-gradient-to-br from-white to-zinc-50/50 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+				
+				<div class="relative z-10 flex flex-col h-full">
+					<div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 mb-6 transition-transform duration-500 group-hover:scale-110 shadow-sm" style="background: #FBE9EC;">
+						<Target size={24} style="color: #C8102E;" />
+					</div>
+					<h3 class="font-heading text-2xl font-bold text-zinc-950 tracking-tight mb-2">ISO 30141</h3>
+					<span class="inline-block text-[11px] font-mono font-bold uppercase tracking-widest text-[#C8102E] mb-4">IoT Architecture</span>
+					<p class="text-sm font-medium leading-relaxed text-zinc-500 flex-1">Kepatuhan arsitektur standar sistem Internet of Things (IoT) berskala enterprise.</p>
+					
+					<div class="pt-6 mt-6 border-t border-[#E5E5E5] flex items-center gap-2">
+						<CheckCircle2 size={16} class="text-[#1B7F3A]" />
+						<span class="text-xs font-bold text-zinc-900">Certified</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- HAKI -->
+			<div class="group relative p-8 rounded-[2rem] bg-zinc-950 border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
+				<div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+				<div class="absolute -top-10 -right-10 w-32 h-32 bg-[#C8102E]/20 blur-2xl rounded-full pointer-events-none"></div>
+				
+				<div class="relative z-10 flex flex-col h-full">
+					<div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 mb-6 transition-transform duration-500 group-hover:scale-110 border border-white/10" style="background: rgba(255,255,255,0.05);">
+						<FileBadge size={24} class="text-white" />
+					</div>
+					<h3 class="font-heading text-2xl font-bold text-white tracking-tight mb-2">HAKI Terdaftar</h3>
+					<span class="inline-block text-[11px] font-mono font-bold uppercase tracking-widest text-zinc-400 mb-4">Kekayaan Intelektual</span>
+					<p class="text-sm font-medium leading-relaxed text-zinc-400 flex-1">Desain industri dan algoritma perangkat lunak kami telah terlindungi secara hukum nasional.</p>
+					
+					<div class="pt-6 mt-6 border-t border-white/10 flex items-center gap-2">
+						<CheckCircle2 size={16} class="text-emerald-500" />
+						<span class="text-xs font-bold text-white">Registered</span>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </section>

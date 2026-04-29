@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Ornaments from '$lib/components/Ornaments.svelte';
+	import type { ClientSummary } from '$lib/api';
+
+	let { clients = undefined }: { clients?: ClientSummary[] | null } = $props();
 
 	let visible = $state(false);
 
@@ -15,7 +18,7 @@
 	});
 
 	// Row 1: Government agencies — all use Kementerian PUPR logo
-	const row1 = [
+	const fallbackRow1 = [
 		{ name: 'BBWS Ciliwung-Cisadane', initials: 'CC', color: '1A56DB' },
 		{ name: 'BBWS Serayu Opak', initials: 'SO', color: '1A56DB' },
 		{ name: 'BBWS Brantas', initials: 'BR', color: '1A56DB' },
@@ -37,7 +40,7 @@
 	];
 
 	// Row 2: BUMN & Private sector
-	const row2 = [
+	const fallbackRow2 = [
 		{ name: 'Waskita Karya', initials: 'WK', color: 'C8102E' },
 		{ name: 'Hutama Karya', initials: 'HK', color: '1E40AF' },
 		{ name: 'Brantas Abipraya', initials: 'BA', color: '0E7490' },
@@ -55,6 +58,33 @@
 		{ name: 'Multi Fabrindo Gemilang', initials: 'MF', color: '7C3AED' },
 		{ name: 'UGM', initials: 'UGM', color: '1A56DB' }
 	];
+
+	// If API clients available, split into 2 rows; otherwise use fallback
+	function getInitials(name: string): string {
+		return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+	}
+
+	const row1 = $derived(
+		clients && clients.length > 0
+			? clients.slice(0, Math.ceil(clients.length / 2)).map(c => ({
+					name: c.name,
+					initials: getInitials(c.name),
+					color: '1A56DB',
+					logo: c.logo
+				}))
+			: fallbackRow1
+	);
+
+	const row2 = $derived(
+		clients && clients.length > 0
+			? clients.slice(Math.ceil(clients.length / 2)).map(c => ({
+					name: c.name,
+					initials: getInitials(c.name),
+					color: '0E7490',
+					logo: c.logo
+				}))
+			: fallbackRow2
+	);
 
 	function avatarUrl(initials: string, color: string): string {
 		return `https://ui-avatars.com/api/?name=${initials}&background=${color}&color=fff&size=80&bold=true&font-size=0.4&format=svg`;

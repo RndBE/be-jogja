@@ -2,6 +2,9 @@
 	import { onMount } from 'svelte';
 	import { ArrowRight, Check, MessageCircle, Monitor, Smartphone, Laptop, Shield, BarChart3, Camera, Bell } from '@lucide/svelte';
 	import Ornaments from '$lib/components/Ornaments.svelte';
+	import { stesyFeatures as features } from '$lib/data/solutions';
+
+	let { data } = $props();
 
 	let visible = $state(false);
 	onMount(() => {
@@ -13,15 +16,6 @@
 		if (el) observer.observe(el);
 		return () => observer.disconnect();
 	});
-
-	const features = [
-		{ icon: Monitor, title: 'Multi-Dashboard', desc: 'Monitoring semua perangkat dari satu layar. Grafik historis, real-time data, dan peta interaktif.' },
-		{ icon: Smartphone, title: 'Cross-Platform', desc: 'Windows, macOS, iOS, Android — akses monitoring dari mana saja, kapan saja.' },
-		{ icon: Camera, title: 'Integrasi CCTV', desc: 'Pantau visual lokasi bersamaan dengan data telemetri. Satu platform, satu pandangan.' },
-		{ icon: Bell, title: 'Alert Otomatis', desc: 'Notifikasi SMS, email, dan push notification ketika data mencapai threshold kritis.' },
-		{ icon: BarChart3, title: 'Analytics & Reporting', desc: 'Analisis tren, generate laporan, dan export data untuk kebutuhan regulasi dan audit.' },
-		{ icon: Shield, title: 'Multi-Tenant Security', desc: 'Setiap organisasi punya ruang data tersendiri. Enkripsi end-to-end, role-based access.' }
-	];
 </script>
 
 <svelte:head>
@@ -29,37 +23,38 @@
 	<meta name="description" content="STESY: platform monitoring tunggal yang menyatukan semua perangkat telemetri Beacon dalam satu dashboard real-time." />
 </svelte:head>
 
-<section class="relative py-20 lg:py-32 overflow-hidden" style="background: linear-gradient(165deg, #FFFFFF 0%, #FFF5F6 30%, #FBE9EC 60%, #F8D7DC 100%);">
-	<Ornaments variant="hero" />
+<section class="relative pt-24 pb-16 lg:pt-32 lg:pb-24 bg-[#FAFAFA] border-b border-[#E5E5E5] overflow-hidden">
+	<!-- Subtle Grid Pattern -->
+	<div class="absolute inset-0 z-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
+
 	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="max-w-3xl">
-		<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-6" style="background: #FBE9EC; color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
-			<Monitor size={12} />
-			STESY Platform
-		</div>
-		<h1 class="font-heading text-3xl sm:text-4xl lg:text-[56px] font-extrabold leading-tight mb-6" style="letter-spacing: -0.03em; color: #1A1A1A;">
-			Satu Layar untuk <span style="color: #C8102E;">Semua Aset</span> Anda
-		</h1>
-		<div class="mb-6">
-			<span class="font-heading text-xl font-bold" style="color: #1A1A1A;">STESY</span>
-			<span class="text-sm ml-2" style="color: #5C5C5C;">— Smart Telemetry System</span>
-		</div>
-		<p class="text-lg max-w-2xl mx-auto mb-8" style="color: #5C5C5C;">
-			Ketinggian air Bendungan A, curah hujan Stasiun B, deformasi Lereng C, status pintu air Bendung D — semua di satu dashboard. Real-time. Dari mana saja.
-		</p>
-		<div class="flex flex-wrap justify-center gap-3">
-			<a href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20minta%20demo%20STESY." target="_blank" rel="noopener"
-				class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold text-white transition-all hover:scale-[1.02]"
-				style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 4px 16px rgba(200,16,46,0.25);">
-				<MessageCircle size={15} /> Minta Demo STESY
-			</a>
-			<a href="#stesy-features" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold transition-all hover:bg-[#FBE9EC]" style="border: 1.5px solid #E5E5E5; color: #1A1A1A;">
-				Lihat Fitur <ArrowRight size={14} />
-			</a>
+			<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-6" style="background: #FBE9EC; color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
+				<Monitor size={12} />
+				STESY Platform
 			</div>
+			
+			<h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.1] mb-6" style="color: #1A1A1A;">
+				Satu Layar untuk <br/>
+				<span style="color: #C8102E;">Semua Aset Anda.</span>
+			</h1>
+			
+			<p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-[65ch] mb-8">
+				Ketinggian air Bendungan A, curah hujan Stasiun B, deformasi Lereng C, status pintu air Bendung D — semua di satu dashboard. Real-time. Dari mana saja.
+			</p>
+			
+			<div class="flex flex-wrap gap-3">
+				<a href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20minta%20demo%20STESY." target="_blank" rel="noopener"
+					class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold text-white transition-all hover:scale-[1.02]"
+					style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 4px 16px rgba(200,16,46,0.25);">
+					<MessageCircle size={15} /> Minta Demo STESY
+				</a>
+				<a href="#stesy-features" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold transition-all hover:bg-[#FBE9EC]" style="border: 1.5px solid #E5E5E5; color: #1A1A1A;">
+					Lihat Fitur <ArrowRight size={14} />
+				</a>
+			</div>
+		</div>
 	</div>
-	</div>
-	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);"><svg viewBox="0 0 1440 50" fill="none" preserveAspectRatio="none" class="w-full h-10"><path d="M0,50 L0,25 Q360,0 720,25 T1440,25 L1440,50 Z" fill="white"/></svg></div>
 </section>
 
 <!-- Dashboard Mockup -->
