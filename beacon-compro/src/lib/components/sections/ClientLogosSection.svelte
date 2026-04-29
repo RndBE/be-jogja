@@ -114,9 +114,9 @@
 				<div class="flex-shrink-0 mx-2.5">
 					<div class="flex items-center gap-3 px-5 py-3 rounded-xl border border-[#E5E5E5] bg-[#FAFAFA] hover:border-[#C8102E] hover:bg-[#FBE9EC] transition-all duration-300 cursor-default group">
 						<img
-							src={avatarUrl(client.initials, client.color)}
+							src={'logo' in client && client.logo ? client.logo : avatarUrl(client.initials, client.color)}
 							alt={client.name}
-							class="w-7 h-7 rounded-lg shrink-0"
+							class="w-7 h-7 rounded-lg shrink-0 object-contain"
 							loading="lazy"
 						/>
 						<span class="text-xs font-medium text-[#5C5C5C] group-hover:text-[#C8102E] transition-colors whitespace-nowrap">{client.name}</span>
@@ -135,9 +135,9 @@
 				<div class="flex-shrink-0 mx-2.5">
 					<div class="flex items-center gap-3 px-5 py-3 rounded-xl border border-[#E5E5E5] bg-[#FAFAFA] hover:border-[#C8102E] hover:bg-[#FBE9EC] transition-all duration-300 cursor-default group">
 						<img
-							src={avatarUrl(client.initials, client.color)}
+							src={'logo' in client && client.logo ? client.logo : avatarUrl(client.initials, client.color)}
 							alt={client.name}
-							class="w-7 h-7 rounded-lg shrink-0"
+							class="w-7 h-7 rounded-lg shrink-0 object-contain"
 							loading="lazy"
 						/>
 						<span class="text-xs font-medium text-[#5C5C5C] group-hover:text-[#C8102E] transition-colors whitespace-nowrap">{client.name}</span>

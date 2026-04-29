@@ -30,29 +30,74 @@
 	<meta name="description" content="Enam perangkat Water Security Beacon: AWLR, AWGC, AFMR, ADR, AWQR, AVWR — amankan setiap meter kubik air Indonesia." />
 </svelte:head>
 
-<!-- Hero -->
-<section class="relative pt-24 pb-16 lg:pt-32 lg:pb-24 bg-[#FAFAFA] border-b border-[#E5E5E5] overflow-hidden">
-	<!-- Subtle Grid Pattern -->
-	<div class="absolute inset-0 z-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- Hero — SKILL: Split Screen, DESIGN_VARIANCE: 8, MOTION_INTENSITY: 6 -->
+<section class="relative pt-24 pb-0 lg:pt-32 bg-[#FAFAFA] border-b border-[#E5E5E5] overflow-hidden">
+	<!-- Subtle Dot Grid -->
+	<div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
+	<!-- Decorative circle top-left -->
+	<div class="absolute -top-24 -left-24 w-80 h-80 rounded-full pointer-events-none opacity-[0.06]" style="border: 2px solid #C8102E;"></div>
+	<!-- Warm glow behind illustration -->
+	<div class="absolute top-1/2 right-0 -translate-y-1/2 w-[55%] h-full pointer-events-none opacity-[0.035] rounded-full" style="background: radial-gradient(ellipse at center, #C8102E 0%, transparent 70%);"></div>
 
 	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="max-w-3xl">
-			<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-6" style="background: #FBE9EC; color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
-				<Droplets size={12} />
-				Water Security
+		<!-- SKILL Rule 3: Split-screen — text left, illustration right -->
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 items-center">
+
+			<!-- Left: Text -->
+			<div class="flex flex-col justify-center pb-16 lg:pb-24 lg:pr-12 xl:pr-16">
+				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-6 w-fit" style="background: #FBE9EC; color: #C8102E; border: 1px solid rgba(200,16,46,0.15);">
+					<Droplets size={12} />
+					Water Security
+				</div>
+
+				<h1 class="font-heading text-4xl md:text-5xl lg:text-[52px] xl:text-[60px] font-extrabold tracking-tighter leading-[1.06] mb-6" style="color: #1A1A1A;">
+					Air adalah Hidup. <br/>
+					<span style="color: #C8102E;">Dan Risiko.</span>
+				</h1>
+
+				<p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-[52ch] mb-4">
+					Banjir, kekeringan, jebolnya tanggul, pencemaran sungai, deformasi bendungan — semua bermula dari satu hal: data yang terlambat.
+				</p>
+				<p class="text-base md:text-lg font-semibold" style="color: #C8102E;">
+					Enam perangkat Water Security Beacon dirancang supaya Anda tidak pernah terlambat lagi.
+				</p>
+
+				<!-- Stat strip -->
+				<div class="flex items-center gap-8 mt-10 pt-8 border-t border-[#E5E5E5]">
+					<div>
+						<p class="font-heading text-2xl font-extrabold tabular-nums" style="color: #1A1A1A; letter-spacing: -0.03em;">6</p>
+						<p class="text-xs font-medium mt-0.5" style="color: #7A7A7A;">Perangkat</p>
+					</div>
+					<div class="w-px h-8 bg-[#E5E5E5]"></div>
+					<div>
+						<p class="font-heading text-2xl font-extrabold tabular-nums" style="color: #1A1A1A; letter-spacing: -0.03em;">IP67</p>
+						<p class="text-xs font-medium mt-0.5" style="color: #7A7A7A;">Water Resistant</p>
+					</div>
+					<div class="w-px h-8 bg-[#E5E5E5]"></div>
+					<div>
+						<p class="font-heading text-2xl font-extrabold tabular-nums" style="color: #1A1A1A; letter-spacing: -0.03em;">24/7</p>
+						<p class="text-xs font-medium mt-0.5" style="color: #7A7A7A;">Real-time Data</p>
+					</div>
+				</div>
 			</div>
-			
-			<h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.1] mb-6" style="color: #1A1A1A;">
-				Air adalah Hidup. <br/>
-				<span style="color: #C8102E;">Dan Risiko.</span>
-			</h1>
-			
-			<p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-[65ch] mb-4">
-				Banjir, kekeringan, jebolnya tanggul, pencemaran sungai, deformasi bendungan — semua bermula dari satu hal yang sama: data yang terlambat, atau tidak ada sama sekali.
-			</p>
-			<p class="text-base md:text-lg font-semibold" style="color: #C8102E;">
-				Enam perangkat Water Security Beacon dirancang supaya Anda tidak pernah terlambat lagi.
-			</p>
+
+			<!-- Right: Illustration — float animation -->
+			<div class="relative flex items-center justify-center lg:justify-end -mt-8 lg:-mt-16">
+				<!-- Faint dashed ring -->
+				<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+					<div class="w-[85%] h-[85%] rounded-full opacity-[0.07]" style="border: 1.5px dashed #C8102E;"></div>
+				</div>
+				<!-- Illustration -->
+				<div class="ws-hero-float w-full max-w-[700px] lg:max-w-none lg:w-[145%] xl:w-[160%] lg:translate-x-12">
+					<img
+						src="/ilustrasi_water_security.webp"
+						alt="Ilustrasi sistem monitoring Water Security Beacon Engineering"
+						class="w-full h-auto object-contain select-none"
+						draggable="false"
+					/>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </section>
@@ -179,3 +224,43 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	/* SKILL MOTION_INTENSITY: 6 — Hero illustration gentle float */
+	.ws-hero-float {
+		animation: wsFloat 6s ease-in-out infinite;
+		will-change: transform;
+	}
+
+	@keyframes wsFloat {
+		0%, 100% { transform: translateY(0px) translateX(1rem); }
+		50%       { transform: translateY(-12px) translateX(1rem); }
+	}
+
+	@media (max-width: 1023px) {
+		.ws-hero-float {
+			transform: none !important;
+		}
+		@keyframes wsFloat {
+			0%, 100% { transform: translateY(0px); }
+			50%       { transform: translateY(-10px); }
+		}
+	}
+
+	/* Live dot pulse */
+	.animate-pulse-dot {
+		animation: pulseDot 2s ease-in-out infinite;
+	}
+
+	@keyframes pulseDot {
+		0%, 100% { opacity: 1; transform: scale(1); }
+		50%       { opacity: 0.4; transform: scale(0.7); }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ws-hero-float,
+		.animate-pulse-dot {
+			animation: none !important;
+		}
+	}
+</style>
