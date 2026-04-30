@@ -49,6 +49,9 @@
 					style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 4px 16px rgba(200,16,46,0.25);">
 					<MessageCircle size={15} /> Minta Demo STESY
 				</a>
+				<a href="/solusi/stesy/smart-telemetry-system" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold transition-all hover:bg-[#FBE9EC]" style="border: 1.5px solid #E5E5E5; color: #1A1A1A;">
+					Lihat Detail Produk <ArrowRight size={14} />
+				</a>
 				<a href="#stesy-features" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold transition-all hover:bg-[#FBE9EC]" style="border: 1.5px solid #E5E5E5; color: #1A1A1A;">
 					Lihat Fitur <ArrowRight size={14} />
 				</a>
@@ -124,15 +127,35 @@
 	</div>
 </section>
 
-<section class="relative py-16 lg:py-20 overflow-hidden" style="background: linear-gradient(135deg, #FBE9EC 0%, #F8D7DC 100%);">
-	<Ornaments />
-	<div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-		<h2 class="font-heading text-2xl sm:text-3xl font-bold mb-4" style="color: #1A1A1A;">Lihat STESY Beraksi</h2>
-		<p class="text-sm mb-8" style="color: #5C5C5C;">Minta demo live untuk melihat bagaimana STESY menyatukan semua data telemetri Anda.</p>
-		<a href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20minta%20demo%20STESY." target="_blank" rel="noopener"
-			class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold text-white transition-all hover:scale-[1.02]"
-			style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 4px 16px rgba(200,16,46,0.25);">
-			<MessageCircle size={16} /> Minta Demo STESY
-		</a>
+<!-- Premium Floating CTA (SKILL: Cockpit Mode) -->
+<section class="relative py-20 bg-white">
+	<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="relative overflow-hidden rounded-[2.5rem] bg-zinc-950 p-10 sm:p-16 lg:p-20 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-12 group" style="box-shadow: 0 40px 80px -20px rgba(0,0,0,0.25), inset 0 2px 4px rgba(255,255,255,0.05);">
+			
+			<!-- Subtle glow / Liquid Glass refraction -->
+			<div class="absolute inset-0 bg-gradient-to-br from-[#C8102E]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"></div>
+			<div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#C8102E]/10 blur-3xl pointer-events-none z-0"></div>
+
+			<div class="relative z-10 text-center lg:text-left flex-1 max-w-2xl">
+				<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6" style="background: rgba(200,16,46,0.15); color: #FF4D6D; border: 1px solid rgba(200,16,46,0.3);">
+					<span class="w-1.5 h-1.5 rounded-full" style="background: #FF4D6D; box-shadow: 0 0 10px #FF4D6D;"></span>
+					Next Step
+				</span>
+				<h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white tracking-tighter mb-4">Mulai Proyek dengan Beacon</h2>
+				<p class="text-lg text-zinc-400 font-medium">Tim engineer kami akan merancang arsitektur telemetri yang tepat dan menghitung kebutuhan riil proyek Anda.</p>
+			</div>
+
+			<div class="relative z-10 flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto shrink-0">
+				<a href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20konsultasi%20tentang%20Beacon%20untuk%20proyek%20saya." target="_blank" rel="noopener"
+					class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full text-sm font-bold text-zinc-950 bg-white transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)] btn-tactile">
+					<MessageCircle size={18} />
+					Konsultasi Beacon
+				</a>
+				<a href="/solusi" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full text-sm font-bold text-white transition-all hover:bg-zinc-800 btn-tactile" style="border: 1px solid rgba(255,255,255,0.15);">
+					<ArrowRight size={18} />
+					Jelajahi Produk Lain
+				</a>
+			</div>
+		</div>
 	</div>
 </section>

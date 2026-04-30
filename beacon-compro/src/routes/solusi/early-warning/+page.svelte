@@ -27,8 +27,7 @@
 						desc: editorial?.desc ?? "",
 						specs: editorial?.specs ?? [],
 						thumbnail:
-							editorial?.thumbnail ??
-							`https://picsum.photos/seed/${s.slug}/800/600`,
+							s.thumbnail ?? editorial?.thumbnail ?? null,
 					};
 				})
 			: fallbackProducts,
@@ -183,141 +182,90 @@
 
 <section class="relative py-16 lg:py-24 bg-white overflow-hidden">
 	<Ornaments variant="dense" />
-	<div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-		<!-- EWS Product Card -->
-		{#each products as product}
-			<div
-				class="max-w-4xl mx-auto rounded-[28px] overflow-hidden relative flex flex-col justify-end bg-black min-h-[500px] transition-transform duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(217,119,6,0.3)]"
-				style="border: 1px solid rgba(0,0,0,0.1);"
-			>
-				<!-- Full Image Background -->
-				<img
-					src={product.thumbnail}
-					alt={product.name}
-					class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-all duration-1000 group-hover:scale-110"
-				/>
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-2xl mb-14 space-y-3">
+			<span class="text-xs font-semibold uppercase tracking-widest" style="color: #D97706;">Produk Early Warning</span>
+			<h2 class="font-heading text-3xl sm:text-4xl font-bold leading-[1.1]" style="color: #1A1A1A; letter-spacing: -0.025em;">Sistem Peringatan Dini Terpadu</h2>
+		</div>
 
-				<!-- Darkening Gradient for Readability -->
-				<div
-					class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent pointer-events-none"
-				></div>
-
-				<!-- Accent Top -->
-				<div
-					class="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
-					style="background: linear-gradient(90deg, #D97706, transparent);"
-				></div>
-
-				<!-- Liquid Glass Content Panel -->
-				<div
-					class="relative z-10 m-5 p-8 rounded-[24px] transition-all duration-500 transform group-hover:-translate-y-1"
-					style="background: rgba(20, 20, 20, 0.5); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.12); box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 10px 30px rgba(0,0,0,0.3);"
+		<div class="grid md:grid-cols-2 gap-6">
+			{#each products as product, i}
+				<a
+					href="/solusi/early-warning/{product.slug}"
+					class="group relative rounded-[28px] overflow-hidden min-h-[480px] flex flex-col justify-end bg-black transition-transform duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(217,119,6,0.3)]"
+					style="border: 1px solid rgba(0,0,0,0.1);"
 				>
-					<div class="flex items-center gap-5 mb-6">
-						<div
-							class="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110"
-							style="background: rgba(217,119,6,0.2); border: 1px solid rgba(217,119,6,0.3);"
-						>
-							<svelte:component
-								this={product.icon}
-								size={30}
-								style="color: #FBBF24;"
-							/>
-						</div>
-						<div>
-							<h2
-								class="font-heading text-2xl md:text-3xl font-bold text-white tracking-tight"
-							>
-								{product.name}
-								<span
-									class="text-white/40 font-normal ml-2 hidden sm:inline-block"
-									>— {product.full}</span
-								>
-							</h2>
-							<p
-								class="text-sm font-medium italic text-white/80 mt-1"
-							>
-								"{product.hook}"
-							</p>
-						</div>
-					</div>
+					<!-- Full Image Background -->
+					<img src={product.thumbnail} alt={product.name} class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-all duration-1000 group-hover:scale-110" />
+					
+					<!-- Darkening Gradient for Readability -->
+					<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
 
-					<p class="text-sm leading-relaxed text-white/70 mb-6">
-						{product.desc}
-					</p>
+					<!-- Amber Top Accent -->
+					<div class="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" style="background: linear-gradient(90deg, #D97706, transparent);"></div>
 
-					<div class="flex flex-wrap gap-2 mb-8">
-						{#each product.specs as spec}
-							<span
-								class="text-[10px] px-3 py-1.5 rounded-full font-medium"
-								style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.9);"
-								>{spec}</span
-							>
-						{/each}
-					</div>
-
-					<!-- Alert Levels -->
-					<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-						{#each [{ level: "1", label: "Waspada", color: "#4ADE80", bg: "rgba(74,222,128,0.1)" }, { level: "2", label: "Siaga", color: "#FBBF24", bg: "rgba(251,191,36,0.1)" }, { level: "3", label: "Awas", color: "#F87171", bg: "rgba(248,113,113,0.1)" }, { level: "4", label: "Darurat", color: "#EF4444", bg: "rgba(239,68,68,0.15)" }] as alert}
-							<div
-								class="p-3.5 rounded-xl transition-colors hover:bg-white/5"
-								style="background: {alert.bg}; border: 1px solid {alert.color}30;"
-							>
-								<span
-									class="font-heading text-xl font-bold"
-									style="color: {alert.color};"
-									>L{alert.level}</span
-								>
-								<span
-									class="block text-xs font-medium mt-0.5"
-									style="color: {alert.color}; opacity: 0.9;"
-									>{alert.label}</span
-								>
+					<!-- Liquid Glass Content Panel -->
+					<div class="relative z-10 m-4 p-7 rounded-[22px] transition-all duration-500 transform group-hover:-translate-y-1"
+						 style="background: rgba(20, 20, 20, 0.45); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.12); box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 10px 30px rgba(0,0,0,0.2);">
+						
+						<div class="flex items-center gap-4 mb-5">
+							<div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110" style="background: rgba(217,119,6,0.2); border: 1px solid rgba(217,119,6,0.3);">
+								<svelte:component this={product.icon} size={22} style="color: #FBBF24;" />
 							</div>
-						{/each}
-					</div>
+							<div>
+								<span class="font-heading text-xl font-bold text-white tracking-tight">{product.name}</span>
+								<span class="block text-[10px] uppercase tracking-widest text-white/50 mt-0.5">{product.full}</span>
+							</div>
+						</div>
 
-					<a
-						href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20tertarik%20dengan%20{product.name}."
-						target="_blank"
-						rel="noopener"
-						class="inline-flex items-center gap-2 px-6 py-3.5 rounded-[14px] text-sm font-semibold text-white transition-all hover:scale-[1.02]"
-						style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 4px 16px rgba(200,16,46,0.3);"
-					>
-						<MessageCircle size={16} /> Konsultasi {product.name}
-					</a>
-				</div>
-			</div>
-		{/each}
+						<!-- Mini specs -->
+						<div class="flex flex-wrap gap-1.5 mb-5 mt-auto">
+							{#each product.specs as spec}
+								<span class="text-[10px] px-2.5 py-1 rounded-full font-medium" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);">{spec}</span>
+							{/each}
+						</div>
+
+						<div class="flex items-center gap-2 text-sm font-semibold text-[#FBBF24] group-hover:gap-3 transition-all mt-4">
+							Lihat Detail {product.name}
+							<ArrowRight size={14} />
+						</div>
+					</div>
+				</a>
+			{/each}
+		</div>
 	</div>
 </section>
 
-<section
-	class="relative py-16 lg:py-20 overflow-hidden"
-	style="background: linear-gradient(135deg, #FBE9EC 0%, #F8D7DC 100%);"
->
-	<Ornaments />
-	<div
-		class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-	>
-		<h2
-			class="font-heading text-2xl sm:text-3xl font-bold mb-4"
-			style="color: #1A1A1A;"
-		>
-			Wilayah Anda Rawan Banjir atau Longsor?
-		</h2>
-		<p class="text-sm mb-8" style="color: #5C5C5C;">
-			Konsultasikan kebutuhan EWS Anda dengan engineer kami — gratis.
-		</p>
-		<a
-			href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20konsultasi%20tentang%20EWS%20untuk%20wilayah%20rawan%20bencana."
-			target="_blank"
-			rel="noopener"
-			class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-sm font-semibold text-white transition-all hover:scale-[1.02]"
-			style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 4px 16px rgba(200,16,46,0.25);"
-		>
-			<MessageCircle size={16} /> Konsultasi Sekarang
-		</a>
+<!-- Premium Floating CTA (SKILL: Cockpit Mode) -->
+<section class="relative py-20 bg-white">
+	<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="relative overflow-hidden rounded-[2.5rem] bg-zinc-950 p-10 sm:p-16 lg:p-20 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-12 group" style="box-shadow: 0 40px 80px -20px rgba(0,0,0,0.25), inset 0 2px 4px rgba(255,255,255,0.05);">
+			
+			<!-- Subtle glow / Liquid Glass refraction -->
+			<div class="absolute inset-0 bg-gradient-to-br from-[#C8102E]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"></div>
+			<div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#C8102E]/10 blur-3xl pointer-events-none z-0"></div>
+
+			<div class="relative z-10 text-center lg:text-left flex-1 max-w-2xl">
+				<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6" style="background: rgba(200,16,46,0.15); color: #FF4D6D; border: 1px solid rgba(200,16,46,0.3);">
+					<span class="w-1.5 h-1.5 rounded-full" style="background: #FF4D6D; box-shadow: 0 0 10px #FF4D6D;"></span>
+					Next Step
+				</span>
+				<h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white tracking-tighter mb-4">Mulai Proyek dengan Beacon</h2>
+				<p class="text-lg text-zinc-400 font-medium">Tim engineer kami akan merancang arsitektur telemetri yang tepat dan menghitung kebutuhan riil proyek Anda.</p>
+			</div>
+
+			<div class="relative z-10 flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto shrink-0">
+				<a href="https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20konsultasi%20tentang%20Beacon%20untuk%20proyek%20saya." target="_blank" rel="noopener"
+					class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full text-sm font-bold text-zinc-950 bg-white transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)] btn-tactile">
+					<MessageCircle size={18} />
+					Konsultasi Beacon
+				</a>
+				<a href="/solusi" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full text-sm font-bold text-white transition-all hover:bg-zinc-800 btn-tactile" style="border: 1px solid rgba(255,255,255,0.15);">
+					<ArrowRight size={18} />
+					Jelajahi Produk Lain
+				</a>
+			</div>
+		</div>
 	</div>
 </section>
 

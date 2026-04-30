@@ -46,8 +46,8 @@
 					<span class="text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-white">Mulai Sekarang</span>
 				</div>
 
-				<h2 class="font-heading text-4xl sm:text-5xl lg:text-[60px] font-extrabold leading-[1.05] tracking-tighter text-white mb-6">
-					Punya Bendungan, Sungai, atau <span style="color: #C8102E;">Stasiun Cuaca</span> yang Perlu Dipantau?
+				<h2 class="font-heading text-4xl sm:text-5xl lg:text-[60px] font-extrabold text-white leading-[1.05] tracking-tighter mb-6">
+					Punya Bendungan, Sungai, atau <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #FF5F56 0%, #C8102E 50%, #8A0B1F 100%);">Stasiun Cuaca</span> yang Perlu Dipantau?
 				</h2>
 				<p class="text-lg sm:text-xl font-medium max-w-[50ch] mb-12 leading-relaxed text-zinc-400">
 					Bicara langsung dengan engineer kami. Konsultasi pertama selalu gratis — kami akan bantu memetakan kebutuhan, menyarankan konfigurasi, dan memberikan estimasi.

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('support_content')->nullable();
             $table->text('application_content')->nullable();
             $table->string('icon')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->string('video_url')->nullable();
             $table->string('file_3d_local')->nullable();
             $table->string('link_3d')->nullable();

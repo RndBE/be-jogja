@@ -60,7 +60,7 @@
 					Wawasan
 				</div>
 				<h2 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tighter text-zinc-950">
-					Wawasan <span class="text-zinc-400">Terbaru</span>
+					Wawasan <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #1A1A1A 0%, #737373 100%);">Terbaru</span>
 				</h2>
 			</div>
 			<a href="/wawasan" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:gap-3" style="color: #C8102E;">

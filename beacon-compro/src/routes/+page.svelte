@@ -3,6 +3,7 @@
 	import WhyBeaconSection from '$lib/components/sections/WhyBeaconSection.svelte';
 	import PillarSection from '$lib/components/sections/PillarSection.svelte';
 	import StesySection from '$lib/components/sections/StesySection.svelte';
+	import DataLoggersSection from '$lib/components/sections/DataLoggersSection.svelte';
 	import ProjectsSection from '$lib/components/sections/ProjectsSection.svelte';
 	import ClientLogosSection from '$lib/components/sections/ClientLogosSection.svelte';
 	import TestimonialsSection from '$lib/components/sections/TestimonialsSection.svelte';
@@ -23,6 +24,7 @@
 <WhyBeaconSection />
 <PillarSection solutions={hp?.solutions} />
 <StesySection />
+<DataLoggersSection />
 <ProjectsSection featuredProjects={hp?.featured_projects} />
 <ClientLogosSection clients={hp?.clients} />
 <TestimonialsSection />

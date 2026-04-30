@@ -2,13 +2,16 @@
 	import { onMount } from 'svelte';
 	import { ArrowRight, Check, MessageCircle, Download, ChevronRight, Activity, Settings, Wifi, ShieldCheck, Zap, Clock } from '@lucide/svelte';
 	import Ornaments from '$lib/components/Ornaments.svelte';
+	import ProductSpecs from '$lib/components/ProductSpecs.svelte';
+
+	let { data } = $props();
 
 	let mounted = $state(false);
 	onMount(() => { mounted = true; });
 
 	let activeVariant = $state(0);
 
-	const variants = [
+	const fallbackVariants = [
 		{ name: 'BG-200', subtitle: 'Full Actuator System', desc: 'Sistem aktuator lengkap dengan motor, gearbox, dan controller terintegrasi. Untuk pintu air baru atau renovasi total.', use: 'Bendungan baru, renovasi pintu air, BBWS/BWS' ,
 		specs: [
 		{ label: 'Tipe Aktuator', value: 'Motor DC / Hydraulic' },
@@ -42,6 +45,24 @@
 	]
 	}
 	];
+
+	// API data wins: use products from DB, fallback to static when DB has no products
+	const variants = $derived(
+		data.subSolutionDetail?.products && data.subSolutionDetail.products.length > 0
+			? data.subSolutionDetail.products.map((p: any) => ({
+				name: p.name,
+				subtitle: p.use_case ?? '',
+				desc: p.description ?? '',
+				use: p.use_case ?? '',
+				image: p.main_image ?? p.thumbnail ?? null,
+				brochure_pdf: p.brochure_pdf ?? null,
+				specs: Array.isArray(p.highlight_points)
+					? p.highlight_points.map((pt: string, i: number) => ({ label: `Fitur ${i + 1}`, value: pt }))
+					: [],
+				components: Array.isArray(p.components) ? p.components : []
+			}))
+			: fallbackVariants
+	);
 
 	const useCases = [
 		'Pintu bendungan yang harus dioperasikan saat bencana malam hari',
@@ -267,23 +288,8 @@
 							<h3 class="font-heading text-2xl font-bold text-zinc-950">Spesifikasi Teknis</h3>
 							<span class="px-3 py-1 rounded-lg bg-zinc-100 text-xs font-bold text-zinc-500 font-mono border border-zinc-200">{variants[activeVariant].name}</span>
 						</div>
-						
-						<!-- Bento Style Specs Table -->
-						<div class="rounded-[2rem] overflow-hidden border border-[#E5E5E5] bg-white shadow-sm">
-							{#each variants[activeVariant].specs as spec, idx}
-								<div class="flex flex-col sm:flex-row sm:items-center justify-between px-6 py-4 transition-colors hover:bg-[#FAFAFA] {idx !== variants[activeVariant].specs.length - 1 ? 'border-b border-[#E5E5E5]' : ''}">
-									<span class="text-sm font-medium text-zinc-500 mb-1 sm:mb-0">{spec.label}</span>
-									<span class="text-sm font-semibold font-mono text-zinc-950 bg-zinc-50 px-3 py-1.5 rounded-xl border border-[#E5E5E5] text-right sm:text-left">{spec.value}</span>
-								</div>
-							{/each}
-						</div>
-						
-						<div class="pt-6">
-							<button class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5 active:translate-y-0 btn-tactile" style="background: #FBE9EC; border: 1px solid #F8D7DC; color: #C8102E; box-shadow: 0 4px 12px rgba(200,16,46,0.05);">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-								Download Datasheet {variants[activeVariant].name}
-							</button>
-						</div>
+
+						<ProductSpecs {variants} {activeVariant} />
 					</div>
 
 				</div>

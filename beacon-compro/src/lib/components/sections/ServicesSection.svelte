@@ -80,7 +80,7 @@
 						</span>
 					</div>
 					<h2 class="font-heading text-4xl sm:text-5xl lg:text-[56px] font-bold text-zinc-950 leading-[1.05] tracking-tight mb-4">
-						Kami Tidak Berhenti Setelah <span class="text-zinc-400">Perangkat Terpasang.</span>
+						Kami Tidak Berhenti Setelah <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #1A1A1A 0%, #737373 100%);">Perangkat Terpasang.</span>
 					</h2>
 					<p class="text-base text-zinc-500 leading-relaxed max-w-[45ch] font-medium">
 						Setiap instalasi didukung oleh ekosistem layanan menyeluruh — dari rancangan awal hingga pemeliharaan puluhan tahun ke depan.

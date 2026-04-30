@@ -57,9 +57,9 @@
 					Mengapa Beacon
 				</span>
 			</div>
-			<h2 class="font-heading text-4xl sm:text-5xl lg:text-[56px] font-bold text-zinc-950 leading-[1.05] tracking-tight">
+			<h2 class="font-heading text-4xl sm:text-5xl lg:text-[56px] font-extrabold text-zinc-950 leading-[1.05] tracking-tight">
 				Bukan Sekedar Pilihan Lokal.<br/>
-				<span class="text-[#C8102E]">Pilihan yang Lebih Tepat</span> untuk Indonesia.
+				<span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #FF5F56 0%, #C8102E 50%, #8A0B1F 100%);">Pilihan yang Lebih Tepat</span> untuk Indonesia.
 			</h2>
 		</div>
 

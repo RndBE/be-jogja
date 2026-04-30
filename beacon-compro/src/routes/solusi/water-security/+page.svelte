@@ -18,7 +18,7 @@
 						icon: editorial?.icon ?? Droplets,
 						desc: editorial?.desc ?? '',
 						specs: editorial?.specs ?? [],
-						thumbnail: editorial?.thumbnail ?? `https://picsum.photos/seed/${s.slug}/800/600`
+						thumbnail: s.thumbnail ?? editorial?.thumbnail ?? null
 					};
 				})
 			: fallbackProducts

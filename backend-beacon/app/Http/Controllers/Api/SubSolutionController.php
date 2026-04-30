@@ -16,7 +16,7 @@ class SubSolutionController extends Controller
         $subSolution = SubSolution::where('slug', $slug)
             ->active()
             ->with(['solution', 'features', 'gallery', 'products' => function ($q) {
-                $q->active()->with(['components', 'deviceSeries']);
+                $q->active()->with(['components.specs', 'deviceSeries']);
             }])
             ->firstOrFail();
 
@@ -64,8 +64,18 @@ class SubSolutionController extends Controller
                 'link_tkdn' => $p->link_tkdn,
                 'use_case' => $p->use_case,
                 'components' => $p->components->map(fn ($c) => [
-                    'title' => $c->title,
-                    'image' => asset('storage/' . $c->image),
+                    'id' => $c->id,
+                    'name' => $c->name,
+                    'type' => $c->type,
+                    'image_1' => $c->image_1 ? asset('storage/' . $c->image_1) : null,
+                    'image_2' => $c->image_2 ? asset('storage/' . $c->image_2) : null,
+                    'specs' => $c->specs->groupBy('category')->map(fn ($group, $cat) => [
+                        'category' => $cat,
+                        'items' => $group->map(fn ($s) => [
+                            'name' => $s->spec_name,
+                            'value' => $s->spec_value,
+                        ])->values(),
+                    ])->values(),
                 ]),
                 'device_series' => $p->deviceSeries->map(fn ($ds) => [
                     'name' => $ds->name,

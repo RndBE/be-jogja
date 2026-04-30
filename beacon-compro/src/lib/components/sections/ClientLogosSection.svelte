@@ -100,7 +100,7 @@
 				Mitra & Klien
 			</div>
 			<h2 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tighter text-zinc-950">
-				Dipercaya Lembaga & Korporasi yang Memegang <span style="color: #C8102E;">Tanggung Jawab</span> <span class="text-zinc-400">Besar</span>
+				Dipercaya Lembaga & Korporasi yang Memegang <span style="color: #C8102E;">Tanggung Jawab</span> <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #1A1A1A 0%, #737373 100%);">Besar</span>
 			</h2>
 		</div>
 	</div>

@@ -131,7 +131,7 @@
 					<h1 class="font-heading text-5xl sm:text-6xl lg:text-[72px] font-extrabold text-zinc-950 leading-[1.05] tracking-tighter">
 						Pantau Setiap Tetes. <br/>
 						Setiap Getaran. <br/>
-						<span class="text-zinc-400">Setiap Awan.</span>
+						<span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #1A1A1A 0%, #737373 100%);">Setiap Awan.</span>
 					</h1>
 					<p class="text-lg sm:text-xl text-zinc-500 leading-relaxed max-w-[500px] font-medium">
 						Arsitektur telemetri industri buatan Indonesia. Melindungi infrastruktur paling strategis negeri dengan <span class="text-zinc-900 border-b border-[#C8102E]/30 pb-0.5">akurasi milidetik</span>.

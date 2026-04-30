@@ -17,7 +17,7 @@ class SolutionController extends Controller
             ->ordered()
             ->withCount(['subSolutions', 'products'])
             ->get()
-            ->map(fn ($s) => [
+            ->map(fn($s) => [
                 'id' => $s->id,
                 'name' => $s->name,
                 'slug' => $s->slug,
@@ -46,12 +46,13 @@ class SolutionController extends Controller
             ->active()
             ->withCount('products')
             ->get()
-            ->map(fn ($ss) => [
+            ->map(fn($ss) => [
                 'id' => $ss->id,
                 'name' => $ss->name,
                 'slug' => $ss->slug,
                 'abbreviation' => $ss->abbreviation,
                 'icon' => $ss->icon ? asset('storage/' . $ss->icon) : null,
+                'thumbnail' => $ss->thumbnail ? asset('storage/' . $ss->thumbnail) : null,
                 'products_count' => $ss->products_count,
             ]);
 

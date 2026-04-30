@@ -172,8 +172,8 @@
 					Portfolio Proyek
 				</span>
 			</div>
-			<h2 class="font-heading text-4xl sm:text-5xl lg:text-[56px] font-bold text-zinc-950 leading-[1.05] tracking-tight mb-4">
-				Kami Sudah di Sana, Kami <span class="text-[#C8102E]">Tetap</span> di Sana.
+			<h2 class="font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold text-zinc-950 leading-[1.05] tracking-tight mb-4">
+				Kami Sudah di Sana, Kami <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #FF5F56 0%, #C8102E 50%, #8A0B1F 100%);">Tetap di Sana.</span>
 			</h2>
 			<p class="text-lg text-zinc-500 leading-relaxed max-w-[55ch] font-medium">
 				Tiga ratus lebih pos telemetri tersebar dari Aceh sampai Papua. Setiap titik merah di peta adalah perangkat Beacon yang beroperasi 24 jam non-stop.

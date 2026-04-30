@@ -1,0 +1,86 @@
+<script lang="ts">
+	import { Download } from '@lucide/svelte';
+
+	let {
+		variants,
+		activeVariant = 0,
+		accentColor = '#C8102E'
+	}: {
+		variants: any[];
+		activeVariant: number;
+		accentColor?: string;
+	} = $props();
+
+	let activeComponent = $state(0);
+
+	// Reset active component when variant changes
+	$effect(() => {
+		activeVariant;
+		activeComponent = 0;
+	});
+</script>
+
+{#if variants[activeVariant]?.components?.length > 0}
+	<!-- Component Tabs -->
+	<div class="flex gap-2 flex-wrap">
+		{#each variants[activeVariant].components as comp, ci}
+			<button
+				onclick={() => activeComponent = ci}
+				class="group flex items-center gap-2.5 px-5 py-3 rounded-2xl text-left transition-all duration-300 cursor-pointer {activeComponent === ci ? 'bg-zinc-900 text-white shadow-lg -translate-y-0.5' : 'bg-zinc-50 text-zinc-600 hover:bg-zinc-100 border border-zinc-200'}"
+			>
+				<span class="w-2 h-2 rounded-full shrink-0" style={activeComponent === ci ? `background: ${accentColor}` : 'background: #D4D4D8'}></span>
+				<span class="text-sm font-bold">{comp.name}</span>
+				<span class="text-[10px] uppercase tracking-wider font-semibold {activeComponent === ci ? 'text-zinc-400' : 'text-zinc-400'}">{comp.type}</span>
+			</button>
+		{/each}
+	</div>
+
+	<!-- Component Images -->
+	{#if variants[activeVariant].components[activeComponent]?.image_1 || variants[activeVariant].components[activeComponent]?.image_2}
+		<div class="flex gap-3 mt-4">
+			{#each [variants[activeVariant].components[activeComponent]?.image_1, variants[activeVariant].components[activeComponent]?.image_2].filter(Boolean) as img}
+				<div class="flex-1 h-36 rounded-2xl overflow-hidden bg-zinc-50 border border-zinc-200 flex items-center justify-center p-4">
+					<img src={img} alt="" class="max-h-full max-w-full object-contain" />
+				</div>
+			{/each}
+		</div>
+	{/if}
+
+	<!-- Specs by Category -->
+	{#key activeComponent}
+		<div class="space-y-4 mt-4 animate-in fade-in duration-300">
+			{#each variants[activeVariant].components[activeComponent]?.specs ?? [] as specGroup}
+				<div class="rounded-2xl overflow-hidden border border-zinc-200 bg-white">
+					<div class="px-5 py-3 bg-zinc-50 border-b border-zinc-200">
+						<span class="text-xs font-bold uppercase tracking-widest text-zinc-500">{specGroup.category}</span>
+					</div>
+					{#each specGroup.items as item, idx}
+						<div class="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 transition-colors hover:bg-zinc-50/80 {idx !== specGroup.items.length - 1 ? 'border-b border-zinc-100' : ''}">
+							<span class="text-sm font-medium text-zinc-500 mb-1 sm:mb-0">{item.name}</span>
+							<span class="text-sm font-semibold font-mono text-zinc-950 bg-zinc-50 px-3 py-1.5 rounded-xl border border-zinc-200 max-w-[55%] text-right">{item.value}</span>
+						</div>
+					{/each}
+				</div>
+			{/each}
+		</div>
+	{/key}
+{:else if variants[activeVariant]?.specs?.length > 0}
+	<!-- Fallback: simple highlight specs -->
+	<div class="rounded-[2rem] overflow-hidden border border-[#E5E5E5] bg-white shadow-sm">
+		{#each variants[activeVariant].specs as spec, idx}
+			<div class="flex flex-col sm:flex-row sm:items-center justify-between px-6 py-4 transition-colors hover:bg-[#FAFAFA] {idx !== variants[activeVariant].specs.length - 1 ? 'border-b border-[#E5E5E5]' : ''}">
+				<span class="text-sm font-medium text-zinc-500 mb-1 sm:mb-0">{spec.label}</span>
+				<span class="text-sm font-semibold font-mono text-zinc-950 bg-zinc-50 px-3 py-1.5 rounded-xl border border-[#E5E5E5]">{spec.value}</span>
+			</div>
+		{/each}
+	</div>
+{/if}
+
+{#if variants[activeVariant]?.brochure_pdf}
+	<div class="pt-4">
+		<a href={variants[activeVariant].brochure_pdf} target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5 active:translate-y-0 btn-tactile" style="background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08); color: {accentColor}; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+			<Download size={16} />
+			Download Brosur {variants[activeVariant].name}
+		</a>
+	</div>
+{/if}

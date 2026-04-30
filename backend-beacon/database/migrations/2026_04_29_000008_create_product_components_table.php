@@ -11,8 +11,10 @@ return new class extends Migration
         Schema::create('product_components', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-            $table->string('title')->nullable();
-            $table->string('image');
+            $table->string('name');              // e.g. "BL Logger 110", "Water Level Sensor R700"
+            $table->string('type');              // "Logger" or "Sensor"
+            $table->string('image_1')->nullable(); // gambar1 path
+            $table->string('image_2')->nullable(); // gambar2 path
             $table->integer('sort_order')->default(0);
             $table->timestamps();
         });

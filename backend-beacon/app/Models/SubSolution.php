@@ -17,6 +17,7 @@ class SubSolution extends Model
         'support_content',
         'application_content',
         'icon',
+        'thumbnail',
         'video_url',
         'file_3d_local',
         'link_3d',

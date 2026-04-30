@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             SubSolutionFeatureSeeder::class,
             ClientAndCategorySeeder::class,
             ProductSeeder::class,
+            ProductComponentSeeder::class,
             ProjectSeeder::class,
             ProjectSeeder2::class,
             PageSettingSeeder::class,

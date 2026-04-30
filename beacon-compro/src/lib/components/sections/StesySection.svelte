@@ -191,8 +191,8 @@
 					<span class="w-1.5 h-1.5 rounded-full" style="background: #C8102E;"></span>
 					Platform Monitoring
 				</div>
-				<h2 class="font-heading text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.05] tracking-tighter text-zinc-950">
-					Satu Layar untuk Memantau <br /> <span style="color: #C8102E;">Semua Aset</span> <span class="text-zinc-400">Anda</span>
+				<h2 class="font-heading text-4xl sm:text-5xl lg:text-[56px] font-extrabold text-zinc-950 leading-[1.05] tracking-tighter">
+					Satu Layar untuk Memantau <br /> <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #FF5F56 0%, #C8102E 50%, #8A0B1F 100%);">Semua Aset Anda</span>
 				</h2>
 				<div>
 					<span class="font-heading text-lg font-semibold" style="color: #1A1A1A;">STESY — Smart Telemetry System</span>
@@ -233,10 +233,4 @@
 		</div>
 	</div>
 
-	<!-- Wave divider -->
-	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);">
-		<svg viewBox="0 0 1440 50" fill="none" preserveAspectRatio="none" class="w-full h-10">
-			<path d="M0,50 L0,25 Q360,0 720,25 T1440,25 L1440,50 Z" fill="white"/>
-		</svg>
-	</div>
 </section>

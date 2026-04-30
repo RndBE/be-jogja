@@ -117,7 +117,7 @@
 					Testimoni
 				</div>
 				<h2 class="font-heading text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.05] tracking-tighter text-zinc-950">
-					<span class="text-zinc-300">"</span>Mitra yang Berkomitmen Terhadap <span class="text-zinc-400">Kualitas</span> <span style="color: #C8102E;">Buatan Anak Negeri</span>.<span class="text-zinc-300">"</span>
+					<span class="text-zinc-300">"</span>Mitra yang Berkomitmen Terhadap <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #1A1A1A 0%, #737373 100%);">Kualitas</span> <span style="color: #C8102E;">Buatan Anak Negeri</span>.<span class="text-zinc-300">"</span>
 				</h2>
 			</div>
 			<!-- Navigation arrows — desktop only -->
@@ -231,10 +231,4 @@
 		</div>
 	</div>
 
-	<!-- Wave divider -->
-	<div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="transform: translateY(1px);">
-		<svg viewBox="0 0 1440 50" fill="none" preserveAspectRatio="none" class="w-full h-10">
-			<path d="M0,50 L0,20 Q240,40 480,20 T960,20 T1440,20 L1440,50 Z" fill="white"/>
-		</svg>
-	</div>
 </section>
