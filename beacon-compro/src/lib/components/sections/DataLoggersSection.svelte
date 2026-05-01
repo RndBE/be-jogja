@@ -45,8 +45,9 @@
 	];
 
 	// Action untuk efek tilt 3D khusus di dalam container Apple-style ini
-	function tilt(node: HTMLElement) {
+	function tilt(node: HTMLElement, enabled: boolean = true) {
 		const handleMove = (e: MouseEvent) => {
+			if (!enabled) return;
 			const rect = node.getBoundingClientRect();
 			const x = e.clientX - rect.left;
 			const y = e.clientY - rect.top;
@@ -60,6 +61,7 @@
 		};
 
 		const handleLeave = () => {
+			if (!enabled) return;
 			node.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
 		};
 
@@ -67,6 +69,12 @@
 		node.addEventListener('mouseleave', handleLeave);
 
 		return {
+			update(newEnabled: boolean) {
+				enabled = newEnabled;
+				if (!enabled) {
+					node.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+				}
+			},
 			destroy() {
 				node.removeEventListener('mousemove', handleMove);
 				node.removeEventListener('mouseleave', handleLeave);
@@ -274,9 +282,9 @@
 								>
 									
 									<!-- Large 3D Mockup Container with tilt -->
-									<div class="w-full h-full flex flex-col items-center justify-center relative z-10" use:tilt>
+									<div class="w-full h-full flex flex-col items-center justify-center relative z-10" use:tilt={activeProduct.id !== 'bl-1100'}>
 										<!-- Floating infinite animation wrapper -->
-										<div class="relative w-full max-w-[450px] aspect-square flex items-center justify-center animate-float">
+										<div class="relative w-full max-w-[450px] aspect-square flex items-center justify-center {activeProduct.id !== 'bl-1100' ? 'animate-float' : ''}">
 											
 											{#if activeProduct.id === 'bl-2000'}
 												<!-- Pro Hardware Mockup (Large) -->
@@ -308,22 +316,11 @@
 												</div>
 												
 											{:else if activeProduct.id === 'bl-1100'}
-												<!-- Industrial Hardware Mockup (Large) -->
-												<div class="relative w-[300px] h-[340px] rounded-[2.5rem] bg-zinc-300 shadow-[0_40px_80px_rgba(0,0,0,0.5)] border-t-2 border-x-2 border-white flex flex-col justify-end p-8 overflow-hidden">
-													<!-- Solar Panel Surface -->
-													<div class="absolute top-8 inset-x-8 h-40 bg-zinc-900 rounded-2xl grid grid-cols-5 grid-rows-4 gap-[1px] p-1.5 border border-zinc-400 shadow-inner">
-														{#each Array(20) as _}
-															<div class="bg-blue-900/60 w-full h-full rounded-sm"></div>
-														{/each}
-													</div>
-													<div class="flex justify-center gap-8 mt-auto mb-4">
-														<div class="w-14 h-14 rounded-full bg-zinc-400 border-b-4 border-zinc-500 shadow-inner flex items-center justify-center">
-															<div class="w-6 h-6 rounded-full bg-zinc-800 shadow-inner"></div>
-														</div>
-														<div class="w-14 h-14 rounded-full bg-zinc-400 border-b-4 border-zinc-500 shadow-inner flex items-center justify-center">
-															<div class="w-6 h-6 rounded-full bg-zinc-800 shadow-inner"></div>
-														</div>
-													</div>
+												<!-- Single Image Viewer for BL-1100 -->
+												<div class="relative w-[340px] h-[380px] bg-black rounded-[2.5rem] flex items-center justify-center p-8 shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-zinc-800/50 overflow-hidden">
+													<!-- Subtle gradient to give depth to the black background -->
+													<div class="absolute inset-0 bg-gradient-to-t from-zinc-900/50 to-transparent pointer-events-none"></div>
+													<img src="/images/bl-1100.webp" alt="BL-1100 Data Logger" class="w-full h-full object-contain relative z-10 drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)]" draggable="false" />
 												</div>
 
 											{:else if activeProduct.id === 'bl-110'}

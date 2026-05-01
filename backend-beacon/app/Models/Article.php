@@ -13,14 +13,20 @@ class Article extends Model
         'content',
         'thumbnail',
         'category',
+        'category_color',
         'author',
+        'read_time',
+        'tags',
         'published_at',
         'is_active',
+        'is_featured',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'is_featured' => 'boolean',
         'published_at' => 'date',
+        'tags' => 'array',
     ];
 
     public function scopeActive($query)
@@ -32,5 +38,10 @@ class Article extends Model
     {
         return $query->whereNotNull('published_at')
                      ->where('published_at', '<=', now());
+    }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
     }
 }

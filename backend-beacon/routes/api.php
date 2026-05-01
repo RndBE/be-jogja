@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\CmsContentController;
 use App\Http\Controllers\Api\HomepageController;
 use App\Http\Controllers\Api\PageSettingController;
 use App\Http\Controllers\Api\ProductController;
@@ -47,3 +48,12 @@ Route::get('/page-settings/{group}', [PageSettingController::class, 'show']);
 
 // Contact Form
 Route::post('/contact', [HomepageController::class, 'contact']);
+
+// External CMS API (protected by CMS_API_TOKEN)
+Route::middleware('cms.api')->prefix('cms')->group(function () {
+    Route::get('/{resource}', [CmsContentController::class, 'index']);
+    Route::post('/{resource}', [CmsContentController::class, 'store']);
+    Route::get('/{resource}/{record}', [CmsContentController::class, 'show']);
+    Route::match(['put', 'patch'], '/{resource}/{record}', [CmsContentController::class, 'update']);
+    Route::delete('/{resource}/{record}', [CmsContentController::class, 'destroy']);
+});

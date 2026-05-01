@@ -25,7 +25,11 @@ class ArticleController extends Controller
             'excerpt' => $a->excerpt,
             'thumbnail' => $a->thumbnail ? asset('storage/' . $a->thumbnail) : null,
             'category' => $a->category,
+            'category_color' => $a->category_color,
             'author' => $a->author,
+            'read_time' => $a->read_time,
+            'tags' => $a->tags ?? [],
+            'is_featured' => $a->is_featured,
             'published_at' => $a->published_at?->format('Y-m-d'),
         ]);
 
@@ -51,7 +55,11 @@ class ArticleController extends Controller
             ->map(fn ($a) => [
                 'title' => $a->title,
                 'slug' => $a->slug,
+                'excerpt' => $a->excerpt,
                 'thumbnail' => $a->thumbnail ? asset('storage/' . $a->thumbnail) : null,
+                'category' => $a->category,
+                'category_color' => $a->category_color,
+                'read_time' => $a->read_time,
                 'published_at' => $a->published_at?->format('Y-m-d'),
             ]);
 
@@ -64,7 +72,11 @@ class ArticleController extends Controller
                 'content' => $article->content,
                 'thumbnail' => $article->thumbnail ? asset('storage/' . $article->thumbnail) : null,
                 'category' => $article->category,
+                'category_color' => $article->category_color,
                 'author' => $article->author,
+                'read_time' => $article->read_time,
+                'tags' => $article->tags ?? [],
+                'is_featured' => $article->is_featured,
                 'published_at' => $article->published_at?->format('Y-m-d'),
             ],
             'related_articles' => $related,

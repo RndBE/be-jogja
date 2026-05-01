@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             ProjectSeeder2::class,
             PageSettingSeeder::class,
+            ArticleSeeder::class,
         ]);
     }
 }

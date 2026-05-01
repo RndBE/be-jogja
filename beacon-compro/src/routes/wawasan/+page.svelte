@@ -4,6 +4,8 @@
 	import { ArrowRight, Clock, BookOpen, FileText, Newspaper, Search, ChevronRight, ArrowUpRight } from '@lucide/svelte';
 	import Ornaments from '$lib/components/Ornaments.svelte';
 
+	let { data } = $props();
+
 	let activeTab = $state('semua');
 	let searchQuery = $state('');
 	let mounted = $state(false);
@@ -70,17 +72,22 @@
 		if (mounted) setupObserver();
 	});
 
-	const articles = [
-		{ title: 'Bagaimana Telemetri ADR Menyelamatkan Keamanan Bendungan Ciawi', excerpt: 'Studi kasus implementasi Automatic Deformation Recorder di Bendungan Ciawi-Sukamahi yang mampu mendeteksi pergeseran mikro-milimeter secara real-time.', category: 'Studi Kasus', readTime: '8 min', date: '12 Apr 2026', href: '/wawasan/adr-bendungan-ciawi', featured: true, products: ['ADR', 'STESY'] },
-		{ title: 'Memahami Standar SNI untuk Sistem Telemetri AWLR di Indonesia', excerpt: 'Panduan teknis lengkap mengenai standar SNI yang berlaku untuk pemasangan dan kalibrasi AWLR di pos hidrologi Indonesia.', category: 'Artikel Teknis', readTime: '12 min', date: '5 Apr 2026', href: '/wawasan/standar-sni-awlr', featured: false, products: ['AWLR'] },
-		{ title: 'STESY 3.0: Fitur Baru yang Mengubah Cara Anda Memantau Infrastruktur', excerpt: 'Pembaruan platform STESY 3.0 membawa AI-powered analytics, multi-tenant dashboard, dan integrasi CCTV real-time.', category: 'Berita Produk', readTime: '5 min', date: '28 Mar 2026', href: '/wawasan/stesy-3-update', featured: true, products: ['STESY'] },
-		{ title: 'Implementasi EWS di DAS Citarum: Pelajaran dari Lapangan', excerpt: 'Bagaimana sistem peringatan dini multi-sensor berhasil diimplementasikan di salah satu DAS paling kritis di Indonesia.', category: 'Studi Kasus', readTime: '10 min', date: '20 Mar 2026', href: '/wawasan/ews-citarum', featured: false, products: ['EWS', 'AWLR', 'ARR'] },
-		{ title: 'Panduan Maintenance Perangkat Telemetri: Kapan dan Bagaimana', excerpt: 'Investasi perangkat telemetri tanpa maintenance yang tepat ibarat membeli mobil tanpa servis. Panduan lengkap dari Beacon.', category: 'Artikel Teknis', readTime: '7 min', date: '10 Mar 2026', href: '/wawasan/panduan-maintenance-telemetri', featured: false, products: ['Maintenance'] },
-		{ title: 'Vibrating Wire vs Strain Gauge: Mana yang Cocok untuk Bendungan Anda?', excerpt: 'Perbandingan teknis dua jenis sensor deformasi untuk monitoring keamanan bendungan — kelebihan, kekurangan, dan rekomendasi.', category: 'Artikel Teknis', readTime: '7 min', date: '1 Mar 2026', href: '/wawasan/panduan-maintenance-telemetri', featured: false, products: ['AVWR', 'ADR'] },
-		{ title: 'Beacon Dipercaya untuk Monitoring Bendungan IKN', excerpt: 'PT Arta Teknologi Comunindo dipercaya BWS Kalimantan IV untuk memasang sistem telemetri AWLR di Bendungan Sepaku, Ibu Kota Nusantara.', category: 'Berita Produk', readTime: '4 min', date: '20 Feb 2026', href: '/wawasan/adr-bendungan-ciawi', featured: false, products: ['AWLR', 'STESY'] },
-		{ title: 'AWGC: Revolusi Pengelolaan Pintu Air di Indonesia', excerpt: 'Bagaimana Automatic Water Gate Controller mengubah cara operator mengelola pintu air — dari lapangan ke smartphone.', category: 'Studi Kasus', readTime: '9 min', date: '10 Feb 2026', href: '/wawasan/adr-bendungan-ciawi', featured: false, products: ['AWGC'] },
-		{ title: 'Geothermal Monitoring: APLR di Kawah Ijen bersama Medco Energi', excerpt: 'Studi kasus implementasi APLR untuk well testing geothermal di Kawah Ijen — tantangan medan ekstrem dan solusi teknis.', category: 'Studi Kasus', readTime: '6 min', date: '1 Feb 2026', href: '/wawasan/adr-bendungan-ciawi', featured: false, products: ['APLR'] }
-	];
+	// Gunakan data artikel dari API
+	let articles = $derived(
+		data.articlesResponse?.data 
+			? data.articlesResponse.data.map((a: any) => ({
+					title: a.title,
+					excerpt: a.excerpt || '',
+					category: a.category || 'Berita Produk',
+					categoryColor: a.category_color || '#1B7F3A',
+					readTime: a.read_time || '5 min',
+					date: a.published_at || '',
+					href: `/wawasan/${a.slug}`,
+					featured: a.is_featured || false,
+					products: a.tags || []
+			  }))
+			: []
+	);
 
 	const categoryColors: Record<string, string> = {
 		'Studi Kasus': '#C8102E',
@@ -103,7 +110,7 @@
 		return result;
 	});
 
-	const featuredArticles = articles.filter(a => a.featured);
+	let featuredArticles = $derived(articles.filter(a => a.featured));
 </script>
 
 <svelte:head>
@@ -173,7 +180,7 @@
 							<div class="flex flex-col gap-4">
 								<div class="flex items-center justify-between mb-2">
 									<div class="flex items-center gap-2">
-										<span class="text-[10px] font-mono font-bold uppercase tracking-[0.15em] px-2.5 py-1 rounded-md text-white" style="background: {categoryColors[article.category]};">{article.category}</span>
+										<span class="text-[10px] font-mono font-bold uppercase tracking-[0.15em] px-2.5 py-1 rounded-md text-white" style="background: {article.categoryColor || categoryColors[article.category] || '#1B7F3A'};">{article.category}</span>
 										<span class="text-[11px] font-medium text-zinc-400">{article.readTime}</span>
 									</div>
 									<div class="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center border border-zinc-100 group-hover:bg-[#FBE9EC] group-hover:border-[#C8102E]/20 transition-colors">
@@ -186,7 +193,7 @@
 								<!-- Micro products pill -->
 								<div class="flex flex-wrap gap-1.5 mt-2">
 									{#each article.products as prod}
-										<span class="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider" style="background: {categoryColors[article.category]}10; color: {categoryColors[article.category]}; border: 1px solid {categoryColors[article.category]}20;">{prod}</span>
+										<span class="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider" style="background: {article.categoryColor || categoryColors[article.category] || '#1B7F3A'}10; color: {article.categoryColor || categoryColors[article.category] || '#1B7F3A'}; border: 1px solid {article.categoryColor || categoryColors[article.category] || '#1B7F3A'}20;">{prod}</span>
 									{/each}
 								</div>
 							</div>
@@ -252,20 +259,20 @@
 				>
 					<div class="grid md:grid-cols-[280px_1fr]" style="{i % 2 !== 0 ? 'direction: rtl;' : ''}">
 						<!-- Thumbnail -->
-						<div class="relative h-48 md:h-full min-h-[200px] overflow-hidden" style="direction: ltr; background: linear-gradient(135deg, {categoryColors[article.category]}08, {categoryColors[article.category]}15);">
+						<div class="relative h-48 md:h-full min-h-[200px] overflow-hidden" style="direction: ltr; background: linear-gradient(135deg, {article.categoryColor || categoryColors[article.category] || '#1B7F3A'}08, {article.categoryColor || categoryColors[article.category] || '#1B7F3A'}15);">
 							<div class="absolute inset-0 flex items-center justify-center">
 								<!-- Abstract pattern based on category -->
 								<div class="relative">
-									<div class="w-20 h-20 rounded-3xl flex items-center justify-center" style="background: {categoryColors[article.category]}12; border: 1px solid {categoryColors[article.category]}20;">
-										<span class="text-2xl font-heading font-extrabold" style="color: {categoryColors[article.category]};">{categoryIcons[article.category]}</span>
+									<div class="w-20 h-20 rounded-3xl flex items-center justify-center" style="background: {article.categoryColor || categoryColors[article.category] || '#1B7F3A'}12; border: 1px solid {article.categoryColor || categoryColors[article.category] || '#1B7F3A'}20;">
+										<span class="text-2xl font-heading font-extrabold" style="color: {article.categoryColor || categoryColors[article.category] || '#1B7F3A'};">{categoryIcons[article.category] || 'AR'}</span>
 									</div>
 									<!-- Orbiting dot -->
-									<div class="absolute -top-2 -right-2 w-4 h-4 rounded-full animate-breathe" style="background: {categoryColors[article.category]}; opacity: 0.3;"></div>
+									<div class="absolute -top-2 -right-2 w-4 h-4 rounded-full animate-breathe" style="background: {article.categoryColor || categoryColors[article.category] || '#1B7F3A'}; opacity: 0.3;"></div>
 								</div>
 							</div>
 							<!-- Category badge -->
 							<div class="absolute top-4 left-4">
-								<span class="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-lg text-white" style="background: {categoryColors[article.category]};">{article.category}</span>
+								<span class="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-lg text-white" style="background: {article.categoryColor || categoryColors[article.category] || '#1B7F3A'};">{article.category}</span>
 							</div>
 						</div>
 
@@ -282,8 +289,8 @@
 
 							<div class="flex items-center justify-between">
 								<div class="flex gap-1.5">
-									{#each article.products.slice(0, 3) as prod}
-										<span class="text-[10px] px-2 py-0.5 rounded-full font-medium" style="background: #FAFAFA; border: 1px solid #E5E5E5; color: {categoryColors[article.category]};">{prod}</span>
+									{#each (article.products || []).slice(0, 3) as prod}
+										<span class="text-[10px] px-2 py-0.5 rounded-full font-medium" style="background: #FAFAFA; border: 1px solid #E5E5E5; color: {article.categoryColor || categoryColors[article.category] || '#1B7F3A'};">{prod}</span>
 									{/each}
 								</div>
 								<span class="flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-all" style="color: #C8102E;">
