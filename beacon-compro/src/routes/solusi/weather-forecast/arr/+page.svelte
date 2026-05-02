@@ -72,12 +72,24 @@
 		'Riset klimatologi dan hidrologi jangka panjang'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'DAS Citarum Hulu', client: 'BWS Citarum', year: '2023' },
 		{ name: 'DAS Serayu Opak', client: 'BBWS Serayu Opak', year: '2024' },
 		{ name: 'Bendungan Sepaku IKN', client: 'BWS Kalimantan IV', year: '2024' },
 		{ name: 'DAS Bengawan Solo', client: 'BBWS Bengawan Solo', year: '2022' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: 'Resolusi 0.2mm', desc: 'Setiap 0.2mm curah hujan tercatat sebagai satu tip. Dari gerimis sampai hujan lebat, tidak ada yang terlewat.', icon: CloudRain },

@@ -72,12 +72,24 @@
 		'Monitoring tekanan pore water di tanah lunak'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'Bendungan Ciawi', client: 'BBWS Ciliwung-Cisadane', year: '2023' },
 		{ name: 'Bendungan Cipanas', client: 'BWS Ciliwung-Cisadane', year: '2022' },
 		{ name: 'Bendungan Keureuto', client: 'BWS Sumatera I', year: '2023' },
 		{ name: 'Bendungan Sepaku IKN', client: 'BWS Kalimantan IV', year: '2024' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: '32 Channel Simultan', desc: 'Baca semua sensor vibrating wire secara bersamaan — tidak ada delay antar channel, data sinkron sempurna.', icon: Cpu },

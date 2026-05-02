@@ -36,6 +36,14 @@ export interface ProductItem {
 	device_series: { name: string; type: string; image_1: string | null; image_2: string | null }[];
 }
 
+export interface TrackRecordItem {
+	id: number;
+	project_name: string;
+	client: string;
+	year: string;
+	location: string | null;
+}
+
 export interface SubSolutionDetailResponse {
 	sub_solution: {
 		id: number;
@@ -58,6 +66,7 @@ export interface SubSolutionDetailResponse {
 	features: { id: number; title: string; description: string; icon: string | null }[];
 	gallery: { id: number; image: string; caption: string | null }[];
 	products: ProductItem[];
+	track_records: TrackRecordItem[];
 }
 
 /**

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\AboutPageController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\ChatbotController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\CmsContentController;
 use App\Http\Controllers\Api\HomepageController;
@@ -45,6 +47,14 @@ Route::get('/clients', [ClientController::class, 'index']);
 
 // Page Settings
 Route::get('/page-settings/{group}', [PageSettingController::class, 'show']);
+
+// About Page (Tentang Kami)
+Route::get('/about-page', [AboutPageController::class, 'index']);
+
+// Chatbot
+Route::post('/chatbot', [ChatbotController::class, 'chat']);
+Route::post('/chatbot/escalate', [ChatbotController::class, 'escalate']);
+Route::get('/chatbot/poll', [ChatbotController::class, 'poll']);
 
 // Contact Form
 Route::post('/contact', [HomepageController::class, 'contact']);

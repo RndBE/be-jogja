@@ -72,12 +72,24 @@
 		'Retaining wall yang menahan beban berlebih'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'Bendungan Ciawi', client: 'BBWS Ciliwung-Cisadane', year: '2023' },
 		{ name: 'Bendungan Sukamahi', client: 'BBWS Ciliwung-Cisadane', year: '2023' },
 		{ name: 'Bendungan Margatiga', client: 'BWS Mesuji-Sekampung', year: '2024' },
 		{ name: 'Bendungan Gondang', client: 'BWS Bengawan Solo', year: '2022' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: 'Resolusi Mikro-milimeter', desc: 'Resolusi 0.001mm mendeteksi pergeseran yang tidak kasat mata — jauh sebelum menjadi retakan nyata.', icon: Crosshair },

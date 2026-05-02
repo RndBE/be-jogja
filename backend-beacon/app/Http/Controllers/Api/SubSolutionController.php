@@ -17,6 +17,8 @@ class SubSolutionController extends Controller
             ->active()
             ->with(['solution', 'features', 'gallery', 'products' => function ($q) {
                 $q->active()->with(['components.specs', 'deviceSeries']);
+            }, 'trackRecords' => function ($q) {
+                $q->active()->orderBy('sort_order');
             }])
             ->firstOrFail();
 
@@ -83,6 +85,13 @@ class SubSolutionController extends Controller
                     'image_1' => $ds->image_1 ? asset('storage/' . $ds->image_1) : null,
                     'image_2' => $ds->image_2 ? asset('storage/' . $ds->image_2) : null,
                 ]),
+            ]),
+            'track_records' => $subSolution->trackRecords->map(fn ($tr) => [
+                'id' => $tr->id,
+                'project_name' => $tr->project_name,
+                'client' => $tr->client,
+                'year' => $tr->year,
+                'location' => $tr->location,
             ]),
         ]);
     }

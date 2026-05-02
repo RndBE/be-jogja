@@ -56,12 +56,24 @@
 		'Daerah rawan longsor dan debris flow'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'DAS Citarum Hilir', client: 'BWS Citarum', year: '2024' },
 		{ name: 'Bendungan Ciawi', client: 'BBWS Ciliwung-Cisadane', year: '2023' },
 		{ name: 'Kanal Banjir Jakarta', client: 'Dinas SDA DKI', year: '2023' },
 		{ name: 'Sungai Bengawan Solo', client: 'BBWS Bengawan Solo', year: '2022' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: '4-Level Alert', desc: 'Empat tingkat peringatan progresif — dari Siaga hingga Bahaya. Setiap level memiliki pola sirene berbeda.', icon: Bell },

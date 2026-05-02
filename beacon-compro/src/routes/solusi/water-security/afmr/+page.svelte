@@ -72,12 +72,24 @@
 		'Inventarisasi sumber daya air nasional'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'DAS Ciliwung Hilir', client: 'BBWS Ciliwung-Cisadane', year: '2023' },
 		{ name: 'Saluran Irigasi Brantas', client: 'BBWS Brantas', year: '2024' },
 		{ name: 'Outflow Waduk Saguling', client: 'BWS Citarum', year: '2023' },
 		{ name: 'Sungai Progo', client: 'BBWS Serayu Opak', year: '2022' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: 'Non-Contact Sensor', desc: 'Sensor ultrasonik dipasang di atas permukaan air — tidak terendam, tidak perlu dibersihkan dari sampah/sedimen.', icon: Waves },

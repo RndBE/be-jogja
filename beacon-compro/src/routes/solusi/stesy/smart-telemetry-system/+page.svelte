@@ -56,12 +56,24 @@
 		'Audit trail dan akuntabilitas operasional balai'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'BBWS Serayu Opak', client: 'Kementerian PUPR', year: '2024' },
 		{ name: 'BBWS Ciliwung Cisadane', client: 'Kementerian PUPR', year: '2023' },
 		{ name: 'BWS Kalimantan IV', client: 'Kementerian PUPR', year: '2023' },
 		{ name: 'Dinas SDA Jawa Tengah', client: 'Pemprov Jateng', year: '2024' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: 'Unified Dashboard', desc: 'Semua perangkat AWLR, ARR, EWS, ADR dalam satu layar. Tidak perlu buka banyak aplikasi.', icon: Monitor },

@@ -72,12 +72,24 @@
 		'Proyek IKN dan infrastruktur skala nasional'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'BMKG Stasiun Tangerang', client: 'BMKG', year: '2023' },
 		{ name: 'Perkebunan Sawit Kaltim', client: 'PT Sawit Nusantara', year: '2024' },
 		{ name: 'Bendungan Margatiga', client: 'BWS Mesuji-Sekampung', year: '2023' },
 		{ name: 'IKN Area Sepaku', client: 'OIKN', year: '2024' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: 'Multi-Parameter', desc: '7+ parameter cuaca direkam simultan dari satu stasiun: suhu, kelembaban, angin, tekanan, radiasi, hujan.', icon: Cloud },

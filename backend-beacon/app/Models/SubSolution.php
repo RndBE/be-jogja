@@ -49,6 +49,11 @@ class SubSolution extends Model
         return $this->hasMany(Product::class)->orderBy('sort_order');
     }
 
+    public function trackRecords(): HasMany
+    {
+        return $this->hasMany(TrackRecord::class)->orderBy('sort_order');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);

@@ -72,12 +72,24 @@
 		'Estuari dan muara dengan dinamika salinitas tinggi'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'Sungai Citarum Hilir', client: 'BWS Citarum', year: '2024' },
 		{ name: 'Waduk Jatiluhur', client: 'Perum Jasa Tirta II', year: '2023' },
 		{ name: 'Intake PDAM Surakarta', client: 'PDAM Kota Surakarta', year: '2023' },
 		{ name: 'Sungai Brantas Tengah', client: 'BBWS Brantas', year: '2024' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: 'Multi-Parameter', desc: 'Satu probe mengukur 6+ parameter kualitas air secara simultan. Hemat ruang, hemat biaya instalasi.', icon: Beaker },

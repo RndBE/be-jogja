@@ -56,12 +56,24 @@
 		'Riset hidrogeologi dan akuifer dalam'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'PLTP Dieng', client: 'Geo Dipa Energi', year: '2024' },
 		{ name: 'Sumur Eksplorasi Kamojang', client: 'Pertamina Geothermal', year: '2023' },
 		{ name: 'Monitoring Pipa PDAM', client: 'PDAM Tirta Marta', year: '2023' },
 		{ name: 'Grouting Bendungan', client: 'BWS Kalimantan II', year: '2022' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: 'Presisi 3000 psi', desc: 'Sensor tekanan presisi tinggi mampu mengukur hingga 3000 psi dengan deteksi fluktuasi sub-psi.', icon: Gauge },

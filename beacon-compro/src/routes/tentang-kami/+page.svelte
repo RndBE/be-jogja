@@ -16,6 +16,7 @@
 
 	let { data } = $props();
 	const clients: ClientSummary[] = data.clients ?? [];
+	const aboutPage = data.aboutPage;
 
 	let timelineVisible = $state(false);
 	let contribVisible = $state(false);
@@ -45,7 +46,8 @@
 		return () => observer.disconnect();
 	});
 
-	const timeline = [
+	// --- Fallback data ---
+	const fallbackTimeline = [
 		{
 			year: "2013",
 			title: "Beacon Didirikan",
@@ -88,6 +90,75 @@
 		},
 	];
 
+	const fallbackContributions = [
+		{
+			icon: Target,
+			title: "Water Management",
+			desc: "Monitoring ketinggian muka air, debit, dan kualitas air sungai serta bendungan di seluruh Indonesia.",
+			metric: "200+",
+			metricLabel: "Stasiun Air",
+		},
+		{
+			icon: Eye,
+			title: "Dam Safety",
+			desc: "Sistem deformation recorder dan vibrating wire untuk memantau keamanan struktur bendungan 24/7.",
+			metric: "50+",
+			metricLabel: "Bendungan",
+		},
+		{
+			icon: Building2,
+			title: "Structure Monitoring",
+			desc: "Pengawasan tekanan, getaran, dan pergerakan struktur kritis termasuk geothermal dan infrastruktur BUMN.",
+			metric: "30+",
+			metricLabel: "Struktur Kritis",
+		},
+	];
+
+	// Icon mapping for dynamic data
+	const iconMap: Record<string, any> = {
+		'Target': Target,
+		'Eye': Eye,
+		'Building2': Building2,
+		'Award': Award,
+		'ShieldCheck': ShieldCheck,
+		'FileBadge': FileBadge,
+	};
+
+	// --- Dynamic data with fallbacks ---
+	const timeline = $derived(
+		aboutPage?.milestones && aboutPage.milestones.length > 0
+			? aboutPage.milestones
+			: fallbackTimeline
+	);
+
+	const visiText = $derived(
+		aboutPage?.visi
+			?? 'Menjadi perusahaan teknologi telemetri terdepan di Indonesia yang memberikan solusi monitoring real-time terpercaya untuk infrastruktur strategis negara.'
+	);
+
+	const misiList = $derived(
+		aboutPage?.misi && aboutPage.misi.length > 0
+			? aboutPage.misi
+			: [
+				"Mengembangkan produk telemetri berkualitas tinggi dengan hak cipta lokal",
+				"Menyediakan after-sales support terbaik melalui tim teknis Indonesia",
+				"Mengintegrasikan AI dan IoT dalam ekosistem monitoring STESY",
+				"Mendukung program nasional pengelolaan sumber daya air dan bencana"
+			]
+	);
+
+	const contributions = $derived(
+		aboutPage?.contributions && aboutPage.contributions.length > 0
+			? aboutPage.contributions.map((c: any) => ({
+				icon: iconMap[c.icon_name] ?? Target,
+				title: c.title,
+				desc: c.desc,
+				metric: c.metric,
+				metricLabel: c.metric_label,
+			}))
+			: fallbackContributions
+	);
+
 	// Kategori client
 	const kategoriList = [
 		{ id: "semua", label: "Semua" },
@@ -112,30 +183,6 @@
 			? clients
 			: clients.filter((c) => getKategori(c.name) === activeKategori),
 	);
-
-	const contributions = [
-		{
-			icon: Target,
-			title: "Water Management",
-			desc: "Monitoring ketinggian muka air, debit, dan kualitas air sungai serta bendungan di seluruh Indonesia.",
-			metric: "200+",
-			metricLabel: "Stasiun Air",
-		},
-		{
-			icon: Eye,
-			title: "Dam Safety",
-			desc: "Sistem deformation recorder dan vibrating wire untuk memantau keamanan struktur bendungan 24/7.",
-			metric: "50+",
-			metricLabel: "Bendungan",
-		},
-		{
-			icon: Building2,
-			title: "Structure Monitoring",
-			desc: "Pengawasan tekanan, getaran, dan pergerakan struktur kritis termasuk geothermal dan infrastruktur BUMN.",
-			metric: "30+",
-			metricLabel: "Struktur Kritis",
-		},
-	];
 </script>
 
 <svelte:head>
@@ -319,9 +366,7 @@
 					<p
 						class="text-lg leading-relaxed font-semibold text-zinc-700"
 					>
-						Menjadi perusahaan teknologi telemetri terdepan di
-						Indonesia yang memberikan solusi monitoring real-time
-						terpercaya untuk infrastruktur strategis negara.
+						{visiText}
 					</p>
 				</div>
 			</div>
@@ -348,7 +393,7 @@
 						Misi
 					</h3>
 					<ul class="space-y-4">
-						{#each ["Mengembangkan produk telemetri berkualitas tinggi dengan hak cipta lokal", "Menyediakan after-sales support terbaik melalui tim teknis Indonesia", "Mengintegrasikan AI dan IoT dalam ekosistem monitoring STESY", "Mendukung program nasional pengelolaan sumber daya air dan bencana"] as mission}
+						{#each misiList as mission}
 							<li class="flex items-start gap-4">
 								<div
 									class="w-2 h-2 rounded-full shrink-0 mt-2.5"

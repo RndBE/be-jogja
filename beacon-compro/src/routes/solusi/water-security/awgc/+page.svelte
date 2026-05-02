@@ -72,12 +72,24 @@
 		'Sistem drainase perkotaan terintegrasi'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'Bendung Walahar', client: 'BWS Citarum', year: '2023' },
 		{ name: 'Irigasi Brantas Hilir', client: 'BBWS Brantas', year: '2024' },
 		{ name: 'Bendung Cimulu', client: 'BWS Ciliwung-Cisadane', year: '2023' },
 		{ name: 'Pintu Air Muara Angke', client: 'Dinas SDA DKI', year: '2022' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: 'Remote Control Real-time', desc: 'Buka-tutup pintu air dari smartphone atau dashboard STESY. Respons di bawah 2 detik.', icon: Wifi },

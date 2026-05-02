@@ -35,12 +35,26 @@
 		{/each}
 	</div>
 
-	<!-- Component Images -->
-	{#if variants[activeVariant].components[activeComponent]?.image_1 || variants[activeVariant].components[activeComponent]?.image_2}
-		<div class="flex gap-3 mt-4">
-			{#each [variants[activeVariant].components[activeComponent]?.image_1, variants[activeVariant].components[activeComponent]?.image_2].filter(Boolean) as img}
-				<div class="flex-1 h-36 rounded-2xl overflow-hidden bg-zinc-50 border border-zinc-200 flex items-center justify-center p-4">
-					<img src={img} alt="" class="max-h-full max-w-full object-contain" />
+	<!-- Component Images — only render when at least one valid image URL exists -->
+	{#if [variants[activeVariant].components[activeComponent]?.image_1, variants[activeVariant].components[activeComponent]?.image_2].some(img => img && String(img).trim() !== '')}
+		<div class="flex gap-3 mt-4 component-images-row">
+			{#each [variants[activeVariant].components[activeComponent]?.image_1, variants[activeVariant].components[activeComponent]?.image_2].filter(img => img && String(img).trim() !== '') as img}
+				<div class="flex-1 h-36 rounded-2xl overflow-hidden bg-zinc-50 border border-zinc-200 flex items-center justify-center p-4 component-image-card">
+					<img
+						src={img}
+						alt=""
+						class="max-h-full max-w-full object-contain"
+						onerror={(e) => {
+							const card = (e.currentTarget as HTMLElement).closest('.component-image-card');
+							if (card) (card as HTMLElement).style.display = 'none';
+							// Hide entire row if all cards are now hidden
+							const row = (e.currentTarget as HTMLElement).closest('.component-images-row');
+							if (row) {
+								const visibleCards = row.querySelectorAll('.component-image-card:not([style*="display: none"])');
+								if (visibleCards.length === 0) (row as HTMLElement).style.display = 'none';
+							}
+						}}
+					/>
 				</div>
 			{/each}
 		</div>

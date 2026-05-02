@@ -71,13 +71,25 @@
 		'Pos hidrologi BBWS/BWS standar SNI'
 	];
 
-	const projects = [
+	const fallbackProjects = [
 		{ name: 'Bendungan Cipanas', client: 'BWS Ciliwung-Cisadane', year: '2022' },
 		{ name: 'Bendungan Sepaku IKN', client: 'BWS Kalimantan IV', year: '2024' },
 		{ name: 'Bendungan Keureuto Aceh', client: 'BWS Sumatera I', year: '2023' },
 		{ name: 'Sungai Bengawan Solo', client: 'BBWS Bengawan Solo', year: '2022' },
 		{ name: 'DAS Bogowonto', client: 'BBWS Serayu Opak', year: '2023' }
 	];
+
+	// API data wins: use track records from DB, fallback to static
+	const projects = $derived(
+		data.subSolutionDetail?.track_records && data.subSolutionDetail.track_records.length > 0
+			? data.subSolutionDetail.track_records.map((tr: any) => ({
+				name: tr.project_name,
+				client: tr.client,
+				year: tr.year
+			}))
+			: fallbackProjects
+	);
+
 
 	const features = [
 		{ title: 'Akurasi Lab-Grade', desc: 'Sensor pressure transducer dengan akurasi ±1mm, melebihi standar SNI untuk pos hidrologi.' },
