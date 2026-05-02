@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder2::class,
             PageSettingSeeder::class,
             ArticleSeeder::class,
+            TestimonialSeeder::class,
         ]);
     }
 }

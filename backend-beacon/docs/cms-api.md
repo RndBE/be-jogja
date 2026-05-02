@@ -52,6 +52,7 @@ DELETE /api/v1/cms/{resource}/{id|slug|key}
 ```text
 articles
 clients
+testimonials
 solutions
 sub-solutions
 products
@@ -187,6 +188,24 @@ curl -X DELETE "http://localhost:8000/api/v1/cms/articles/judul-artikel-baru" \
   "color": "#C8102E",
   "sort_order": 0,
   "is_active": true
+}
+```
+
+### `testimonials`
+
+```json
+{
+  "client_id": 1,
+  "project_id": 1,
+  "name": "required",
+  "position": "optional",
+  "organization": "optional, fallback ke nama client jika kosong",
+  "quote": "required",
+  "photo": "optional path/file",
+  "initials": "optional",
+  "sort_order": 0,
+  "is_active": true,
+  "is_featured": true
 }
 ```
 

@@ -27,7 +27,7 @@
 <DataLoggersSection />
 <ProjectsSection featuredProjects={hp?.featured_projects} />
 <ClientLogosSection clients={hp?.clients} />
-<TestimonialsSection />
+<TestimonialsSection testimonials={hp?.testimonials} />
 <ServicesSection />
 <InsightsSection />
 <CtaSection />

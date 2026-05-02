@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { api, type ClientSummary } from '$lib/api';
+import { api, type ClientSummary, type TestimonialSummary } from '$lib/api';
 
 interface AboutPageData {
 	visi: string | null;
@@ -26,13 +26,15 @@ interface AboutPageData {
 }
 
 export const load: PageServerLoad = async ({ fetch }) => {
-	const [clients, aboutPage] = await Promise.all([
+	const [clients, aboutPage, testimonials] = await Promise.all([
 		api<ClientSummary[]>('/clients', fetch).catch(() => []),
-		api<AboutPageData>('/about-page', fetch).catch(() => null)
+		api<AboutPageData>('/about-page', fetch).catch(() => null),
+		api<TestimonialSummary[]>('/testimonials?limit=50', fetch).catch(() => [])
 	]);
 
 	return {
 		clients: clients ?? [],
-		aboutPage
+		aboutPage,
+		testimonials: testimonials ?? []
 	};
 };

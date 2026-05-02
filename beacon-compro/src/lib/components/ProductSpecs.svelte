@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Download } from '@lucide/svelte';
+	import { Download, X, ZoomIn } from '@lucide/svelte';
 
 	let {
 		variants,
@@ -12,13 +12,21 @@
 	} = $props();
 
 	let activeComponent = $state(0);
+	let previewImage = $state<string | null>(null);
 
 	// Reset active component when variant changes
 	$effect(() => {
 		activeVariant;
 		activeComponent = 0;
+		previewImage = null;
 	});
 </script>
+
+<svelte:window
+	onkeydown={(event) => {
+		if (event.key === 'Escape') previewImage = null;
+	}}
+/>
 
 {#if variants[activeVariant]?.components?.length > 0}
 	<!-- Component Tabs -->
@@ -39,11 +47,17 @@
 	{#if [variants[activeVariant].components[activeComponent]?.image_1, variants[activeVariant].components[activeComponent]?.image_2].some(img => img && String(img).trim() !== '')}
 		<div class="flex gap-3 mt-4 component-images-row">
 			{#each [variants[activeVariant].components[activeComponent]?.image_1, variants[activeVariant].components[activeComponent]?.image_2].filter(img => img && String(img).trim() !== '') as img}
-				<div class="flex-1 h-36 rounded-2xl overflow-hidden bg-zinc-50 border border-zinc-200 flex items-center justify-center p-4 component-image-card">
+				<button
+					type="button"
+					onclick={() => previewImage = img}
+					class="group/image relative flex-1 h-36 rounded-2xl overflow-hidden bg-transparent border border-zinc-200 flex items-center justify-center p-4 component-image-card cursor-zoom-in transition-all duration-300 hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-lg hover:shadow-zinc-950/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+					style="--tw-ring-color: {accentColor};"
+					aria-label="Lihat gambar penuh"
+				>
 					<img
 						src={img}
 						alt=""
-						class="max-h-full max-w-full object-contain"
+						class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover/image:scale-105"
 						onerror={(e) => {
 							const card = (e.currentTarget as HTMLElement).closest('.component-image-card');
 							if (card) (card as HTMLElement).style.display = 'none';
@@ -55,7 +69,10 @@
 							}
 						}}
 					/>
-				</div>
+					<span class="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-zinc-950/80 text-white opacity-0 shadow-lg transition-opacity duration-300 group-hover/image:opacity-100">
+						<ZoomIn size={15} />
+					</span>
+				</button>
 			{/each}
 		</div>
 	{/if}
@@ -96,5 +113,30 @@
 			<Download size={16} />
 			Download Brosur {variants[activeVariant].name}
 		</a>
+	</div>
+{/if}
+
+{#if previewImage}
+	<div
+		class="fixed inset-x-0 bottom-0 top-[68px] z-[1000] flex items-center justify-center bg-zinc-950/85 px-4 py-6 backdrop-blur-md sm:top-[68px] lg:top-[68px]"
+		role="dialog"
+		aria-modal="true"
+		onclick={() => previewImage = null}
+	>
+		<button
+			type="button"
+			class="absolute right-5 top-5 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+			aria-label="Tutup preview gambar"
+			onclick={(event) => {
+				event.stopPropagation();
+				previewImage = null;
+			}}
+		>
+			<X size={20} />
+		</button>
+
+		<div class="max-h-[calc(100vh-120px)] max-w-6xl rounded-[2rem] bg-white p-4 shadow-2xl" onclick={(event) => event.stopPropagation()}>
+			<img src={previewImage} alt="" class="max-h-[calc(100vh-160px)] max-w-full object-contain mix-blend-multiply" />
+		</div>
 	</div>
 {/if}

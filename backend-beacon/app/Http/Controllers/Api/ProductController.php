@@ -22,7 +22,7 @@ class ProductController extends Controller
             'id' => $p->id,
             'name' => $p->name,
             'slug' => $p->slug,
-            'thumbnail' => $p->thumbnail ? asset('storage/' . $p->thumbnail) : null,
+            'thumbnail' => $this->storageUrl($p->thumbnail),
             'sub_solution_name' => $p->subSolution->name,
             'sub_solution_abbreviation' => $p->subSolution->abbreviation,
         ]);
@@ -47,9 +47,9 @@ class ProductController extends Controller
                 'slug' => $product->slug,
                 'highlight_points' => $product->highlight_points,
                 'description' => $product->description,
-                'thumbnail' => $product->thumbnail ? asset('storage/' . $product->thumbnail) : null,
-                'main_image' => $product->main_image ? asset('storage/' . $product->main_image) : null,
-                'brochure_pdf' => $product->brochure_pdf ? asset('storage/' . $product->brochure_pdf) : null,
+                'thumbnail' => $this->storageUrl($product->thumbnail),
+                'main_image' => $this->storageUrl($product->main_image),
+                'brochure_pdf' => $this->storageUrl($product->brochure_pdf),
                 'link_lkpp_general' => $product->link_lkpp_general,
                 'link_lkpp_regency' => $product->link_lkpp_regency,
                 'link_tkdn' => $product->link_tkdn,
@@ -62,14 +62,16 @@ class ProductController extends Controller
                 'solution_slug' => $product->subSolution->solution->slug,
             ],
             'components' => $product->components->map(fn ($c) => [
-                'title' => $c->title,
-                'image' => asset('storage/' . $c->image),
+                'name' => $c->name,
+                'type' => $c->type,
+                'image_1' => $this->storageUrl($c->image_1),
+                'image_2' => $this->storageUrl($c->image_2),
             ]),
             'device_series' => $product->deviceSeries->map(fn ($ds) => [
                 'name' => $ds->name,
                 'type' => $ds->type,
-                'image_1' => $ds->image_1 ? asset('storage/' . $ds->image_1) : null,
-                'image_2' => $ds->image_2 ? asset('storage/' . $ds->image_2) : null,
+                'image_1' => $this->storageUrl($ds->image_1),
+                'image_2' => $this->storageUrl($ds->image_2),
             ]),
         ]);
     }

@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\PageSetting;
 use App\Models\Project;
 use App\Models\Solution;
+use App\Models\Testimonial;
 
 class HomepageController extends Controller
 {
@@ -25,8 +26,8 @@ class HomepageController extends Controller
                 'name' => $s->name,
                 'slug' => $s->slug,
                 'description' => $s->description,
-                'thumbnail' => $s->thumbnail ? asset('storage/' . $s->thumbnail) : null,
-                'icon' => $s->icon ? asset('storage/' . $s->icon) : null,
+                'thumbnail' => $s->thumbnail ? asset('storage/'.$s->thumbnail) : null,
+                'icon' => $s->icon ? asset('storage/'.$s->icon) : null,
                 'color' => $s->color,
                 'sub_solutions_count' => $s->sub_solutions_count,
                 'products_count' => $s->products_count,
@@ -41,7 +42,7 @@ class HomepageController extends Controller
             ->map(fn ($p) => [
                 'name' => $p->name,
                 'slug' => $p->slug,
-                'thumbnail' => $p->thumbnail ? asset('storage/' . $p->thumbnail) : null,
+                'thumbnail' => $p->thumbnail ? asset('storage/'.$p->thumbnail) : null,
                 'year' => $p->year,
                 'location' => $p->location,
                 'client_name' => $p->client?->name,
@@ -52,9 +53,17 @@ class HomepageController extends Controller
             ->get()
             ->map(fn ($c) => [
                 'name' => $c->name,
-                'logo' => $c->logo ? asset('storage/' . $c->logo) : null,
+                'logo' => $c->logo ? asset('storage/'.$c->logo) : null,
                 'website' => $c->website,
             ]);
+
+        $testimonials = Testimonial::active()
+            ->featured()
+            ->with(['client:id,name,logo', 'project:id,name,slug'])
+            ->ordered()
+            ->limit(6)
+            ->get()
+            ->map(fn (Testimonial $testimonial) => TestimonialController::serialize($testimonial));
 
         $stats = PageSetting::getGroup('stats');
         $hero = PageSetting::getGroup('hero');
@@ -65,6 +74,7 @@ class HomepageController extends Controller
             'solutions' => $solutions,
             'featured_projects' => $featuredProjects,
             'clients' => $clients,
+            'testimonials' => $testimonials,
         ]);
     }
 

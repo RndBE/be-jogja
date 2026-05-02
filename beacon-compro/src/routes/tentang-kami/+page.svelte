@@ -10,18 +10,22 @@
 		Award,
 		FileBadge,
 		CheckCircle2,
+		Quote,
 	} from "@lucide/svelte";
 	import Ornaments from "$lib/components/Ornaments.svelte";
-	import type { ClientSummary } from "$lib/api";
+	import type { ClientSummary, TestimonialSummary } from "$lib/api";
 
 	let { data } = $props();
 	const clients: ClientSummary[] = data.clients ?? [];
+	const cmsTestimonials: TestimonialSummary[] = data.testimonials ?? [];
 	const aboutPage = data.aboutPage;
 
 	let timelineVisible = $state(false);
 	let contribVisible = $state(false);
 	let mitraVisible = $state(false);
+	let testimoniVisible = $state(false);
 	let activeKategori = $state("semua");
+	let showAllTestimonials = $state(false);
 
 	onMount(() => {
 		const observer = new IntersectionObserver(
@@ -33,6 +37,8 @@
 						contribVisible = true;
 					if (e.target.id === "mitra" && e.isIntersecting)
 						mitraVisible = true;
+					if (e.target.id === "testimoni" && e.isIntersecting)
+						testimoniVisible = true;
 				});
 			},
 			{ threshold: 0.1 },
@@ -40,9 +46,11 @@
 		const el1 = document.getElementById("timeline");
 		const el2 = document.getElementById("kontribusi");
 		const el3 = document.getElementById("mitra");
+		const el4 = document.getElementById("testimoni");
 		if (el1) observer.observe(el1);
 		if (el2) observer.observe(el2);
 		if (el3) observer.observe(el3);
+		if (el4) observer.observe(el4);
 		return () => observer.disconnect();
 	});
 
@@ -114,6 +122,33 @@
 		},
 	];
 
+	const fallbackTestimonials = [
+		{
+			name: "Prahasdipta Bayu Adhi Koesoemo",
+			position: "Kepala Satuan Unit Pengelola Bendungan Ciawi-Sukamahi-Gintung",
+			organization: "BBWS Ciliwung-Cisadane",
+			quote: "Perangkat ADR dari Beacon memberikan presisi data deformasi yang sangat kami butuhkan untuk monitoring keamanan bendungan secara real-time. Respons tim teknis mereka terhadap kebutuhan di lapangan sangat cepat dan profesional.",
+			initials: "PB",
+			photo: null,
+		},
+		{
+			name: "Ali Sukali, S.Sos, S.T, M.Si",
+			position: "PPK Bendungan II",
+			organization: "Kementerian PUPR",
+			quote: "Mitra yang berkomitmen terhadap kualitas buatan anak negeri. Beacon membuktikan bahwa produk lokal mampu bersaing dengan impor, bahkan dalam hal after-sales support jauh lebih unggul karena tim teknisnya ada di Indonesia.",
+			initials: "AS",
+			photo: null,
+		},
+		{
+			name: "Seto Ariwibowo, ST. MT.",
+			position: "PPKom Operasi & Pemeliharaan Pos Hidrologi",
+			organization: "BBWS Serayu Opak",
+			quote: "Akurasi dan konektivitas perangkat Beacon sudah teruji di berbagai kondisi lapangan yang ekstrem. Data terkirim real-time 24 jam, dan ketika ada kendala, tim support selalu bisa diandalkan untuk penyelesaian cepat.",
+			initials: "SA",
+			photo: null,
+		},
+	];
+
 	// Icon mapping for dynamic data
 	const iconMap: Record<string, any> = {
 		'Target': Target,
@@ -182,6 +217,28 @@
 		activeKategori === "semua"
 			? clients
 			: clients.filter((c) => getKategori(c.name) === activeKategori),
+	);
+
+	const testimonials = $derived(
+		cmsTestimonials.length > 0
+			? cmsTestimonials.map((item) => ({
+					name: item.name,
+					position: item.position ?? "",
+					organization: item.organization ?? item.client_name ?? "",
+					quote: item.quote,
+					initials: item.initials,
+					photo: item.photo,
+				}))
+			: fallbackTestimonials,
+	);
+
+	const featuredTestimonial = $derived(testimonials[0]);
+	const supportingTestimonials = $derived(testimonials.slice(1));
+	const visibleSupportingTestimonials = $derived(
+		showAllTestimonials ? supportingTestimonials : supportingTestimonials.slice(0, 4),
+	);
+	const hiddenTestimonialsCount = $derived(
+		Math.max(supportingTestimonials.length - visibleSupportingTestimonials.length, 0),
 	);
 </script>
 
@@ -957,6 +1014,159 @@
 				<p class="text-base font-medium text-zinc-400">
 					Belum ada data untuk kategori ini.
 				</p>
+			</div>
+		{/if}
+	</div>
+</section>
+
+<!-- Testimoni — SKILL: DESIGN_VARIANCE=8, asymmetric quote wall, motion CSS only -->
+<section
+	id="testimoni"
+	class="relative overflow-hidden py-24 lg:py-32 bg-[#FAFAFA] border-b border-[#E5E5E5]"
+>
+	<div
+		class="absolute inset-0 pointer-events-none opacity-[0.025]"
+		style="background-image: linear-gradient(#1A1A1A 1px, transparent 1px), linear-gradient(90deg, #1A1A1A 1px, transparent 1px); background-size: 42px 42px;"
+	></div>
+	<div
+		class="absolute -right-28 top-24 h-72 w-72 rounded-full border border-[#C8102E]/15 pointer-events-none"
+	></div>
+	<div
+		class="absolute left-[7vw] bottom-16 h-24 w-24 rotate-45 rounded-[1.5rem] border border-[#C8102E]/10 pointer-events-none"
+	></div>
+
+	<div class="relative max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+		<div class="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-16 items-end mb-16">
+			<div>
+				<div class="flex items-center gap-3 mb-6">
+					<div class="w-8 h-[1px] bg-[#C8102E]"></div>
+					<span
+						class="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#C8102E]"
+						>Testimoni</span
+					>
+				</div>
+				<h2
+					class="font-heading text-4xl sm:text-5xl lg:text-[58px] font-extrabold tracking-tighter leading-[1.05] text-zinc-950"
+				>
+					Suara Mitra yang <span class="text-zinc-400">Bekerja di Lapangan.</span>
+				</h2>
+			</div>
+			<p class="text-base lg:text-lg leading-relaxed text-zinc-600 max-w-[58ch] lg:justify-self-end">
+				Testimoni ini merangkum hal yang paling penting bagi tim lapangan:
+				data yang presisi, perangkat yang tahan kondisi ekstrem, dan dukungan
+				teknis yang bisa dijangkau saat dibutuhkan.
+			</p>
+		</div>
+
+		{#if featuredTestimonial}
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+				<article
+					class="relative lg:col-span-7 min-h-[430px] rounded-[2rem] bg-white border border-[#E5E5E5] p-7 sm:p-10 lg:p-12 overflow-hidden shadow-[0_24px_60px_-32px_rgba(0,0,0,0.25)] transition-all duration-700"
+					style="
+						opacity: {testimoniVisible ? 1 : 0};
+						transform: translateY({testimoniVisible ? 0 : 28}px);
+					"
+				>
+					<div
+						class="absolute inset-0 rounded-[2rem] border border-white pointer-events-none shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]"
+					></div>
+					<div
+						class="absolute -right-20 -top-20 h-56 w-56 rounded-full pointer-events-none"
+						style="background: radial-gradient(circle, rgba(200,16,46,0.12) 0%, transparent 68%);"
+					></div>
+					<Quote size={44} class="mb-10 text-[#C8102E]/25" />
+					<p class="relative text-xl sm:text-2xl lg:text-[30px] leading-snug font-semibold tracking-tight text-zinc-950 max-w-[26ch]">
+						"{featuredTestimonial.quote}"
+					</p>
+					<div class="relative mt-12 flex items-center gap-4">
+						{#if featuredTestimonial.photo}
+							<img
+								src={featuredTestimonial.photo}
+								alt={featuredTestimonial.name}
+								class="h-14 w-14 rounded-2xl object-cover"
+								loading="lazy"
+							/>
+						{:else}
+							<div
+								class="h-14 w-14 rounded-2xl flex items-center justify-center text-sm font-bold text-white font-mono"
+								style="background: #C8102E;"
+							>
+								{featuredTestimonial.initials}
+							</div>
+						{/if}
+						<div class="min-w-0">
+							<h3 class="font-heading text-base font-bold text-zinc-950 truncate">
+								{featuredTestimonial.name}
+							</h3>
+							<p class="text-sm text-zinc-500 leading-tight">
+								{featuredTestimonial.position}
+							</p>
+							<p class="mt-1 text-[11px] font-mono uppercase tracking-[0.16em] text-[#C8102E]">
+								{featuredTestimonial.organization}
+							</p>
+						</div>
+					</div>
+				</article>
+
+				<div class="lg:col-span-5 grid gap-4 content-start">
+					<div class="hidden lg:block h-16"></div>
+					{#each visibleSupportingTestimonials as testimonial, i}
+						<article
+							class="group relative rounded-[1.5rem] border border-[#E5E5E5] bg-white/80 p-5 sm:p-6 transition-all duration-500 hover:-translate-y-1 hover:border-[#C8102E]/35 hover:bg-white hover:shadow-[0_18px_36px_-24px_rgba(200,16,46,0.35)]"
+							style="
+								opacity: {testimoniVisible ? 1 : 0};
+								transform: translateY({testimoniVisible ? 0 : 22}px);
+								transition-delay: {0.12 + i * 0.08}s;
+							"
+						>
+							<div class="flex gap-4">
+								{#if testimonial.photo}
+									<img
+										src={testimonial.photo}
+										alt={testimonial.name}
+										class="h-11 w-11 rounded-xl object-cover shrink-0"
+										loading="lazy"
+									/>
+								{:else}
+									<div
+										class="h-11 w-11 rounded-xl flex items-center justify-center text-xs font-bold font-mono shrink-0 transition-colors duration-300"
+										style="background: #FBE9EC; color: #C8102E;"
+									>
+										{testimonial.initials}
+									</div>
+								{/if}
+								<div class="min-w-0">
+									<p class="text-sm sm:text-base leading-relaxed text-zinc-700">
+										"{testimonial.quote}"
+									</p>
+									<div class="mt-4 border-t border-[#E5E5E5] pt-4">
+										<h3 class="text-sm font-bold text-zinc-950 truncate">
+											{testimonial.name}
+										</h3>
+										<p class="text-xs text-zinc-500 truncate">
+											{testimonial.position}
+										</p>
+										<p class="mt-1 text-[10px] font-mono uppercase tracking-[0.16em] text-[#C8102E] truncate">
+											{testimonial.organization}
+										</p>
+									</div>
+								</div>
+							</div>
+						</article>
+					{/each}
+
+					{#if supportingTestimonials.length > 4}
+						<button
+							type="button"
+							onclick={() => (showAllTestimonials = !showAllTestimonials)}
+							class="mt-2 inline-flex items-center justify-center rounded-[1.25rem] border border-[#E5E5E5] bg-white px-5 py-4 text-sm font-bold text-zinc-800 transition-all duration-300 hover:-translate-y-1 hover:border-[#C8102E]/40 hover:text-[#C8102E] hover:shadow-[0_16px_32px_-24px_rgba(200,16,46,0.35)] active:scale-[0.98]"
+						>
+							{showAllTestimonials
+								? "Tampilkan lebih ringkas"
+								: `Lihat ${hiddenTestimonialsCount} testimoni lainnya`}
+						</button>
+					{/if}
+				</div>
 			</div>
 		{/if}
 	</div>

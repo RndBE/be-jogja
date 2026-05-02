@@ -51,10 +51,26 @@ export interface ClientSummary {
 	website: string | null;
 }
 
+export interface TestimonialSummary {
+	id: number;
+	name: string;
+	position: string | null;
+	organization: string | null;
+	quote: string;
+	photo: string | null;
+	initials: string;
+	is_featured: boolean;
+	client_name: string | null;
+	client_logo: string | null;
+	project_name: string | null;
+	project_slug: string | null;
+}
+
 export interface HomepageData {
 	hero: Record<string, string>;
 	stats: Record<string, string>;
 	solutions: SolutionSummary[];
 	featured_projects: FeaturedProject[];
 	clients: ClientSummary[];
+	testimonials: TestimonialSummary[];
 }

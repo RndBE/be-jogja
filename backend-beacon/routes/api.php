@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\SolutionController;
 use App\Http\Controllers\Api\SubSolutionController;
+use App\Http\Controllers\Api\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,9 @@ Route::get('/articles/{slug}', [ArticleController::class, 'show']);
 
 // Clients
 Route::get('/clients', [ClientController::class, 'index']);
+
+// Testimonials
+Route::get('/testimonials', [TestimonialController::class, 'index']);
 
 // Page Settings
 Route::get('/page-settings/{group}', [PageSettingController::class, 'show']);

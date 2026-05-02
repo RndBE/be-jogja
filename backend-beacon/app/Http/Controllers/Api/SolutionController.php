@@ -17,13 +17,13 @@ class SolutionController extends Controller
             ->ordered()
             ->withCount(['subSolutions', 'products'])
             ->get()
-            ->map(fn($s) => [
+            ->map(fn ($s) => [
                 'id' => $s->id,
                 'name' => $s->name,
                 'slug' => $s->slug,
                 'description' => $s->description,
-                'thumbnail' => $s->thumbnail ? asset('storage/' . $s->thumbnail) : null,
-                'icon' => $s->icon ? asset('storage/' . $s->icon) : null,
+                'thumbnail' => $this->storageUrl($s->thumbnail),
+                'icon' => $this->storageUrl($s->icon),
                 'color' => $s->color,
                 'sub_solutions_count' => $s->sub_solutions_count,
                 'products_count' => $s->products_count,
@@ -46,13 +46,13 @@ class SolutionController extends Controller
             ->active()
             ->withCount('products')
             ->get()
-            ->map(fn($ss) => [
+            ->map(fn ($ss) => [
                 'id' => $ss->id,
                 'name' => $ss->name,
                 'slug' => $ss->slug,
                 'abbreviation' => $ss->abbreviation,
-                'icon' => $ss->icon ? asset('storage/' . $ss->icon) : null,
-                'thumbnail' => $ss->thumbnail ? asset('storage/' . $ss->thumbnail) : null,
+                'icon' => $this->storageUrl($ss->icon),
+                'thumbnail' => $this->storageUrl($ss->thumbnail),
                 'products_count' => $ss->products_count,
             ]);
 
@@ -62,8 +62,8 @@ class SolutionController extends Controller
                 'name' => $solution->name,
                 'slug' => $solution->slug,
                 'description' => $solution->description,
-                'thumbnail' => $solution->thumbnail ? asset('storage/' . $solution->thumbnail) : null,
-                'icon' => $solution->icon ? asset('storage/' . $solution->icon) : null,
+                'thumbnail' => $this->storageUrl($solution->thumbnail),
+                'icon' => $this->storageUrl($solution->icon),
                 'color' => $solution->color,
             ],
             'sub_solutions' => $subSolutions,

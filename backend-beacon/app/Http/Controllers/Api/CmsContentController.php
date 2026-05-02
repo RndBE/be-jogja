@@ -17,6 +17,7 @@ use App\Models\Solution;
 use App\Models\SubSolution;
 use App\Models\SubSolutionFeature;
 use App\Models\SubSolutionGallery;
+use App\Models\Testimonial;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -47,6 +48,13 @@ class CmsContentController extends Controller
             'default_sort' => ['created_at', 'desc'],
             'file_fields' => ['logo' => 'clients/logos'],
             'relations' => ['projects'],
+        ],
+        'testimonials' => [
+            'model' => Testimonial::class,
+            'search' => ['name', 'position', 'organization', 'quote'],
+            'default_sort' => ['sort_order', 'asc'],
+            'file_fields' => ['photo' => 'testimonials/photos'],
+            'relations' => ['client', 'project'],
         ],
         'solutions' => [
             'model' => Solution::class,
@@ -320,6 +328,19 @@ class CmsContentController extends Controller
                 'name' => [$record ? 'sometimes' : 'required', 'string', 'max:255'],
                 'logo' => ['nullable', 'string', 'max:255'],
                 'website' => ['nullable', 'url', 'max:255'],
+                'is_active' => ['nullable', 'boolean'],
+            ],
+            'testimonials' => [
+                'client_id' => ['nullable', 'integer', 'exists:clients,id'],
+                'project_id' => ['nullable', 'integer', 'exists:projects,id'],
+                'name' => [$record ? 'sometimes' : 'required', 'string', 'max:255'],
+                'position' => ['nullable', 'string', 'max:255'],
+                'organization' => ['nullable', 'string', 'max:255'],
+                'quote' => [$record ? 'sometimes' : 'required', 'string'],
+                'photo' => ['nullable', 'string', 'max:255'],
+                'initials' => ['nullable', 'string', 'max:10'],
+                'is_featured' => ['nullable', 'boolean'],
+                'sort_order' => ['nullable', 'integer'],
                 'is_active' => ['nullable', 'boolean'],
             ],
             'solutions' => [
