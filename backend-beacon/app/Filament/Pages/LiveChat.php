@@ -8,6 +8,7 @@ use BackedEnum;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Enums\Width;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class LiveChat extends Page
@@ -33,9 +34,9 @@ class LiveChat extends Page
     /**
      * Get escalated/live sessions for the sidebar.
      *
-     * @return \Illuminate\Support\Collection<int, ChatSession>
+     * @return Collection<int, ChatSession>
      */
-    public function getSessions(): \Illuminate\Support\Collection
+    public function getSessions(): Collection
     {
         return ChatSession::query()
             ->whereIn('status', ['escalated', 'live'])
@@ -46,9 +47,9 @@ class LiveChat extends Page
     /**
      * Get all sessions including closed (for history).
      *
-     * @return \Illuminate\Support\Collection<int, ChatSession>
+     * @return Collection<int, ChatSession>
      */
-    public function getClosedSessions(): \Illuminate\Support\Collection
+    public function getClosedSessions(): Collection
     {
         return ChatSession::query()
             ->where('status', 'closed')
@@ -60,9 +61,9 @@ class LiveChat extends Page
     /**
      * Get messages for the active session.
      *
-     * @return \Illuminate\Support\Collection<int, ChatMessage>
+     * @return Collection<int, ChatMessage>
      */
-    public function getMessages(): \Illuminate\Support\Collection
+    public function getMessages(): Collection
     {
         if (! $this->activeSessionId) {
             return collect();
@@ -141,7 +142,10 @@ class LiveChat extends Page
         $session = ChatSession::find($id);
 
         if ($session) {
-            $session->update(['status' => 'closed']);
+            $session->update([
+                'status' => 'closed',
+                'last_activity_at' => now(),
+            ]);
 
             // Send closing message
             $session->messages()->create([

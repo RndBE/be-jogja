@@ -25,7 +25,7 @@ class ChatbotController extends Controller
         ]);
 
         // Rate limit
-        $key = 'chatbot:' . $request->ip();
+        $key = 'chatbot:'.$request->ip();
         if (RateLimiter::tooManyAttempts($key, 30)) {
             return response()->json(['error' => 'Terlalu banyak permintaan. Silakan tunggu sebentar.'], 429);
         }
@@ -35,7 +35,7 @@ class ChatbotController extends Controller
         $session = $this->resolveSession($request);
 
         // Store visitor message
-        $session->messages()->create([
+        $visitorMessage = $session->messages()->create([
             'sender_type' => 'visitor',
             'content' => $request->message,
         ]);
@@ -47,6 +47,7 @@ class ChatbotController extends Controller
                 'session_token' => $session->session_token,
                 'mode' => $session->status,
                 'reply' => null,
+                'received_message_id' => $visitorMessage->id,
                 'info' => 'Pesan Anda sudah diterima. Tim kami akan segera membalas.',
             ]);
         }
@@ -54,10 +55,17 @@ class ChatbotController extends Controller
         // AI mode: call OpenAI
         $apiKey = config('openai.api_key');
         if (! is_string($apiKey) || $apiKey === '') {
+            $replyText = 'Layanan AI belum dikonfigurasi. Silakan hubungi kami via WhatsApp: 0811-2850-9986.';
+            $replyMessage = $session->messages()->create([
+                'sender_type' => 'ai',
+                'content' => $replyText,
+            ]);
+
             return response()->json([
                 'session_token' => $session->session_token,
                 'mode' => 'ai',
-                'reply' => 'Layanan AI belum dikonfigurasi. Silakan hubungi kami via WhatsApp: 0811-2850-9986.',
+                'reply' => $replyText,
+                'reply_message_id' => $replyMessage->id,
             ]);
         }
 
@@ -95,7 +103,7 @@ class ChatbotController extends Controller
             $needsForm = $this->detectEscalation($replyText, $request->message);
 
             // Store AI reply
-            $session->messages()->create([
+            $replyMessage = $session->messages()->create([
                 'sender_type' => 'ai',
                 'content' => $replyText,
             ]);
@@ -104,6 +112,7 @@ class ChatbotController extends Controller
                 'session_token' => $session->session_token,
                 'mode' => 'ai',
                 'reply' => $replyText,
+                'reply_message_id' => $replyMessage->id,
                 'needs_form' => $needsForm,
             ]);
 
@@ -111,7 +120,7 @@ class ChatbotController extends Controller
             Log::error('Chatbot API error', ['message' => $e->getMessage(), 'ip' => $request->ip()]);
 
             $fallback = 'Maaf, saya sedang mengalami gangguan. Silakan hubungi tim kami via WhatsApp: 0811-2850-9986.';
-            $session->messages()->create([
+            $replyMessage = $session->messages()->create([
                 'sender_type' => 'ai',
                 'content' => $fallback,
             ]);
@@ -120,6 +129,7 @@ class ChatbotController extends Controller
                 'session_token' => $session->session_token,
                 'mode' => 'ai',
                 'reply' => $fallback,
+                'reply_message_id' => $replyMessage->id,
             ]);
         }
     }
@@ -155,15 +165,18 @@ class ChatbotController extends Controller
         ]);
 
         // Store system message
-        $session->messages()->create([
+        $reply = "Terima kasih, {$request->name}. Data Anda sudah kami terima. Tim CS kami akan segera membalas di chat ini. Mohon ditunggu sebentar.";
+
+        $replyMessage = $session->messages()->create([
             'sender_type' => 'ai',
-            'content' => "Terima kasih, {$request->name}. Data Anda sudah kami terima. Tim CS kami akan segera membalas di chat ini. Mohon ditunggu sebentar.",
+            'content' => $reply,
         ]);
 
         return response()->json([
             'session_token' => $session->session_token,
             'mode' => 'escalated',
-            'reply' => "Terima kasih, {$request->name}. Data Anda sudah kami terima. Tim CS kami akan segera membalas di chat ini. Mohon ditunggu sebentar.",
+            'reply' => $reply,
+            'reply_message_id' => $replyMessage->id,
         ]);
     }
 

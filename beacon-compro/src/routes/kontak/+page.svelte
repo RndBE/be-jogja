@@ -7,6 +7,9 @@
 		Clock,
 		Send,
 		Building2,
+		Users,
+		ShieldCheck,
+		CheckCircle2,
 		ArrowRight,
 	} from "@lucide/svelte";
 
@@ -18,6 +21,33 @@
 		subject: "",
 		message: "",
 	});
+
+	const partnershipWhatsAppUrl =
+		"https://wa.me/628112850986?text=Halo%20Beacon%2C%20saya%20ingin%20berdiskusi%20tentang%20kemitraan%20dengan%20Beacon%20Engineering.";
+
+	const partnershipModels = [
+		{
+			icon: Building2,
+			title: "Integrator & EPC",
+			desc: "Kolaborasi proyek hidrologi, bendungan, irigasi, dan infrastruktur monitoring yang membutuhkan perangkat lapangan serta dashboard.",
+		},
+		{
+			icon: Users,
+			title: "Channel Partner Regional",
+			desc: "Kemitraan penjualan, instalasi, dan dukungan teknis untuk memperluas layanan Beacon di wilayah prioritas.",
+		},
+		{
+			icon: ShieldCheck,
+			title: "Riset & Implementasi Lapangan",
+			desc: "Kerja sama validasi sensor, pengembangan data, pilot project, dan integrasi sistem dengan institusi teknis.",
+		},
+	];
+
+	const partnershipReadiness = [
+		"Profil perusahaan atau institusi",
+		"Wilayah operasi dan jaringan proyek",
+		"Skema kolaborasi yang ingin dibangun",
+	];
 
 	function handleSubmit(e: Event) {
 		e.preventDefault();
@@ -190,13 +220,13 @@
 
 					<div class="space-y-5">
 						{#each [{ icon: MapPin, label: "Alamat", value: "Kadirojo I, Purwomartani, Kalasan, Sleman, DIY 55571" }, { icon: Phone, label: "Telepon", value: "(0274) 4986899", href: "tel:02744986899" }, { icon: Mail, label: "Email", value: "info@bejogja.com", href: "mailto:info@bejogja.com" }, { icon: Clock, label: "Jam Operasional", value: "Senin – Jumat, 08:00 – 17:00 WIB" }] as item}
+							{@const ContactIcon = item.icon}
 							<div class="flex items-start gap-4">
 								<div
 									class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
 									style="background: #FBE9EC;"
 								>
-									<svelte:component
-										this={item.icon}
+									<ContactIcon
 										size={18}
 										style="color: #C8102E;"
 									/>
@@ -390,6 +420,9 @@
 								<option value="EWS">Konsultasi EWS</option>
 								<option value="ADR">Konsultasi ADR</option>
 								<option value="STESY">Demo STESY</option>
+								<option value="Kemitraan"
+									>Kemitraan / Partnership</option
+								>
 								<option value="Water Security"
 									>Water Security</option
 								>
@@ -434,6 +467,201 @@
 							komunikasi lebih cepat.
 						</p>
 					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Partnership Section — SKILL: Asymmetric Open Partnership CTA -->
+<section
+	id="kemitraan"
+	class="relative py-20 lg:py-28 bg-[#FAFAFA] border-y border-[#E5E5E5] overflow-hidden"
+>
+	<div
+		class="absolute inset-0 opacity-[0.035] pointer-events-none"
+		style="background-image: linear-gradient(#1A1A1A 1px, transparent 1px), linear-gradient(90deg, #1A1A1A 1px, transparent 1px); background-size: 40px 40px;"
+	></div>
+	<div
+		class="absolute -right-28 top-16 w-[420px] h-[420px] rounded-full pointer-events-none opacity-[0.06]"
+		style="border: 1px solid #C8102E;"
+	></div>
+
+	<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+			<div class="lg:col-span-5">
+				<span
+					class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-5"
+					style="background: rgba(200,16,46,0.06); color: #C8102E; border: 1px solid rgba(200,16,46,0.12);"
+				>
+					<Building2 size={12} class="mr-2" />
+					Open Partnership
+				</span>
+
+				<h2
+					class="font-heading text-3xl md:text-4xl lg:text-[44px] font-extrabold leading-[1.08] mb-5"
+					style="color: #1A1A1A;"
+				>
+					Kemitraan untuk proyek monitoring yang siap masuk lapangan.
+				</h2>
+
+				<p
+					class="text-base leading-relaxed mb-8 max-w-[55ch]"
+					style="color: #5C5C5C;"
+				>
+					Beacon membuka kerja sama dengan integrator, kontraktor,
+					konsultan, distributor regional, dan institusi teknis yang
+					ingin membawa solusi telemetri ke proyek strategis.
+				</p>
+
+				<div class="grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3 mb-8">
+					{#each partnershipReadiness as item}
+						<div
+							class="flex items-center gap-3 rounded-[14px] px-4 py-3 bg-white"
+							style="border: 1px solid #E5E5E5;"
+						>
+							<CheckCircle2
+								size={16}
+								class="shrink-0 text-[#1B7F3A]"
+							/>
+							<span class="text-sm font-medium" style="color: #1A1A1A;"
+								>{item}</span
+							>
+						</div>
+					{/each}
+				</div>
+
+				<div class="flex flex-col sm:flex-row gap-3">
+					<a
+						href={partnershipWhatsAppUrl}
+						target="_blank"
+						rel="noopener"
+						class="btn-tactile inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-[14px] text-sm font-semibold text-white"
+						style="background: linear-gradient(135deg, #C8102E, #A50D25); box-shadow: 0 8px 20px rgba(200,16,46,0.18);"
+					>
+						<MessageCircle size={16} />
+						Ajukan Kemitraan
+					</a>
+					<a
+						href="mailto:info@bejogja.com?subject=Pengajuan%20Kemitraan%20Beacon%20Engineering"
+						class="btn-tactile inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-[14px] text-sm font-semibold bg-white"
+						style="color: #1A1A1A; border: 1px solid #E5E5E5;"
+					>
+						<Mail size={16} />
+						Kirim Profil
+					</a>
+				</div>
+			</div>
+
+			<div class="lg:col-span-7">
+				<div
+					class="relative bg-white rounded-[24px] overflow-hidden"
+					style="border: 1px solid #E5E5E5; box-shadow: 0 24px 48px -28px rgba(26,26,26,0.18);"
+				>
+					<div class="grid md:grid-cols-7">
+						<div class="md:col-span-4 p-6 sm:p-8 lg:p-10">
+							<p
+								class="font-mono text-[11px] font-bold uppercase tracking-[0.18em] mb-5"
+								style="color: #C8102E;"
+							>
+								Model Kolaborasi
+							</p>
+
+							<div class="space-y-6">
+								{#each partnershipModels as model}
+									{@const ModelIcon = model.icon}
+									<div class="group flex gap-4">
+										<div
+											class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105"
+											style="background: #FBE9EC; border: 1px solid rgba(200,16,46,0.12);"
+										>
+											<ModelIcon
+												size={18}
+												style="color: #C8102E;"
+											/>
+										</div>
+										<div class="pb-6 border-b border-[#E5E5E5] last:border-b-0 last:pb-0">
+											<h3
+												class="font-heading text-lg font-bold mb-2"
+												style="color: #1A1A1A;"
+											>
+												{model.title}
+											</h3>
+											<p
+												class="text-sm leading-relaxed"
+												style="color: #5C5C5C;"
+											>
+												{model.desc}
+											</p>
+										</div>
+									</div>
+								{/each}
+							</div>
+						</div>
+
+						<div
+							class="md:col-span-3 p-6 sm:p-8 lg:p-10 bg-[#1A1A1A] text-white"
+						>
+							<p
+								class="font-mono text-[11px] font-bold uppercase tracking-[0.18em] mb-6"
+								style="color: rgba(255,255,255,0.55);"
+							>
+								Alur Awal
+							</p>
+
+							<div class="space-y-7">
+								<div>
+									<span class="font-mono text-xs text-white/40">01</span>
+									<h4 class="font-heading text-base font-bold mt-2 mb-1">
+										Screening kecocokan
+									</h4>
+									<p class="text-sm leading-relaxed text-white/60">
+										Tim kami meninjau area, portofolio, dan kebutuhan
+										kolaborasi.
+									</p>
+								</div>
+
+								<div class="h-px bg-white/10"></div>
+
+								<div>
+									<span class="font-mono text-xs text-white/40">02</span>
+									<h4 class="font-heading text-base font-bold mt-2 mb-1">
+										Mapping teknis
+									</h4>
+									<p class="text-sm leading-relaxed text-white/60">
+										Kita petakan perangkat, dashboard, instalasi, dan
+										dukungan pascaproyek.
+									</p>
+								</div>
+
+								<div class="h-px bg-white/10"></div>
+
+								<div>
+									<span class="font-mono text-xs text-white/40">03</span>
+									<h4 class="font-heading text-base font-bold mt-2 mb-1">
+										Pilot atau tender support
+									</h4>
+									<p class="text-sm leading-relaxed text-white/60">
+										Lanjut ke demo, dokumen teknis, atau pendampingan
+										penawaran proyek.
+									</p>
+								</div>
+							</div>
+
+							<a
+								href={partnershipWhatsAppUrl}
+								target="_blank"
+								rel="noopener"
+								class="group mt-9 inline-flex items-center gap-2 text-sm font-semibold text-white"
+							>
+								Mulai diskusi
+								<ArrowRight
+									size={15}
+									class="group-hover:translate-x-1 transition-transform"
+								/>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -599,26 +827,8 @@
 		}
 	}
 
-	/* Live dot pulse for Red */
-	.animate-pulse-red {
-		animation: pulseRed 2s ease-in-out infinite;
-	}
-
-	@keyframes pulseRed {
-		0%,
-		100% {
-			opacity: 1;
-			transform: scale(1);
-		}
-		50% {
-			opacity: 0.4;
-			transform: scale(0.7);
-		}
-	}
-
 	@media (prefers-reduced-motion: reduce) {
-		.ws-hero-float,
-		.animate-pulse-red {
+		.ws-hero-float {
 			animation: none !important;
 		}
 	}

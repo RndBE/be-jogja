@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Bot, X, Send, Command, Sparkles, Loader, UserCheck, Building2, Phone, User } from '@lucide/svelte';
+	import { Bot, X, Send, Command, Sparkles, Loader, UserCheck, Building2, Phone, User, RotateCcw } from '@lucide/svelte';
 	import { PUBLIC_API_BASE } from '$env/static/public';
 
 	let isOpen = $state(false);
@@ -28,14 +28,20 @@
 		timestamp: string;
 	}
 
-	let messages = $state<ChatMessage[]>([
-		{
+	function getCurrentTime(): string {
+		return new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+	}
+
+	function createWelcomeMessage(): ChatMessage {
+		return {
 			role: 'assistant',
 			senderType: 'ai',
 			content: 'Halo! Saya engineer virtual Beacon. Ada pertanyaan mengenai spesifikasi, instalasi, atau kalibrasi perangkat kami?',
-			timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-		}
-	]);
+			timestamp: getCurrentTime()
+		};
+	}
+
+	let messages = $state<ChatMessage[]>([createWelcomeMessage()]);
 
 	let chatAreaRef: HTMLDivElement;
 
@@ -68,6 +74,23 @@
 			clearInterval(pollInterval);
 			pollInterval = null;
 		}
+	}
+
+	function resetChatSession() {
+		stopPolling();
+		sessionToken = null;
+		chatMode = 'ai';
+		lastMessageId = null;
+		message = '';
+		isLoading = false;
+		showContactForm = false;
+		formName = '';
+		formOrganization = '';
+		formPhone = '';
+		formErrors = {};
+		formSubmitting = false;
+		messages = [createWelcomeMessage()];
+		scrollToBottom();
 	}
 
 	async function pollMessages() {
@@ -110,6 +133,7 @@
 			}
 
 			if (chatMode === 'closed') {
+				showContactForm = false;
 				stopPolling();
 			}
 		} catch {
@@ -125,7 +149,7 @@
 			role: 'user',
 			senderType: 'visitor',
 			content: text,
-			timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+			timestamp: getCurrentTime()
 		};
 		messages = [...messages, userMsg];
 		message = '';
@@ -153,13 +177,18 @@
 				}
 
 				if (data.reply) {
+					const replyMessageId = typeof data.reply_message_id === 'number' ? data.reply_message_id : undefined;
 					const assistantMsg: ChatMessage = {
+						id: replyMessageId,
 						role: 'assistant',
 						senderType: 'ai',
 						content: data.reply,
-						timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+						timestamp: getCurrentTime()
 					};
 					messages = [...messages, assistantMsg];
+					if (replyMessageId) {
+						lastMessageId = Math.max(lastMessageId ?? 0, replyMessageId);
+					}
 				}
 
 				// Show contact form if AI detects escalation intent
@@ -180,7 +209,7 @@
 					role: 'assistant',
 					senderType: 'ai',
 					content: data.error || 'Maaf, terjadi gangguan. Silakan coba lagi.',
-					timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+					timestamp: getCurrentTime()
 				};
 				messages = [...messages, errorMsg];
 			}
@@ -189,7 +218,7 @@
 				role: 'assistant',
 				senderType: 'ai',
 				content: 'Koneksi terputus. Pastikan koneksi internet Anda stabil.',
-				timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+				timestamp: getCurrentTime()
 			};
 			messages = [...messages, errorMsg];
 		} finally {
@@ -237,13 +266,18 @@
 				if (data.mode) chatMode = data.mode;
 
 				if (data.reply) {
+					const replyMessageId = typeof data.reply_message_id === 'number' ? data.reply_message_id : undefined;
 					const confirmMsg: ChatMessage = {
+						id: replyMessageId,
 						role: 'assistant',
 						senderType: 'ai',
 						content: data.reply,
-						timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+						timestamp: getCurrentTime()
 					};
 					messages = [...messages, confirmMsg];
+					if (replyMessageId) {
+						lastMessageId = Math.max(lastMessageId ?? 0, replyMessageId);
+					}
 				}
 
 				startPolling();
@@ -509,8 +543,16 @@
 	<!-- Input Area -->
 	<div class="relative z-10 p-4 border-t border-white/5 bg-zinc-950">
 		{#if chatMode === 'closed'}
-			<div class="text-center py-2">
+			<div class="flex flex-col items-center gap-3 py-2">
 				<span class="text-xs text-zinc-500">Sesi telah berakhir. Terima kasih!</span>
+				<button
+					type="button"
+					onclick={resetChatSession}
+					class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 hover:border-[#C8102E]/40 text-xs font-semibold text-white transition-colors"
+				>
+					<RotateCcw size={13} />
+					Mulai chat baru
+				</button>
 			</div>
 		{:else if showContactForm}
 			<div class="text-center py-2">
